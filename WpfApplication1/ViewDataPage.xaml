@@ -19,7 +19,7 @@
         <Rectangle Height="2" VerticalAlignment="Bottom" Fill="{StaticResource secondColor}" Margin="270,0,0,10" HorizontalAlignment="Left" Width="200"/>
         <Image HorizontalAlignment="Right" Margin="0,0,20,0" Source="C:/Users/RNAV_user/Documents/MaximeStagiaire/NavRTK.png"/>
         <Label HorizontalAlignment="Right" Margin="0,0,120,0" Content="NavRTK" Foreground="{StaticResource secondColor}" Width="Auto" FontSize="50"/>
-        <RichTextBox Name="scrollData" Margin="0,50,45,180" Grid.Row="1" Background="#16FFFFFF" Foreground="{StaticResource White}" FontSize="10" HorizontalAlignment="Right" Width="630"/>
+        <RichTextBox Name="scrollData" Margin="0,50,45,180" Grid.Row="1" Background="#16FFFFFF" Foreground="{StaticResource White}" FontSize="10" HorizontalAlignment="Right" Width="885"/>
         
         <!-- OnOffButton -->
         <Label Name="LabelOnOffButton" Foreground="{StaticResource White}" Content="Off" HorizontalAlignment="Center" Margin="0,0,450,100" Grid.Row="1" Width="55" Height="30" VerticalAlignment="Bottom"/>

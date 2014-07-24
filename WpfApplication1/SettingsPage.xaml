@@ -32,8 +32,8 @@
         <Rectangle Height="2" Margin="0,0,0,10" VerticalAlignment="Bottom" Fill="{StaticResource secondColor}" HorizontalAlignment="Left" Width="265"/>
         <Image HorizontalAlignment="Right" Margin="0,0,20,0" Source="C:/Users/RNAV_user/Documents/MaximeStagiaire/NavRTK.png"/>
         <Label HorizontalAlignment="Right" Margin="0,0,120,0" Content="NavRTK" Foreground="{StaticResource secondColor}" Width="Auto" FontSize="50"/>
-        <RichTextBox FontSize="15" Foreground="{StaticResource White}" Name="viewDatas" Margin="0,145,50,50" Grid.Row="1" Background="{StaticResource Transparent}" HorizontalAlignment="Right" Width="430"/>
-        <ListBox HorizontalContentAlignment="Stretch" Background="{StaticResource Transparent}" BorderThickness="0" FontSize="20" Foreground="{StaticResource White}" Name="listBox1" Margin="50,75,530,200" Grid.Row="1"/>
+        <RichTextBox FontSize="15" Foreground="{StaticResource White}" Name="viewDatas" Margin="0,145,50,50" Grid.Row="1" Background="{StaticResource Transparent}" HorizontalAlignment="Right" Width="625"/>
+        <ListBox HorizontalContentAlignment="Stretch" Background="{StaticResource Transparent}" BorderThickness="0" FontSize="20" Foreground="{StaticResource White}" Name="listBox1" Margin="50,75,700,150" Grid.Row="1" MouseDoubleClick="listboxDeleteItem"/>
         <Button BorderThickness="0" Width="64" Height="64" Margin="0,30,50,0" Grid.Row="1" VerticalAlignment="Top" Click="goToPopUp" HorizontalAlignment="Right">
             <Button.Background>
                 <ImageBrush ImageSource="/Pictures/plus.png" />

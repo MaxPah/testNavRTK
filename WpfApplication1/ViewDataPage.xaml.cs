@@ -52,7 +52,6 @@ namespace WpfApplication1
             string msg;
             // Collecting the characters received to our 'buffer' (string).
             recieved_data = sp.ReadLine();
-
             List<Object> list = new List<Object>();
            
             msg = GPSParsor.splitMessage(recieved_data, list);
@@ -117,38 +116,3 @@ namespace WpfApplication1
 
     }
 }
-/*
-
-private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            if (OnOffButton.IsCancel == true)
-            {
-                sp.PortName = "COM1";
-                sp.BaudRate = 115200;
-               
-                if (!sp.IsOpen)
-                    sp.Open();
-
-                //Sets button State and Creates function call on data recieved
-                sp.DataReceived += new SerialDataReceivedEventHandler(Recieve);
-                
-                
-
-            }
-            else
-            {
-                try // just in case serial port is not open could also be acheved using if(serial.IsOpen)
-                {
-                    sp.Close();
-                    OnOffButton.IsCancel = true;
-                    OnOffButton.Background = (SolidColorBrush)this.FindResource("secondColor");
-                    LabelOnOffButton.Content = "Off";
-                    OnRect.Visibility = System.Windows.Visibility.Visible;
-                    OffRect.Visibility = System.Windows.Visibility.Hidden;
-                   
-                }
-                catch
-                {
-                }
-            }
-        }*/

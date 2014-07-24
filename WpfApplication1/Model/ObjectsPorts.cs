@@ -33,5 +33,16 @@ namespace WpfApplication1.Model
             return p;
         }
 
+        public int MaxId()
+         {
+             int max=0;
+             foreach (ObjectPort o in this)
+             {
+                 if (max < o.Id)
+                     max = o.Id;
+             }
+             return max;
+         }
+
     }
 }

@@ -39,8 +39,7 @@ namespace WpfApplication1
         //Serial 
         SerialPort sp = new SerialPort();
         string recieved_data;
-       // string[] ListName = SerialPort.GetPortNames();
-       //int[] BaudRate = { 115200, 4800, 9600, 19200, 38400, 57600};
+        ObjectsPorts objports = new ObjectsPorts();
             
         #endregion
 
@@ -55,7 +54,7 @@ namespace WpfApplication1
 
         public void XMLtoSerialPort()
         {
-            ObjectsPorts objports = new ObjectsPorts();
+            
 
             if (File.Exists(link))
             {
@@ -63,12 +62,11 @@ namespace WpfApplication1
             }
             else {
                 objports = new ObjectsPorts();
-
             }
 
             foreach (ObjectPort o in objports)
             {
-                listBox1.Items.Add(o.ToString());
+                listBox1.Items.Add(o.ToStringComplete());
             }
 
             objports.Enregistrer(link);
@@ -134,7 +132,6 @@ namespace WpfApplication1
 
         private void portSettingsValid(object sender, RoutedEventArgs e)
         {
-            int cpt = 0;
             ObjectsPorts objports;
 
             PortSettings.IsOpen = false;
@@ -142,7 +139,6 @@ namespace WpfApplication1
             if (File.Exists(link))
             {
                 objports = ObjectsPorts.Charger(link);
-                cpt = objports.Count();
             }
             else
             {
@@ -150,26 +146,23 @@ namespace WpfApplication1
                 objports = new ObjectsPorts();
             }
 
-
-           ObjectPort obj = new ObjectPort() {
-            Id=cpt+1,
-            Name= popupName.Text,
-            Baudrate= popupBaud.Text,
-            Databits= popupDatabits.Text,
-            Stopbit=  popupStopbit.Text,
-            Parity= popupParity.Text,
-            Handshake = popupHandshake.Text
-            };
+            ObjectPort obj = new ObjectPort() {
+               Id = objports.MaxId() + 1,
+                Name = popupName.Text,
+                Baudrate = popupBaud.Text,
+                Databits = popupDatabits.Text,
+                Stopbit =  popupStopbit.Text,
+                Parity = popupParity.Text,
+                Handshake = popupHandshake.Text
+                };
                      
            objports.Add(obj);
 
-           
-
-           listBox1.Items.Clear();
+            listBox1.Items.Clear();
 
            foreach (ObjectPort o in objports)
            {
-               listBox1.Items.Add(o.ToString());
+               listBox1.Items.Add(o.ToStringComplete());
            }
            objports.Enregistrer(link);
 
@@ -198,6 +191,28 @@ namespace WpfApplication1
         private void OnOffButton_MouseEnter(object sender, MouseEventArgs e)
         {
             OnOffButton.Background = (SolidColorBrush)this.FindResource("Transparent");
+        }
+
+        private void listboxDeleteItem(object sender, MouseButtonEventArgs e)
+        {
+            string[] infos;
+            int id;
+            infos = listBox1.SelectedItem.ToString().Split(' ');
+            id = int.Parse(infos[0]);
+
+            try
+            {
+                XmlDocument doc = new XmlDocument();
+                doc.Load(link);
+                XmlNode node = doc.SelectSingleNode("//ObjectPort[@id=" + id + "]");
+                listBox1.Items.Remove(listBox1.SelectedItem);
+                node.ParentNode.RemoveChild(node);
+
+                doc.Save("../../Ports.xml");
+            }
+            catch
+            {
+            }
         }
        }
 }

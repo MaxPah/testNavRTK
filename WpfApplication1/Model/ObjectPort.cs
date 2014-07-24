@@ -26,9 +26,9 @@ namespace WpfApplication1.Model
 
         public string Handshake { get; set; }
 
-        public override string ToString()
+        public string ToStringComplete()
         {
-            return "Id: "+Id +
+            return Id +
                 " Name: " + Name +
                 " / BaudRate: " + Baudrate +
                 " / Databits: " + Databits +
