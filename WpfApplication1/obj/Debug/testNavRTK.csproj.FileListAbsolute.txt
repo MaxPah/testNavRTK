@@ -15,3 +15,4 @@ C:\Users\RNAV_user\Documents\Visual Studio 2013\Projects\WpfApplication1\WpfAppl
 C:\Users\RNAV_user\Documents\Visual Studio 2013\Projects\WpfApplication1\WpfApplication1\obj\Debug\testNavRTK.csproj.GenerateResource.Cache
 C:\Users\RNAV_user\Documents\Visual Studio 2013\Projects\WpfApplication1\WpfApplication1\obj\Debug\WpfApplication1.exe
 C:\Users\RNAV_user\Documents\Visual Studio 2013\Projects\WpfApplication1\WpfApplication1\obj\Debug\WpfApplication1.pdb
+C:\Users\RNAV_user\Documents\Visual Studio 2013\Projects\WpfApplication1\WpfApplication1\obj\Debug\testNavRTK.csprojResolveAssemblyReference.cache
