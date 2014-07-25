@@ -76,17 +76,23 @@ namespace WpfApplication1
         {
             if (OnOffButton.IsCancel == true)
             {
-                sp.PortName = "COM1";
-                sp.BaudRate = 115200;
-               
-                if (!sp.IsOpen)
-                    sp.Open();
+                try
+                {
+                    sp.PortName = "COM1";
+                    sp.BaudRate = 115200;
 
-                //Sets button State and Creates function call on data recieved
-                sp.DataReceived += new SerialDataReceivedEventHandler(Recieve);
+                    if (!sp.IsOpen)
+                        sp.Open();
+
+                    //Sets button State and Creates function call on data recieved
+                    sp.DataReceived += new SerialDataReceivedEventHandler(Recieve);
                 
+                }
+                catch
+                {
+                } 
                 OnOffButton.IsCancel = false;
-                OnOffButton.Background = (SolidColorBrush)this.FindResource("Black");
+                OnOffButton.Background = (SolidColorBrush)this.FindResource("secondColor");
                 LabelOnOffButton.Content = "On";
                 OffRect.Visibility = System.Windows.Visibility.Visible;
                 OnRect.Visibility = System.Windows.Visibility.Hidden;
@@ -98,7 +104,7 @@ namespace WpfApplication1
                 {
                     sp.Close();
                     OnOffButton.IsCancel = true;
-                    OnOffButton.Background = (SolidColorBrush)this.FindResource("secondColor");
+                    OnOffButton.Background = (SolidColorBrush)this.FindResource("Black");
                     LabelOnOffButton.Content = "Off";
                     OnRect.Visibility = System.Windows.Visibility.Visible;
                     OffRect.Visibility = System.Windows.Visibility.Hidden;

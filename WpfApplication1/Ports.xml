@@ -8,4 +8,12 @@
     <Parity>None</Parity>
     <Handshake>None</Handshake>
   </ObjectPort>
+  <ObjectPort id="2">
+    <Name />
+    <Baudrate>115200</Baudrate>
+    <Databits>8</Databits>
+    <Stopbit>OnePointFive</Stopbit>
+    <Parity>None</Parity>
+    <Handshake>None</Handshake>
+  </ObjectPort>
 </ArrayOfObjectPort>
