@@ -59,19 +59,22 @@ namespace WpfApplication1
            
         }
 
-        private delegate void UpdateUiTextDelegate(string text);
+        private delegate void UpdateUiTextDelegate1(MessageGPGGA objGGA);
+        private delegate void UpdateUiTextDelegate2(MessageGPRMC objRMC);
 
         private void Recieve(object sender, SerialDataReceivedEventArgs e)
         {
-           
-            // Collecting the characters received to our 'buffer' (string).
-            
-          //  if ()
-
                 recieved_data = sp.ReadLine();
                 string msg;
                 List<Object> list = new List<Object>();
                 msg = GPSParsor.splitMessage(recieved_data, list);
+
+            if(list[list.Count-1] != null)
+               if (list[list.Count-1].GetType() == typeof(MessageGPGGA))
+                    Dispatcher.Invoke(DispatcherPriority.Send, new UpdateUiTextDelegate1(WriteDataGGA), list[list.Count-1]);
+               else if (list[list.Count - 1].GetType() == typeof(MessageGPRMC))
+                   Dispatcher.Invoke(DispatcherPriority.Send, new UpdateUiTextDelegate2(WriteDataRMC), list[list.Count - 1]);
+           
           
         }
         //private void WriteData(string text)
@@ -83,24 +86,33 @@ namespace WpfApplication1
         //    scrollData.ScrollToEnd();
         //}
 
-        private void WriteDataGGA(string text)
+        private void WriteDataGGA(MessageGPGGA objGGA)
         {
-
-     
-
-            // Assign the value of the recieved_data to the RichTextBox.
-            paraGGA.Inlines.Add(text);
-            mcFlowDocGGA.Blocks.Add(paraGGA);
-            scrollDataGGA.Document = mcFlowDocGGA;
-            scrollDataGGA.ScrollToEnd();
+            GridGGA.DataContext = objGGA;
+            GridGGAType.Text = objGGA.type;
+            GridGGATime.Text = objGGA.timeUTC.ToString();
+            GridGGALat.Text = objGGA.latitude.ToString();
+            GridGGALon.Text = objGGA.longitude.ToString();
+            GridGGAQual.Text = objGGA.gpsQuality.ToString();
+            GridGGANSat.Text = objGGA.nSat.ToString();
+            GridGGADil.Text = objGGA.dilution.ToString();
+            GridGGAAlt.Text = objGGA.altitude + objGGA.altUnit.ToString();
+            GridGGAGeo.Text =  objGGA.geoidal + objGGA.geoUnit.ToString();
+            GridGGADGPSUTC.Text = objGGA.dGPSTime.ToString();
         }
-        private void WriteDataRMC(string text)
+        private void WriteDataRMC(MessageGPRMC objRMC)
         {
-            // Assign the value of the recieved_data to the RichTextBox.
-            paraRMC.Inlines.Add(text);
-            mcFlowDocRMC.Blocks.Add(paraRMC);
-            scrollDataRMC.Document = mcFlowDocRMC;
-            scrollDataRMC.ScrollToEnd();
+            GridRMC.DataContext = objRMC;
+            GridGGAType_Copy.Text = objRMC.type;
+            GridGGATime_Copy.Text = objRMC.timeUTC.ToString();
+            GridGGALat_Copy.Text = objRMC.latitude.ToString();
+            GridGGALon_Copy.Text = objRMC.longitude.ToString();
+            GridGGAQual_Copy.Text = objRMC.status.ToString();
+            GridGGANSat_Copy.Text = objRMC.speed.ToString();
+            GridGGADil_Copy.Text = objRMC.cap.ToString();
+            GridGGAAlt_Copy.Text = objRMC.date.ToString();
+            GridGGAGeo_Copy.Text = objRMC.magnetic;
+            GridGGADGPSUTC_Copy.Text = objRMC.integrity.ToString();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

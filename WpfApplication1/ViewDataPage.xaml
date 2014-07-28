@@ -98,18 +98,69 @@
             <Label Margin="20,0,0,0" Content="GPS Settings" Foreground="{StaticResource menuBisColor}" Width="Auto" FontSize="40"  MouseUp="goToConnexion"/>
             <Label Margin="20,0,0,0" Content="GPS View" Foreground="{StaticResource White}" Width="Auto" FontSize="40"/>
         </StackPanel>
-        <Rectangle Height="2" VerticalAlignment="Bottom" Fill="{StaticResource secondColor}" Margin="270,0,0,10" HorizontalAlignment="Left" Width="200"/>
         <Image HorizontalAlignment="Right" Margin="0,0,20,0" Source="C:/Users/RNAV_user/Documents/MaximeStagiaire/NavRTK.png"/>
         <Label HorizontalAlignment="Right" Margin="0,0,120,0" Content="NavRTK" Foreground="{StaticResource secondColor}" Width="Auto" FontSize="50"/>
-       
+
         <!-- Infos Trames-->
-        <RichTextBox x:Name="scrollDataRMC" Margin="0,53.406,45,180" Grid.Row="1" Background="#16FFFFFF" Foreground="{StaticResource White}" FontSize="10" HorizontalAlignment="Right" Width="382.067" Style="{DynamicResource GPSViewRichTextBoxStyle}"/>
-        <RichTextBox x:Name="scrollDataGGA" Margin="0,53,606,180" Grid.Row="1" Background="#16FFFFFF" Foreground="{StaticResource White}" FontSize="10" HorizontalAlignment="Right" Width="384" Style="{DynamicResource GPSViewRichTextBoxStyle}"/>
 
         <!-- OnOffButton -->
         <Label Name="LabelOnOffButton" Foreground="{StaticResource White}" Content="Off" HorizontalAlignment="Center" Margin="0,0,450,100" Grid.Row="1" Width="55" Height="30" VerticalAlignment="Bottom"/>
         <Button Background="{StaticResource Black}" IsCancel="True" Name="OnOffButton" Margin="0,0,300,100"  Width="100" Grid.Row="1" Click="Button_Click" Height="30" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
         <Rectangle  Stroke="{StaticResource Black}"  StrokeThickness="1" x:Name="OnRect" Fill="{StaticResource White}" Margin="0,0,380,100" Grid.Row="1" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="20"/>
         <Rectangle  Stroke="{StaticResource Black}"  StrokeThickness="1" Visibility="Hidden" x:Name="OffRect" Fill="{StaticResource White}" Margin="0,0,220,100" Grid.Row="1" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="20"/>
+        <Grid Margin="105,80.5,105,208" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="450*"/>
+                <ColumnDefinition Width="100*"/>
+                <ColumnDefinition Width="450*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Name="GridGGA">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="215*"/>
+                    <ColumnDefinition Width="231*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="65*"/>
+                    <RowDefinition Height="65*"/>
+                    <RowDefinition Height="65*"/>
+                    <RowDefinition Height="65*"/>
+                    <RowDefinition Height="72*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Name="GridGGAType" HorizontalAlignment="Left" Height="53" TextWrapping="Wrap" VerticalAlignment="Top" Width="215" Foreground="White" FontSize="12"/>
+                <TextBlock Name="GridGGATime" HorizontalAlignment="Left" Height="53" TextWrapping="Wrap" VerticalAlignment="Top" Width="231" Grid.Column="1" Foreground="White" FontSize="12"/>
+                <TextBlock Name="GridGGALat" HorizontalAlignment="Left" Height="64" TextWrapping="Wrap" VerticalAlignment="Top" Width="215" Grid.Row="1" Foreground="White" FontSize="12"/>
+                <TextBlock Name="GridGGALon" HorizontalAlignment="Left" Height="64" TextWrapping="Wrap" VerticalAlignment="Top" Width="231" Grid.Column="1" Grid.Row="1" Foreground="White" FontSize="12"/>
+                <TextBlock Name="GridGGAQual" HorizontalAlignment="Left" Height="69" TextWrapping="Wrap" VerticalAlignment="Top" Width="215" Grid.Row="2" Grid.RowSpan="2" Foreground="White" FontSize="12"/>
+                <TextBlock Name="GridGGANSat" HorizontalAlignment="Left" Height="69" TextWrapping="Wrap" VerticalAlignment="Top" Width="231" Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" Foreground="White" FontSize="12"/>
+                <TextBlock Name="GridGGADil" HorizontalAlignment="Left" Height="63" TextWrapping="Wrap" VerticalAlignment="Top" Width="215" Grid.Row="3" Foreground="White" FontSize="12"/>
+                <TextBlock Name="GridGGAAlt" HorizontalAlignment="Left" Height="63" TextWrapping="Wrap" VerticalAlignment="Top" Width="231" Grid.Column="1" Grid.Row="3" Foreground="White" FontSize="12"/>
+                <TextBlock Name="GridGGAGeo" HorizontalAlignment="Left" Height="78" TextWrapping="Wrap" VerticalAlignment="Top" Width="215" Margin="0,2,0,-8" Grid.Row="4" Foreground="White" FontSize="12"/>
+                <TextBlock Name="GridGGADGPSUTC" HorizontalAlignment="Left" Height="80" TextWrapping="Wrap" VerticalAlignment="Top" Width="231" Grid.Column="1" Grid.Row="4" Margin="0,0,0,-8" Foreground="White" FontSize="12"/>
             </Grid>
+            <Grid x:Name="GridRMC" Margin="2.5,0,0,0" Grid.Column="2" DataContext="{Binding MessageRMC}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="55*"/>
+                    <ColumnDefinition Width="56*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60*"/>
+                    <RowDefinition Height="68*"/>
+                    <RowDefinition Height="75*"/>
+                    <RowDefinition Height="69*"/>
+                    <RowDefinition Height="60*"/>
+                </Grid.RowDefinitions>
+            	<TextBlock x:Name="GridGGAType_Copy" HorizontalAlignment="Left" Height="59.91" TextWrapping="Wrap" VerticalAlignment="Top" Width="214.759" FontSize="12" Foreground="White"/>
+            	<TextBlock x:Name="GridGGATime_Copy" HorizontalAlignment="Left" TextWrapping="Wrap" Width="226" FontSize="12" Margin="0.254,0,-2.759,0" Grid.Column="1" Foreground="White"/>
+            	<TextBlock x:Name="GridGGALat_Copy" HorizontalAlignment="Left" Height="64.894" TextWrapping="Wrap" VerticalAlignment="Top" Width="219.505" Grid.Row="1" FontSize="12" Foreground="White"/>
+            	<TextBlock x:Name="GridGGALon_Copy" HorizontalAlignment="Left" Height="64.894" TextWrapping="Wrap" VerticalAlignment="Top" Width="225.759" Grid.Row="1" FontSize="12" Margin="0.495,0,-2.759,0" Grid.Column="1" Foreground="White"/>
+            	<TextBlock x:Name="GridGGAQual_Copy" HorizontalAlignment="Left" Height="69" TextWrapping="Wrap" VerticalAlignment="Top" Width="219.505" Grid.Row="2" FontSize="12" Margin="0,1.997,0,0" Foreground="White"/>
+            	<TextBlock x:Name="GridGGANSat_Copy" HorizontalAlignment="Left" Height="69" TextWrapping="Wrap" VerticalAlignment="Top" Width="226.254" Grid.Row="2" FontSize="12" Margin="0,1.997,-2.759,0" Grid.Column="1" Foreground="White"/>
+            	<TextBlock x:Name="GridGGADil_Copy" HorizontalAlignment="Left" Height="63" TextWrapping="Wrap" VerticalAlignment="Top" Width="219.505" Grid.Row="2" FontSize="12" Margin="0,66.899,0,0" Grid.RowSpan="2" Foreground="White"/>
+            	<TextBlock x:Name="GridGGAAlt_Copy" HorizontalAlignment="Left" Height="63" TextWrapping="Wrap" VerticalAlignment="Top" Width="225.759" Grid.Row="2" FontSize="12" Margin="0.495,66.899,-2.759,0" Grid.RowSpan="2" Grid.Column="1" Foreground="White"/>
+            	<TextBlock x:Name="GridGGAGeo_Copy" HorizontalAlignment="Left" Height="78" TextWrapping="Wrap" VerticalAlignment="Top" Width="219.505" Margin="0,58.914,0,-8.108" Grid.Row="3" FontSize="12" Grid.RowSpan="2" Foreground="White"/>
+            	<TextBlock x:Name="GridGGADGPSUTC_Copy" HorizontalAlignment="Left" Height="80" TextWrapping="Wrap" VerticalAlignment="Top" Width="225.759" Grid.Row="3" Margin="0.495,56.914,-2.759,-8.108" FontSize="12" Grid.RowSpan="2" Grid.Column="1" Foreground="White"/>
+            </Grid>
+            <Rectangle Grid.Column="1" HorizontalAlignment="Left" Height="331.5" Margin="45,0,0,0" VerticalAlignment="Top" Width="9" Fill="{DynamicResource White}" Opacity="0.405"/>
+        </Grid>
+    </Grid>
 </Page>
