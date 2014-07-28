@@ -64,11 +64,13 @@ namespace WpfApplication1
                 objports = new ObjectsPorts();
             }
 
+            listBox1.ItemsSource = objports;
+            /*
             foreach (ObjectPort o in objports)
             {
-                listBox1.Items.Add(o.ToStringComplete());
+             //   listBox1.Items.Add(o.ToStringComplete());
             }
-
+            */
             objports.Enregistrer(link);
         }
 
@@ -76,8 +78,19 @@ namespace WpfApplication1
         {
             if (OnOffButton.IsCancel == true)
             {
-                sp.PortName = "COM1";
-                sp.BaudRate = 115200;
+                if(listBox1.SelectedItem != null)
+                {
+                  ObjectPort objectselected = (ObjectPort)listBox1.SelectedItem;
+                  sp.PortName = objectselected.Name;
+                  sp.BaudRate = int.Parse(objectselected.Baudrate);
+
+                }
+                else
+                {
+                    sp.PortName = "COM1";
+                    sp.BaudRate = 115200;
+                }
+
                
                 if (!sp.IsOpen)
                     sp.Open();
@@ -86,7 +99,7 @@ namespace WpfApplication1
                 sp.DataReceived += new SerialDataReceivedEventHandler(Recieve);
                 
                 OnOffButton.IsCancel = false;
-                OnOffButton.Background = (SolidColorBrush)this.FindResource("Black");
+                OnOffButton.Background = (SolidColorBrush)this.FindResource("secondColor");
                 LabelOnOffButton.Content = "On";
                 OffRect.Visibility = System.Windows.Visibility.Visible;
                 OnRect.Visibility = System.Windows.Visibility.Hidden;
@@ -98,7 +111,7 @@ namespace WpfApplication1
                 {
                     sp.Close();
                     OnOffButton.IsCancel = true;
-                    OnOffButton.Background = (SolidColorBrush)this.FindResource("secondColor");
+                    OnOffButton.Background = (SolidColorBrush)this.FindResource("Black");
                     LabelOnOffButton.Content = "Off";
                     OnRect.Visibility = System.Windows.Visibility.Visible;
                     OffRect.Visibility = System.Windows.Visibility.Hidden;
@@ -158,12 +171,6 @@ namespace WpfApplication1
                      
            objports.Add(obj);
 
-            listBox1.Items.Clear();
-
-           foreach (ObjectPort o in objports)
-           {
-               listBox1.Items.Add(o.ToStringComplete());
-           }
            objports.Enregistrer(link);
 
         }
@@ -195,20 +202,23 @@ namespace WpfApplication1
 
         private void listboxDeleteItem(object sender, MouseButtonEventArgs e)
         {
-            string[] infos;
-            int id;
-            infos = listBox1.SelectedItem.ToString().Split(' ');
-            id = int.Parse(infos[0]);
+           // string[] infos;
+            int id=0;
+            var objdelete = (ObjectPort)listBox1.SelectedItem;
+            id = objdelete.Id;
+
+           Console.WriteLine(id);
 
             try
             {
                 XmlDocument doc = new XmlDocument();
                 doc.Load(link);
                 XmlNode node = doc.SelectSingleNode("//ObjectPort[@id=" + id + "]");
-                listBox1.Items.Remove(listBox1.SelectedItem);
                 node.ParentNode.RemoveChild(node);
 
                 doc.Save("../../Ports.xml");
+
+
             }
             catch
             {

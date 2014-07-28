@@ -6,6 +6,88 @@
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="1200"
 	Title="Page3">
+    <Page.Resources>
+        <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
+        <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA"/>
+        <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF569DE5"/>
+        <Style x:Key="{x:Type TextBoxBase}" TargetType="{x:Type TextBoxBase}">
+            <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TextBox.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="AllowDrop" Value="true"/>
+            <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+            <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBoxBase}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.MouseOver.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.Focus.Border}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true"/>
+                        <Condition Property="IsSelectionActive" Value="false"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
+                </MultiTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="{x:Type Hyperlink}" TargetType="{x:Type Hyperlink}">
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}"/>
+            <Setter Property="TextDecorations" Value="Underline"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Foreground" Value="Red"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="false">
+                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="true">
+                    <Setter Property="Cursor" Value="Hand"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="GPSViewRichTextBoxStyle" TargetType="{x:Type RichTextBox}">
+            <Style.Resources>
+                <Style x:Key="{x:Type FlowDocument}" TargetType="{x:Type FlowDocument}">
+                    <Setter Property="OverridesDefaultStyle" Value="true"/>
+                </Style>
+                <Style x:Key="{x:Type Hyperlink}" BasedOn="{StaticResource {x:Type Hyperlink}}" TargetType="{x:Type Hyperlink}">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Foreground" Value="Blue"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Style.Resources>
+            <Setter Property="MinWidth" Value="10"/>
+            <Style.BasedOn>
+                <StaticResource ResourceKey="{x:Type TextBoxBase}"/>
+            </Style.BasedOn>
+        </Style>
+    </Page.Resources>
 
     <Grid Background="{StaticResource primaryColor}">
         <Grid.RowDefinitions>
@@ -19,12 +101,15 @@
         <Rectangle Height="2" VerticalAlignment="Bottom" Fill="{StaticResource secondColor}" Margin="270,0,0,10" HorizontalAlignment="Left" Width="200"/>
         <Image HorizontalAlignment="Right" Margin="0,0,20,0" Source="C:/Users/RNAV_user/Documents/MaximeStagiaire/NavRTK.png"/>
         <Label HorizontalAlignment="Right" Margin="0,0,120,0" Content="NavRTK" Foreground="{StaticResource secondColor}" Width="Auto" FontSize="50"/>
-        <RichTextBox Name="scrollData" Margin="0,50,45,180" Grid.Row="1" Background="#16FFFFFF" Foreground="{StaticResource White}" FontSize="10" HorizontalAlignment="Right" Width="885"/>
-        
+       
+        <!-- Infos Trames-->
+        <RichTextBox x:Name="scrollDataRMC" Margin="0,53.406,45,180" Grid.Row="1" Background="#16FFFFFF" Foreground="{StaticResource White}" FontSize="10" HorizontalAlignment="Right" Width="382.067" Style="{DynamicResource GPSViewRichTextBoxStyle}"/>
+        <RichTextBox x:Name="scrollDataGGA" Margin="0,53,606,180" Grid.Row="1" Background="#16FFFFFF" Foreground="{StaticResource White}" FontSize="10" HorizontalAlignment="Right" Width="384" Style="{DynamicResource GPSViewRichTextBoxStyle}"/>
+
         <!-- OnOffButton -->
         <Label Name="LabelOnOffButton" Foreground="{StaticResource White}" Content="Off" HorizontalAlignment="Center" Margin="0,0,450,100" Grid.Row="1" Width="55" Height="30" VerticalAlignment="Bottom"/>
-        <Button BorderBrush="{StaticResource White}" BorderThickness="1" Background="{StaticResource secondColor}" IsCancel="True" Name="OnOffButton" Margin="0,0,300,100"  Width="100" Grid.Row="1" Click="Button_Click" Height="30" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+        <Button Background="{StaticResource Black}" IsCancel="True" Name="OnOffButton" Margin="0,0,300,100"  Width="100" Grid.Row="1" Click="Button_Click" Height="30" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
         <Rectangle  Stroke="{StaticResource Black}"  StrokeThickness="1" x:Name="OnRect" Fill="{StaticResource White}" Margin="0,0,380,100" Grid.Row="1" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="20"/>
         <Rectangle  Stroke="{StaticResource Black}"  StrokeThickness="1" Visibility="Hidden" x:Name="OffRect" Fill="{StaticResource White}" Margin="0,0,220,100" Grid.Row="1" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="20"/>
-    </Grid>
+            </Grid>
 </Page>

@@ -54,6 +54,8 @@ namespace WpfApplication1.Model
             string[] split;
             string messageReturn="\tInitialisation"; 
 
+           if (t != null)
+           { 
             t = t.Substring(1, t.Length-1);
             split= t.Split('$');
             string[][] split2 = new string[split.Length][];
@@ -82,6 +84,7 @@ namespace WpfApplication1.Model
                     }
                 }
             }
+           }
 
            return messageReturn;
         }

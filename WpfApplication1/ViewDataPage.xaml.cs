@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.IO.Ports;
 using System.Windows.Threading;
 using WpfApplication1.Model;
+//using System.Windows.Threading; 
 
 namespace WpfApplication1
 {
@@ -25,12 +26,14 @@ namespace WpfApplication1
     {
 
          #region variables
-  
-        //Richtextbox
-        FlowDocument mcFlowDoc = new FlowDocument();
-        Paragraph para = new Paragraph();
-       
 
+        //Richtextbox
+        FlowDocument mcFlowDocGGA = new FlowDocument();
+        FlowDocument mcFlowDocRMC = new FlowDocument();
+        Paragraph paraGGA = new Paragraph();
+        Paragraph paraRMC = new Paragraph();
+
+      
         //Serial 
         string recieved_data;
             SerialPort sp;
@@ -42,29 +45,62 @@ namespace WpfApplication1
            
             InitializeComponent();
             string[] listPort = SerialPort.GetPortNames();
-            
+
+            System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 2);
+            dispatcherTimer.Start();
+                     
                 
         }
 
+        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        {
+           
+        }
+
         private delegate void UpdateUiTextDelegate(string text);
+
         private void Recieve(object sender, SerialDataReceivedEventArgs e)
         {
-            string msg;
-            // Collecting the characters received to our 'buffer' (string).
-            recieved_data = sp.ReadLine();
-            List<Object> list = new List<Object>();
            
-            msg = GPSParsor.splitMessage(recieved_data, list);
+            // Collecting the characters received to our 'buffer' (string).
+            
+          //  if ()
 
-            Dispatcher.Invoke(DispatcherPriority.Send, new UpdateUiTextDelegate(WriteData), msg);
+                recieved_data = sp.ReadLine();
+                string msg;
+                List<Object> list = new List<Object>();
+                msg = GPSParsor.splitMessage(recieved_data, list);
+          
         }
-        private void WriteData(string text)
+        //private void WriteData(string text)
+        //{
+        //    // Assign the value of the recieved_data to the RichTextBox.
+        //    para.Inlines.Add(text);
+        //    mcFlowDoc.Blocks.Add(para);
+        //    scrollData.Document = mcFlowDoc;
+        //    scrollData.ScrollToEnd();
+        //}
+
+        private void WriteDataGGA(string text)
+        {
+
+     
+
+            // Assign the value of the recieved_data to the RichTextBox.
+            paraGGA.Inlines.Add(text);
+            mcFlowDocGGA.Blocks.Add(paraGGA);
+            scrollDataGGA.Document = mcFlowDocGGA;
+            scrollDataGGA.ScrollToEnd();
+        }
+        private void WriteDataRMC(string text)
         {
             // Assign the value of the recieved_data to the RichTextBox.
-            para.Inlines.Add(text);
-            mcFlowDoc.Blocks.Add(para);
-            scrollData.Document = mcFlowDoc;
-            scrollData.ScrollToEnd();
+            paraRMC.Inlines.Add(text);
+            mcFlowDocRMC.Blocks.Add(paraRMC);
+            scrollDataRMC.Document = mcFlowDocRMC;
+            scrollDataRMC.ScrollToEnd();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -81,7 +117,7 @@ namespace WpfApplication1
                sp.DataReceived += new SerialDataReceivedEventHandler(Recieve);
 
                OnOffButton.IsCancel = false;
-               OnOffButton.Background = (SolidColorBrush)this.FindResource("Transparent");
+               OnOffButton.Background = (SolidColorBrush)this.FindResource("secondColor");
                LabelOnOffButton.Content = "On";
                 OffRect.Visibility = System.Windows.Visibility.Visible;
                 OnRect.Visibility = System.Windows.Visibility.Hidden;
@@ -92,7 +128,7 @@ namespace WpfApplication1
                {
                    sp.Close();
                    OnOffButton.IsCancel = true;
-                    OnOffButton.Background = (SolidColorBrush)this.FindResource("secondColor");
+                    OnOffButton.Background = (SolidColorBrush)this.FindResource("Transparent");
                     LabelOnOffButton.Content = "Off";
                     OnRect.Visibility = System.Windows.Visibility.Visible;
                     OffRect.Visibility = System.Windows.Visibility.Hidden;

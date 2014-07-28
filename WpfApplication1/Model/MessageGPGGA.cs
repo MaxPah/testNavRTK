@@ -156,6 +156,10 @@ namespace WpfApplication1.Model
                 p.checksum + "\n";
 
         }
+        public string GetTypeTrame()
+        {
+            return this.type;
+        }
     }
     #endregion
 }
