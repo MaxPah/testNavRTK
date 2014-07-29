@@ -105,22 +105,22 @@
 		<!-- Infos Trames-->
 
 		<!-- OnOffButton -->
-		<Label x:Name="LabelOnOffButton" Foreground="{StaticResource White}" Content="Off" HorizontalAlignment="Center" Margin="0,0,450,100" Grid.Row="1" Width="55" Height="30" VerticalAlignment="Bottom"/>
-		<Button Background="{StaticResource Black}" IsCancel="True" x:Name="OnOffButton" Margin="0,0,300,100"  Width="100" Grid.Row="1" Click="Button_Click" Height="30" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
-		<Rectangle  Stroke="{StaticResource Black}"  StrokeThickness="1" x:Name="OnRect" Fill="{StaticResource White}" Margin="0,0,380,100" Grid.Row="1" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="20"/>
-		<Rectangle  Stroke="{StaticResource Black}"  StrokeThickness="1" Visibility="Hidden" x:Name="OffRect" Fill="{StaticResource White}" Margin="0,0,220,100" Grid.Row="1" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="20"/>
-		<Grid Margin="105,80.5,105,208" Grid.Row="1">
+		<Grid Margin="50,80,50,117.333" Grid.Row="1">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="311*"/>
+				<RowDefinition Height="29*"/>
+			</Grid.RowDefinitions>
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="450*"/>
 				<ColumnDefinition Width="100*"/>
 				<ColumnDefinition Width="450*"/>
 			</Grid.ColumnDefinitions>
-			<Grid x:Name="GridGGA">
+			<Grid x:Name="GridGGA" Margin="0" Grid.RowSpan="2">
 				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="60*"/>
-					<ColumnDefinition Width="154*"/>
-					<ColumnDefinition Width="70*"/>
-					<ColumnDefinition Width="161*"/>
+					<ColumnDefinition Width="87*"/>
+					<ColumnDefinition Width="131*"/>
+					<ColumnDefinition Width="114*"/>
+					<ColumnDefinition Width="163*"/>
 				</Grid.ColumnDefinitions>
 				<Grid.RowDefinitions>
 					<RowDefinition Height="65*"/>
@@ -129,29 +129,29 @@
 					<RowDefinition Height="65*"/>
 					<RowDefinition Height="72*"/>
 				</Grid.RowDefinitions>
-				<TextBlock x:Name="GridGGAType" Text="GPGGA" HorizontalAlignment="Left" TextWrapping="Wrap" Width="215" Foreground="{DynamicResource secondColor}" FontSize="26.667" Grid.ColumnSpan="3" FontWeight="Bold" TextDecorations="{x:Null}"/>
-				<TextBlock x:Name="GridGGATime" HorizontalAlignment="Left" Height="25.96" TextWrapping="Wrap" VerticalAlignment="Top" Width="160.921" Grid.Column="3" Foreground="White" FontSize="12" Margin="0,17.706,0,0"/>
-				<TextBlock x:Name="GridGGALat" TextWrapping="Wrap" Grid.Row="1" Foreground="White" Grid.Column="1"/>
-				<TextBlock x:Name="GridGGALon" HorizontalAlignment="Left" Height="25.96" TextWrapping="Wrap" VerticalAlignment="Top" Width="170.932" Grid.Column="3" Grid.Row="1" Foreground="White" FontSize="12" Margin="0,19.471,-9.751,0"/>
-				<TextBlock x:Name="GridGGAQual" TextWrapping="Wrap" Grid.Row="2" Foreground="White" FontSize="12" Grid.Column="1"/>
-				<Border x:Name="GridGGAnSatFather" Grid.Column="3" Grid.Row="2" Margin="0,19.471,109.773,0" HorizontalAlignment="Right" Width="41.408" Height="25.96" VerticalAlignment="Top">
-					<TextBlock x:Name="GridGGANSat" TextWrapping="Wrap" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+				<TextBlock x:Name="GridGGAType" Text="GPGGA" HorizontalAlignment="Left" TextWrapping="Wrap" Width="215" Foreground="{DynamicResource secondColor}" FontSize="26.667" Grid.ColumnSpan="2" FontWeight="Bold" TextDecorations="{x:Null}"/>
+				<TextBlock x:Name="GridGGATime" TextWrapping="Wrap" Grid.Column="3" Foreground="White" FontSize="18.667" Margin="0,5,0,0"/>
+				<TextBlock x:Name="GridGGALat" TextWrapping="Wrap" Grid.Row="1" Foreground="White" Grid.Column="1" Margin="0,5,0,0" FontSize="18.667"/>
+				<TextBlock x:Name="GridGGALon" TextWrapping="Wrap" Grid.Column="3" Grid.Row="1" Foreground="White" FontSize="18.667" Margin="0.001,5,0.13,0"/>
+				<TextBlock x:Name="GridGGAQual" TextWrapping="Wrap" Grid.Row="2" Foreground="White" FontSize="18.667" Grid.Column="1" Margin="0,5,0,0"/>
+				<Border x:Name="GridGGAnSatFather" Grid.Column="3" Grid.Row="2" Margin="0,0.832,0,0" Height="50.232" VerticalAlignment="Top" HorizontalAlignment="Left" Width="57.18">
+					<TextBlock x:Name="GridGGANSat" TextWrapping="Wrap" FontSize="26.667" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="28.59,7.382,0,0"/>
 				</Border>
-				<TextBlock x:Name="GridGGADil" TextWrapping="Wrap" Grid.Row="3" Foreground="White" FontSize="12" Grid.Column="1"/>
-				<TextBlock x:Name="GridGGAAlt" Height="25.96" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="3" Grid.Row="3" Foreground="White" FontSize="12" Margin="0,19.471,0.26,0"/>
-				<TextBlock x:Name="GridGGAGeo" TextWrapping="Wrap" Grid.Row="4" Foreground="White" FontSize="12" Grid.Column="1"/>
-				<TextBlock x:Name="GridGGADGPSUTC" HorizontalAlignment="Left" TextWrapping="Wrap" Width="161.181" Grid.Column="3" Grid.Row="4" Foreground="White" FontSize="12" Margin="0,21.903,0,0" Height="25.96" VerticalAlignment="Top"/>
-				<Label x:Name="ggalat" Content="Lat : " Grid.Row="1" Foreground="{DynamicResource White}"/>
-				<Label x:Name="ggatypepos" Content="Pos : " Grid.Row="2" Foreground="{DynamicResource White}"/>
-				<Label x:Name="ggahdop" Content="Hdop : " Grid.Row="3" Foreground="{DynamicResource White}"/>
-				<Label x:Name="ggalon" Content="Lon : " HorizontalAlignment="Center" Width="59.308" Grid.Column="2" Grid.Row="1" Foreground="{DynamicResource White}" VerticalAlignment="Center" Height="25.96" Margin="5.39,19.471,5.381,19.471"/>
-				<Label x:Name="ggnsat" Content="N° Sat : " HorizontalAlignment="Center" Width="59.308" Grid.Column="2" Margin="5.77,19.471,5.001,19.471" Grid.Row="2" Foreground="{DynamicResource White}" VerticalAlignment="Center" Height="25.96"/>
-				<Label x:Name="ggaalt" Content="Alt (m)" HorizontalAlignment="Center" Width="59.308" Grid.Column="2" Margin="5.77,19.471,5.001,19.471" Grid.Row="3" Foreground="{DynamicResource White}" VerticalAlignment="Center" Height="25.96"/>
-				<Label Content="Last DGPS:&#xA;" Grid.Column="2" Margin="0,21.903,0,24.029" Grid.Row="4" Foreground="{DynamicResource White}" VerticalAlignment="Center" Height="25.96"/>
-				<Label x:Name="ggahdop_Copy" Content="Geoid : " Grid.Row="4" Foreground="{DynamicResource White}"/>
-				<Label x:Name="ggalat_Copy" Content="Time : " HorizontalAlignment="Right" Height="25.96" VerticalAlignment="Center" Width="70.079" Foreground="{DynamicResource White}" Margin="0,17.706,0,21.236" Grid.Column="2"/>
+				<TextBlock x:Name="GridGGADil" TextWrapping="Wrap" Grid.Row="3" Foreground="White" FontSize="21.333" Grid.Column="1" Margin="0,5,0,0"/>
+				<TextBlock x:Name="GridGGAAlt" TextWrapping="Wrap" Grid.Column="3" Grid.Row="3" Foreground="White" FontSize="21.333" Margin="0,5,0,0.832"/>
+				<TextBlock x:Name="GridGGAGeo" TextWrapping="Wrap" Grid.Row="4" Foreground="White" FontSize="21.333" Grid.Column="1" Margin="0,5,0,43.333"/>
+				<TextBlock x:Name="GridGGADGPSUTC" TextWrapping="Wrap" Grid.Column="3" Grid.Row="4" Foreground="White" FontSize="21.333" Margin="0.001,5,0,43.333"/>
+				<Label x:Name="ggalat" Content="Lat : " Grid.Row="1" Foreground="{DynamicResource White}" FontSize="21.333"/>
+				<Label x:Name="ggatypepos" Content="Pos : " Grid.Row="2" Foreground="{DynamicResource White}" FontSize="21.333"/>
+				<Label x:Name="ggahdop" Content="Hdop : " Grid.Row="3" Foreground="{DynamicResource White}" FontSize="21.333"/>
+				<Label x:Name="ggalon" Content="Lon : " Grid.Column="2" Grid.Row="1" Foreground="{DynamicResource White}" FontSize="21.333"/>
+				<Label x:Name="ggnsat" Content="N° Sat : " Grid.Column="2" Grid.Row="2" Foreground="{DynamicResource White}" FontSize="21.333" Margin="3.96,0.832"/>
+				<Label x:Name="ggaalt" Content="Alt (m)" Grid.Column="2" Grid.Row="3" Foreground="{DynamicResource White}" FontSize="21.333" Margin="3.96,0.832"/>
+				<Label Content="Last DGPS:&#xA;" Grid.Column="2" Grid.Row="4" Foreground="{DynamicResource White}" FontSize="21.333" Margin="0,0,0,43.333"/>
+				<Label x:Name="ggahdop_Copy" Content="Geoid : " Grid.Row="4" Foreground="{DynamicResource White}" FontSize="21.333" Margin="0,0,0,43.333"/>
+				<Label x:Name="ggalat_Copy" Content="Time : " Foreground="{DynamicResource White}" Grid.Column="2" FontSize="21.333" Margin="3.96,0.832"/>
 			</Grid>
-			<Grid x:Name="GridRMC" Margin="2.5,0,0,0" Grid.Column="2" DataContext="{Binding MessageRMC}">
+			<Grid x:Name="GridRMC" Margin="2.5,0,0,0" Grid.Column="2" DataContext="{Binding MessageRMC}" Grid.RowSpan="2">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="71*"/>
 					<ColumnDefinition Width="148*"/>
@@ -184,18 +184,15 @@
 				<Label x:Name="ggalon_Copy1" Content="Speed (kn)" HorizontalAlignment="Center" Width="73" Grid.Column="2" Grid.Row="2" Foreground="{DynamicResource White}" VerticalAlignment="Center" Height="25.96" Margin="0,25.899,0,23.028"/>
 				<Label x:Name="ggalon_Copy2" Content="Last DGPS :" HorizontalAlignment="Center" Width="72.495" Grid.Column="2" Grid.Row="3" Foreground="{DynamicResource White}" VerticalAlignment="Center" Height="25.96" Margin="0.505,24.346,0,18.59"/>
 				<Label x:Name="ggalon_Copy3" Content="Mode pos :" HorizontalAlignment="Center" Width="73" Grid.Column="2" Grid.Row="4" Foreground="{DynamicResource White}" VerticalAlignment="Center" Height="25.96" Margin="0,17.45,0,16.5"/>
-				<ed:RegularPolygon Grid.Column="3" Fill="{DynamicResource secondColor}" HorizontalAlignment="Left" Height="32.22" InnerRadius="1" Margin="53.666,46.335,0,0" PointCount="3" Grid.Row="2" Stretch="Fill" StrokeThickness="0" VerticalAlignment="Top" Width="3.333" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="2">
-					<ed:RegularPolygon.RenderTransform>
-						<TransformGroup>
-							<ScaleTransform/>
-							<SkewTransform/>
-							<RotateTransform Angle="-90"/>
-							<TranslateTransform/>
-						</TransformGroup>
-					</ed:RegularPolygon.RenderTransform>
-				</ed:RegularPolygon>
+				<ed:Arc x:Name="GridRMCArcSpeed" ArcThickness="1" ArcThicknessUnit="Percent" Grid.Column="3" EndAngle="-90" Fill="{DynamicResource secondColor}" HorizontalAlignment="Left" Height="44.333" Margin="54.333,20.554,0,0" Grid.Row="2" Stretch="None" StrokeThickness="0" StartAngle="-90" VerticalAlignment="Top" Width="44.333"/>
 			</Grid>
-			<Rectangle Grid.Column="1" HorizontalAlignment="Left" Height="331.5" Margin="50,0,0,0" VerticalAlignment="Top" Width="3.5" Fill="{DynamicResource White}" Opacity="0.405"/>
+			<Rectangle Grid.Column="1" HorizontalAlignment="Left" Height="386.616" Margin="50,0,0,0" VerticalAlignment="Top" Width="2.833" Fill="{DynamicResource White}" Opacity="0.405"/>
+			<Canvas HorizontalAlignment="Left" Height="36.051" Grid.Row="1" VerticalAlignment="Top" Width="200" Panel.ZIndex="1" Grid.ColumnSpan="10" Margin="452,0,0,0">
+				<Rectangle  Stroke="{StaticResource Black}"  StrokeThickness="1" x:Name="OnRect" Fill="{StaticResource White}" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="20" Canvas.Left="43"/>
+				<Rectangle  Stroke="{StaticResource Black}"  StrokeThickness="1" x:Name="OffRect" Fill="{StaticResource White}" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="20" Canvas.Left="133" Visibility="Hidden"/>
+				<Button Background="{StaticResource Black}" IsCancel="True" x:Name="OnOffButton"  Width="110" Click="Button_Click" Height="30" HorizontalAlignment="Center" VerticalAlignment="Bottom" Canvas.Left="43" Panel.ZIndex="-1"/>
+				<Label x:Name="LabelOnOffButton" Foreground="{StaticResource White}" Content="Off" Width="29.5" Height="36.051"/>
+			</Canvas>
 		</Grid>
 	</Grid>
 </Page>

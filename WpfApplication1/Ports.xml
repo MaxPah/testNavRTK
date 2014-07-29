@@ -8,17 +8,25 @@
     <Parity>None</Parity>
     <Handshake>None</Handshake>
   </ObjectPort>
-  <ObjectPort id="2">
+  <ObjectPort id="4">
     <Name>COM1</Name>
     <Baudrate>4800</Baudrate>
     <Databits>8</Databits>
     <Stopbit>One</Stopbit>
-    <Parity>Even</Parity>
+    <Parity>None</Parity>
     <Handshake>None</Handshake>
   </ObjectPort>
-  <ObjectPort id="7">
+  <ObjectPort id="5">
     <Name>COM1</Name>
     <Baudrate>9600</Baudrate>
+    <Databits>8</Databits>
+    <Stopbit>One</Stopbit>
+    <Parity>None</Parity>
+    <Handshake>None</Handshake>
+  </ObjectPort>
+  <ObjectPort id="6">
+    <Name>COM1</Name>
+    <Baudrate>115200</Baudrate>
     <Databits>8</Databits>
     <Stopbit>One</Stopbit>
     <Parity>None</Parity>

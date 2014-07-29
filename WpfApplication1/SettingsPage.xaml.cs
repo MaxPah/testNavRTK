@@ -54,8 +54,6 @@ namespace WpfApplication1
 
         public void XMLtoSerialPort()
         {
-            
-
             if (File.Exists(link))
             {
                 objports = ObjectsPorts.Charger(link);
@@ -65,13 +63,8 @@ namespace WpfApplication1
             }
 
             listBox1.ItemsSource = objports;
-            /*
-            foreach (ObjectPort o in objports)
-            {
-             //   listBox1.Items.Add(o.ToStringComplete());
-            }
-            */
-            objports.Enregistrer(link);
+
+           // objports.Enregistrer(link);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -170,8 +163,8 @@ namespace WpfApplication1
                 };
                      
            objports.Add(obj);
-
            objports.Enregistrer(link);
+           XMLtoSerialPort();
 
         }
 
@@ -202,27 +195,27 @@ namespace WpfApplication1
 
         private void listboxDeleteItem(object sender, MouseButtonEventArgs e)
         {
-           // string[] infos;
-            int id=0;
-            var objdelete = (ObjectPort)listBox1.SelectedItem;
-            id = objdelete.Id;
-
-           Console.WriteLine(id);
-
+          if (listBox1.SelectedItem != null)
             try
             {
+                int id = 0;
+
+               var objdelete = (ObjectPort)listBox1.SelectedItem;
+                
+                    id = objdelete.Id;
+
                 XmlDocument doc = new XmlDocument();
                 doc.Load(link);
                 XmlNode node = doc.SelectSingleNode("//ObjectPort[@id=" + id + "]");
                 node.ParentNode.RemoveChild(node);
 
                 doc.Save("../../Ports.xml");
-
+                XMLtoSerialPort();
 
             }
             catch
             {
             }
         }
-       }
+    }
 }

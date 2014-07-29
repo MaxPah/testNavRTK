@@ -25,7 +25,10 @@ namespace WpfApplication1
     {
 
          #region variables
-     
+
+        // Number Of Objects
+        Queue<Object> list = new Queue<Object>();
+               
         //Serial 
         string recieved_data;
             SerialPort sp;
@@ -56,17 +59,26 @@ namespace WpfApplication1
 
         private void Recieve(object sender, SerialDataReceivedEventArgs e)
         {
+            try
+            {
                 recieved_data = sp.ReadLine();
                 string msg;
-                List<Object> list = new List<Object>();
+                 //List<Object> list = new List<Object>();
                 msg = GPSParsor.splitMessage(recieved_data, list);
 
-            if(list[list.Count-1] != null)
-               if (list[list.Count-1].GetType() == typeof(MessageGPGGA))
-                    Dispatcher.Invoke(DispatcherPriority.Send, new UpdateUiTextDelegate1(WriteDataGGA), list[list.Count-1]);
-               else if (list[list.Count - 1].GetType() == typeof(MessageGPRMC))
-                   Dispatcher.Invoke(DispatcherPriority.Send, new UpdateUiTextDelegate2(WriteDataRMC), list[list.Count - 1]);
-           
+                Console.WriteLine(list.Count());
+
+                if ((list.Count-1) != null)
+                    if (list.Peek().GetType() == typeof(MessageGPGGA))
+                        Dispatcher.Invoke(DispatcherPriority.Send, new UpdateUiTextDelegate1(WriteDataGGA), list.Peek());
+                    else if (list.Peek().GetType() == typeof(MessageGPRMC))
+                        Dispatcher.Invoke(DispatcherPriority.Send, new UpdateUiTextDelegate2(WriteDataRMC), list.Peek());
+            }
+            catch
+            {
+                
+            }
+             
           
         }
 
@@ -107,7 +119,10 @@ namespace WpfApplication1
             GridRMCDGPSUTC.Text = objRMC.date.ToString();
             GridRMCMagn.Text = objRMC.magnetic.ToString();
             GridRMCModePos.Text = objRMC.integrity.ToString();
-            //GridRMCArcSpeed.
+
+            if (objRMC.speed != 0)
+                GridRMCArcSpeed.EndAngle = (100 + objRMC.speed * 100) - 90;
+            else GridRMCArcSpeed.EndAngle = -90;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

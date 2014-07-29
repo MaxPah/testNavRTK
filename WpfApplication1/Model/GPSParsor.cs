@@ -50,40 +50,54 @@ namespace WpfApplication1.Model
         /// </summary>
         /// <param name="t">String to parse</param>
         /// <returns>Return array parsed</returns>
-       public static string splitMessage(string t, List<Object> list) {
+       public static string splitMessage(string t, Queue<Object> list) {
             string[] split;
             string messageReturn="\tInitialisation"; 
 
            if (t != null)
-           { 
-            t = t.Substring(1, t.Length-1);
-            split= t.Split('$');
-            string[][] split2 = new string[split.Length][];
+           {
 
-           for(int i=0; i < split.Length;i++)
-            {
-                split[i] = split[i].Substring(0, split[i].Length);
-                if (checksumCalculator(split[i]))
-                {
-                    split2[i] = split[i].Split(',');
+               try
+               {
+                    t = t.Substring(1, t.Length-1);
+                    split= t.Split('$');
+                    string[][] split2 = new string[split.Length][];
 
-                    if (split2[i][0] != "" )
+                   for(int i=0; i < split.Length;i++)
                     {
-                        if (split2[i][0] == "GPGGA")
+                        split[i] = split[i].Substring(0, split[i].Length);
+                        if (checksumCalculator(split[i]))
                         {
-                            MessageGPGGA objGPGGA = new MessageGPGGA(split2[i]);
-                            list.Add(objGPGGA);
-                           messageReturn = MessageGPGGA.printGPGGA(objGPGGA);
-                        }
-                        else if (split2[i][0] == "GPRMC")
-                        {
-                            MessageGPRMC objGPRMC = new MessageGPRMC(split2[i]);
-                            list.Add(objGPRMC);
-                            messageReturn = MessageGPRMC.printGPRMC(objGPRMC);
+                            split2[i] = split[i].Split(',');
+
+                            if (split2[i][0] != "" )
+                            {
+                                if (list.Count > 25)
+                                    list.Clear();
+
+                                if (split2[i][0] == "GPGGA")
+                                {
+                                   
+                                    MessageGPGGA objGPGGA = new MessageGPGGA(split2[i]);
+                                    list.Enqueue(objGPGGA);
+                                   messageReturn = MessageGPGGA.printGPGGA(objGPGGA);
+                                }
+                                else if (split2[i][0] == "GPRMC")
+                                {
+                                   
+                                    MessageGPRMC objGPRMC = new MessageGPRMC(split2[i]);
+                                    list.Enqueue(objGPRMC);
+                                    messageReturn = MessageGPRMC.printGPRMC(objGPRMC);
+                                }
+                            }
                         }
                     }
                 }
-            }
+
+               catch
+               {
+                   
+               }
            }
 
            return messageReturn;
