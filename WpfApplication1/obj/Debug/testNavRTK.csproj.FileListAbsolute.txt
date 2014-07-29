@@ -34,3 +34,13 @@ C:\Users\Maxou\Documents\Visual Studio 2013\Projects\testNavRTK\WpfApplication1\
 C:\Users\Maxou\Documents\Visual Studio 2013\Projects\testNavRTK\WpfApplication1\obj\Debug\WpfApplication1.g.resources
 C:\Users\Maxou\Documents\Visual Studio 2013\Projects\testNavRTK\WpfApplication1\obj\Debug\WpfApplication1.Properties.Resources.resources
 C:\Users\Maxou\Documents\Visual Studio 2013\Projects\testNavRTK\WpfApplication1\obj\Debug\testNavRTK.csproj.GenerateResource.Cache
+C:\Users\RNAV_user\Documents\Visual Studio 2013\Projects\WpfApplication1\WpfApplication1\bin\Debug\Microsoft.Expression.Drawing.dll
+C:\Users\RNAV_user\Documents\Visual Studio 2013\Projects\WpfApplication1\WpfApplication1\bin\Debug\de\Microsoft.Expression.Drawing.resources.dll
+C:\Users\RNAV_user\Documents\Visual Studio 2013\Projects\WpfApplication1\WpfApplication1\bin\Debug\es\Microsoft.Expression.Drawing.resources.dll
+C:\Users\RNAV_user\Documents\Visual Studio 2013\Projects\WpfApplication1\WpfApplication1\bin\Debug\fr\Microsoft.Expression.Drawing.resources.dll
+C:\Users\RNAV_user\Documents\Visual Studio 2013\Projects\WpfApplication1\WpfApplication1\bin\Debug\it\Microsoft.Expression.Drawing.resources.dll
+C:\Users\RNAV_user\Documents\Visual Studio 2013\Projects\WpfApplication1\WpfApplication1\bin\Debug\ja\Microsoft.Expression.Drawing.resources.dll
+C:\Users\RNAV_user\Documents\Visual Studio 2013\Projects\WpfApplication1\WpfApplication1\bin\Debug\ko\Microsoft.Expression.Drawing.resources.dll
+C:\Users\RNAV_user\Documents\Visual Studio 2013\Projects\WpfApplication1\WpfApplication1\bin\Debug\ru\Microsoft.Expression.Drawing.resources.dll
+C:\Users\RNAV_user\Documents\Visual Studio 2013\Projects\WpfApplication1\WpfApplication1\bin\Debug\zh-Hans\Microsoft.Expression.Drawing.resources.dll
+C:\Users\RNAV_user\Documents\Visual Studio 2013\Projects\WpfApplication1\WpfApplication1\bin\Debug\zh-Hant\Microsoft.Expression.Drawing.resources.dll

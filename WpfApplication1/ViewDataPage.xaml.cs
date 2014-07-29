@@ -15,7 +15,6 @@ using System.Windows.Shapes;
 using System.IO.Ports;
 using System.Windows.Threading;
 using WpfApplication1.Model;
-//using System.Windows.Threading; 
 
 namespace WpfApplication1
 {
@@ -26,14 +25,7 @@ namespace WpfApplication1
     {
 
          #region variables
-
-        //Richtextbox
-        FlowDocument mcFlowDocGGA = new FlowDocument();
-        FlowDocument mcFlowDocRMC = new FlowDocument();
-        Paragraph paraGGA = new Paragraph();
-        Paragraph paraRMC = new Paragraph();
-
-      
+     
         //Serial 
         string recieved_data;
             SerialPort sp;
@@ -77,42 +69,45 @@ namespace WpfApplication1
            
           
         }
-        //private void WriteData(string text)
-        //{
-        //    // Assign the value of the recieved_data to the RichTextBox.
-        //    para.Inlines.Add(text);
-        //    mcFlowDoc.Blocks.Add(para);
-        //    scrollData.Document = mcFlowDoc;
-        //    scrollData.ScrollToEnd();
-        //}
 
         private void WriteDataGGA(MessageGPGGA objGGA)
         {
             GridGGA.DataContext = objGGA;
-            GridGGAType.Text = objGGA.type;
+
             GridGGATime.Text = objGGA.timeUTC.ToString();
-            GridGGALat.Text = objGGA.latitude.ToString();
-            GridGGALon.Text = objGGA.longitude.ToString();
+            GridGGALat.Text = objGGA.latitude.ToString("F6");
+            GridGGALon.Text = objGGA.longitude.ToString("F6");
             GridGGAQual.Text = objGGA.gpsQuality.ToString();
             GridGGANSat.Text = objGGA.nSat.ToString();
-            GridGGADil.Text = objGGA.dilution.ToString();
-            GridGGAAlt.Text = objGGA.altitude + objGGA.altUnit.ToString();
-            GridGGAGeo.Text =  objGGA.geoidal + objGGA.geoUnit.ToString();
+            if (objGGA.nSat < 0)
+                GridGGAnSatFather.Background = Brushes.Transparent;
+            else if (objGGA.nSat >= 0 && objGGA.nSat < 3)
+                GridGGAnSatFather.Background = Brushes.Red;
+            else if (objGGA.nSat >= 3 && objGGA.nSat < 5)
+                GridGGAnSatFather.Background = Brushes.Orange;
+            else if (objGGA.nSat >= 5 && objGGA.nSat <= 14)
+                GridGGAnSatFather.Background = Brushes.Green;
+            else GridGGAnSatFather.Background = Brushes.Transparent;
+            GridGGADil.Text = objGGA.dilution.ToString("F2");
+            GridGGAAlt.Text = objGGA.altitude.ToString("F2") + objGGA.altUnit.ToString();
+            GridGGAGeo.Text = objGGA.geoidal.ToString("F2") + objGGA.geoUnit.ToString();
             GridGGADGPSUTC.Text = objGGA.dGPSTime.ToString();
         }
+
         private void WriteDataRMC(MessageGPRMC objRMC)
         {
             GridRMC.DataContext = objRMC;
-            GridGGAType_Copy.Text = objRMC.type;
-            GridGGATime_Copy.Text = objRMC.timeUTC.ToString();
-            GridGGALat_Copy.Text = objRMC.latitude.ToString();
-            GridGGALon_Copy.Text = objRMC.longitude.ToString();
-            GridGGAQual_Copy.Text = objRMC.status.ToString();
-            GridGGANSat_Copy.Text = objRMC.speed.ToString();
-            GridGGADil_Copy.Text = objRMC.cap.ToString();
-            GridGGAAlt_Copy.Text = objRMC.date.ToString();
-            GridGGAGeo_Copy.Text = objRMC.magnetic;
-            GridGGADGPSUTC_Copy.Text = objRMC.integrity.ToString();
+
+            GridRMCTime.Text = objRMC.timeUTC.ToString();
+            GridRMCLat.Text = objRMC.latitude.ToString("F6");
+            GridRMCLon.Text = objRMC.longitude.ToString("F6");
+            GridRMCVal.Text = objRMC.status.ToString();
+            GridRMCSpeed.Text = objRMC.speed.ToString("F2");
+            GridRMCCap.Text = objRMC.cap.ToString();
+            GridRMCDGPSUTC.Text = objRMC.date.ToString();
+            GridRMCMagn.Text = objRMC.magnetic.ToString();
+            GridRMCModePos.Text = objRMC.integrity.ToString();
+            //GridRMCArcSpeed.
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
