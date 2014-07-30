@@ -62,17 +62,16 @@ namespace WpfApplication1
             try
             {
                 recieved_data = sp.ReadLine();
-                string msg;
+
                  //List<Object> list = new List<Object>();
-                msg = GPSParsor.splitMessage(recieved_data, list);
+                GPSParsor.splitMessage(recieved_data, list);
 
                 Console.WriteLine(list.Count());
 
-                if ((list.Count-1) != null)
-                    if (list.Peek().GetType() == typeof(MessageGPGGA))
-                        Dispatcher.Invoke(DispatcherPriority.Send, new UpdateUiTextDelegate1(WriteDataGGA), list.Peek());
-                    else if (list.Peek().GetType() == typeof(MessageGPRMC))
-                        Dispatcher.Invoke(DispatcherPriority.Send, new UpdateUiTextDelegate2(WriteDataRMC), list.Peek());
+                if (list.Last().GetType() == typeof(MessageGPGGA))
+                    Dispatcher.Invoke(DispatcherPriority.Send, new UpdateUiTextDelegate1(WriteDataGGA), list.Last());
+                if (list.Last().GetType() == typeof(MessageGPRMC))
+                    Dispatcher.Invoke(DispatcherPriority.Send, new UpdateUiTextDelegate2(WriteDataRMC), list.Last());
             }
             catch
             {
@@ -91,32 +90,29 @@ namespace WpfApplication1
             GridGGALon.Text = objGGA.longitude.ToString("F6");
             GridGGAQual.Text = objGGA.gpsQuality.ToString();
             GridGGANSat.Text = objGGA.nSat.ToString();
-            if (objGGA.nSat < 0)
-                GridGGAnSatFather.Background = Brushes.Transparent;
-            else if (objGGA.nSat >= 0 && objGGA.nSat < 3)
-                GridGGAnSatFather.Background = Brushes.Red;
+            
+            if (objGGA.nSat >= 0 && objGGA.nSat < 3)
+                GridGGAnSatFather.BorderBrush = Brushes.Red;
             else if (objGGA.nSat >= 3 && objGGA.nSat < 5)
-                GridGGAnSatFather.Background = Brushes.Orange;
+                GridGGAnSatFather.BorderBrush = Brushes.Orange;
             else if (objGGA.nSat >= 5 && objGGA.nSat <= 14)
-                GridGGAnSatFather.Background = Brushes.Green;
-            else GridGGAnSatFather.Background = Brushes.Transparent;
+                GridGGAnSatFather.BorderBrush = Brushes.Green;
+            else GridGGAnSatFather.BorderBrush = Brushes.Transparent;
+
             GridGGADil.Text = objGGA.dilution.ToString("F2");
             GridGGAAlt.Text = objGGA.altitude.ToString("F2") + objGGA.altUnit.ToString();
             GridGGAGeo.Text = objGGA.geoidal.ToString("F2") + objGGA.geoUnit.ToString();
-            GridGGADGPSUTC.Text = objGGA.dGPSTime.ToString();
+            GridGGADGPSUTC.Text = objGGA.dGPSTime.ToString("d MMM yyyy");
         }
 
         private void WriteDataRMC(MessageGPRMC objRMC)
         {
             GridRMC.DataContext = objRMC;
 
-            GridRMCTime.Text = objRMC.timeUTC.ToString();
-            GridRMCLat.Text = objRMC.latitude.ToString("F6");
-            GridRMCLon.Text = objRMC.longitude.ToString("F6");
             GridRMCVal.Text = objRMC.status.ToString();
             GridRMCSpeed.Text = objRMC.speed.ToString("F2");
             GridRMCCap.Text = objRMC.cap.ToString();
-            GridRMCDGPSUTC.Text = objRMC.date.ToString();
+            GridRMCDGPSUTC.Text = objRMC.date.ToString("d MMM yyyy");
             GridRMCMagn.Text = objRMC.magnetic.ToString();
             GridRMCModePos.Text = objRMC.integrity.ToString();
 

@@ -55,7 +55,7 @@ namespace WpfApplication1.Model
             obj.type = "GPRMC";
 
             //TIME UTC
-            if (var[1] != "")
+            if (var[1] != String.Empty)
             {
                 int h = int.Parse(var[1].Substring(0, 2));
                 int m = int.Parse(var[1].Substring(2, 2));
@@ -74,40 +74,41 @@ namespace WpfApplication1.Model
             else obj.status = char.Parse(var[2]);
 
             //LATITUDE
-            if (var[3] != "")
+            if (var[3] != String.Empty)
                 obj.latitude = toLatitude(var[3], char.Parse(var[4]));
             else obj.latitude = 0;
 
             //LONGITUDE
-            if (var[5] != "")
+            if (var[5] != String.Empty)
                 obj.longitude = toLongitude(var[5], char.Parse(var[6]));
             else obj.longitude = 0;
 
             //SPEEED
-            if (var[7] != "")
+            if (var[7] != String.Empty)
                 obj.speed = Convert.ToDouble(var[7].Replace(".", separator));// * 1.852;   * 1.852 if you want km/h otherwise it's knot
             else obj.speed = 0;
 
             //CAP
-            if (var[8] != "")
+            if (var[8] != String.Empty)
                 obj.cap = var[8];
             else obj.cap = " ";
 
             //DATE
-            if (var[9] != "")
-                obj.date = new DateTime(int.Parse(var[9].Substring(4, 2)) + 2000, int.Parse(var[9].Substring(2, 2)), int.Parse(var[9].Substring(0, 2)));
-            else obj.date = new DateTime(1, 1, 1);
+           if (var[9].Equals(string.Empty))
+                obj.date = new DateTime(1,1,1);
+           else   obj.date = new DateTime(int.Parse(var[9].Substring(4, 2)) + 2000, int.Parse(var[9].Substring(2, 2)), int.Parse(var[9].Substring(0, 2)));
+
 
             //MAGNETIC
             if (var[11] == "")
                 a = '0';
             else a = char.Parse(var[11].Substring(0, 1));
-            if (var[10] != "")
+            if (var[10] != String.Empty)
                 obj.magnetic = var[10] + a;
             else obj.magnetic = "" + a;
 
             //INTEGRITY
-            if (var[12] != "" && var[12].Length > 5)
+            if (var[12] != String.Empty && var[12].Length > 5)
                 obj.integrity = var[12].Substring(0, 1);
             else obj.integrity = "N";
 

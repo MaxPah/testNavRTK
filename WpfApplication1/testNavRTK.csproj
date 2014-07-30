@@ -120,9 +120,6 @@
     <SplashScreen Include="Pictures\NavRTK.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Pictures\plus.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="ViewModel\" />
     <Folder Include="View\" />
   </ItemGroup>

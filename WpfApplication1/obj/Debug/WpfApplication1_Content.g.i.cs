@@ -8,6 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("ports.xml")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("pictures/add.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("pictures/close.png")]
 
 

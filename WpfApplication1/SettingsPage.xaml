@@ -20,49 +20,52 @@
             </Setter>
         </Style>
 
-		<DataTemplate x:Key="DataTemplateListPort">
-			<Grid Height="120">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="35"/>
-					<ColumnDefinition Width="107*"/>
-					<ColumnDefinition Width="2*"/>
-				</Grid.ColumnDefinitions>
-				<Grid.RowDefinitions>
-					<RowDefinition Height="15*"/>
-					<RowDefinition Height="15*"/>
-					<RowDefinition Height="15*"/>
-					<RowDefinition Height="0*"/>
-				</Grid.RowDefinitions>
-				<Rectangle Fill="#FF0080FF" HorizontalAlignment="Left" Height="Auto" Stroke="Black" VerticalAlignment="Stretch" Width="5.25" StrokeThickness="0" Margin="0,10" Grid.RowSpan="3" RadiusX="0" RadiusY="0"/>
-				<StackPanel Grid.ColumnSpan="1" Grid.Column="1" HorizontalAlignment="Stretch" Height="Auto" Grid.RowSpan="1" VerticalAlignment="Stretch" Width="Auto" Orientation="Horizontal">
-					<Label x:Name="LabelName" Content="Name : " Margin="0" Width="Auto" Foreground="{StaticResource White}"/>
-					<TextBlock x:Name="Name" Foreground="{StaticResource White}" Background="{StaticResource Transparent}"  Text="{Binding Name}" Height="Auto" TextAlignment="Center" Grid.Column="0" Grid.RowSpan="3" Grid.Row="0" Margin="0,5,0,0"/>
-				</StackPanel>
-				<StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" Height="Auto" VerticalAlignment="Stretch" Grid.ColumnSpan="1">
-					<Label x:Name="LabelBauds" Content="Bauds :" Margin="0" Width="Auto" Foreground="{StaticResource White}"/>
-					<TextBlock x:Name="Bauds"  Foreground="{StaticResource White}" Background="{StaticResource Transparent}" Text="{Binding Baudrate}"  Height="Auto" Width="Auto" TextAlignment="Center" Grid.Column="0" Grid.RowSpan="3" Grid.Row="0" Grid.ColumnSpan="1" Margin="0.923,5,5.231,3.634"/>
-					<Label x:Name="LabelDatabits" Content=",Databits : " Margin="0" Width="Auto" Foreground="{StaticResource White}"/>
-					<TextBlock x:Name="Databits" Foreground="{StaticResource White}" Background="{StaticResource Transparent}"  Text="{Binding Databits}" Height="Auto" TextAlignment="Center" Grid.Column="0" Grid.RowSpan="3" Grid.Row="0" Margin="2.769,5,2.462,3.634"/>
-				</StackPanel>
-				<StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" Height="Auto" Grid.ColumnSpan="1">
-					<Label x:Name="LabelStopbit" Content="Stopbits : " Margin="0" Width="Auto" Foreground="{StaticResource White}"/>
-					<TextBlock x:Name="Stopbit"  Foreground="{StaticResource White}" Background="{StaticResource Transparent}" Text="{Binding Stopbit}"  Height="Auto" Width="Auto" TextAlignment="Center" Grid.Column="0" Grid.Row="0" Margin="5.538,5,0.614,3.634" Grid.RowSpan="3"/>
-					<Label x:Name="LabelParity" Content=",Parity : " Margin="0" Width="Auto" Foreground="{StaticResource White}"/>
-					<TextBlock x:Name="Parity"  Foreground="{StaticResource White}" Background="{StaticResource Transparent}" Text="{Binding Parity}"  Height="Auto" Width="Auto" TextAlignment="Center" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="1" Margin="7.385,5,0.615,3.634" Grid.RowSpan="3"/>
-					<Label x:Name="LabelHandshake" Content=",Handshake :" Margin="0" Width="Auto" Foreground="{StaticResource White}"/>
-					<TextBlock x:Name="Handshake"  Foreground="{StaticResource White}" Background="{StaticResource Transparent}" Text="{Binding Handshake}"  Height="Auto" Width="Auto" TextAlignment="Center" Grid.Column="1" Grid.Row="0" Margin="2.154,5,9.846,3.634" Grid.RowSpan="3"/>
-				</StackPanel>
-				<Button MouseDoubleClick="listboxDeleteItem" x:Name="Delete" Grid.ColumnSpan="1" Grid.Column="2"  HorizontalAlignment="Left" Height="40" Margin="10,0,0,0" Grid.RowSpan="1" VerticalAlignment="Top" Width="34.945" BorderBrush="Red" BorderThickness="3" Background="{DynamicResource Transparent}" Grid.Row="1" Content="X" Foreground="Red" />
-				</Grid>
+        <DataTemplate x:Key="DataTemplateListPort">
+            <Grid Height="120" Width="Auto">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="35"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="15*"/>
+                    <RowDefinition Height="15*"/>
+                    <RowDefinition Height="15*"/>
+                    <RowDefinition Height="0*"/>
+                </Grid.RowDefinitions>
+                <Rectangle Fill="#FF0080FF" HorizontalAlignment="Left" Height="Auto" Stroke="Black" VerticalAlignment="Stretch" Width="5.25" StrokeThickness="0" Margin="0,10" Grid.RowSpan="3" RadiusX="0" RadiusY="0"/>
+                <StackPanel Grid.ColumnSpan="1" Grid.Column="1" HorizontalAlignment="Stretch" Height="Auto" Grid.RowSpan="1" VerticalAlignment="Stretch" Width="Auto" Orientation="Horizontal">
+                    <Label x:Name="LabelName" Content="Name : " Margin="0" Width="Auto" Foreground="{StaticResource White}"/>
+                    <TextBlock x:Name="Name" Foreground="{StaticResource White}" Background="{StaticResource Transparent}"  Text="{Binding Name}" Height="Auto" TextAlignment="Center" Grid.Column="0" Grid.RowSpan="3" Grid.Row="0" Margin="0,5,0,0"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" Height="Auto" VerticalAlignment="Stretch">
+                    <Label x:Name="LabelBauds" Content="Bauds :" Margin="0" Width="Auto" Foreground="{StaticResource White}"/>
+                    <TextBlock x:Name="Bauds"  Foreground="{StaticResource White}" Background="{StaticResource Transparent}" Text="{Binding Baudrate}"  Height="Auto" Width="Auto" TextAlignment="Center" Grid.Column="0" Grid.RowSpan="3" Grid.Row="0" Grid.ColumnSpan="1" Margin="0.923,5,5.231,3.634"/>
+                    <Label x:Name="LabelDatabits" Content=",Databits : " Margin="0" Width="Auto" Foreground="{StaticResource White}"/>
+                    <TextBlock x:Name="Databits" Foreground="{StaticResource White}" Background="{StaticResource Transparent}"  Text="{Binding Databits}" Height="Auto" TextAlignment="Center" Grid.Column="0" Grid.RowSpan="3" Grid.Row="0" Margin="2.769,5,2.462,3.634"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" Height="Auto" Grid.ColumnSpan="2">
+                    <Label x:Name="LabelStopbit" Content="Stopbits : " Margin="0" Width="Auto" Foreground="{StaticResource White}"/>
+                    <TextBlock x:Name="Stopbit"  Foreground="{StaticResource White}" Background="{StaticResource Transparent}" Text="{Binding Stopbit}"  Height="Auto" Width="Auto" TextAlignment="Center" Grid.Column="0" Grid.Row="0" Margin="5.538,5,0.614,3.634" Grid.RowSpan="3"/>
+                    <Label x:Name="LabelParity" Content=",Parity : " Margin="0" Width="Auto" Foreground="{StaticResource White}"/>
+                    <TextBlock x:Name="Parity"  Foreground="{StaticResource White}" Background="{StaticResource Transparent}" Text="{Binding Parity}"  Height="Auto" Width="Auto" TextAlignment="Center" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="1" Margin="7.385,5,0.615,3.634" Grid.RowSpan="3"/>
+                    <Label x:Name="LabelHandshake" Content=",Handshake :" Margin="0" Width="Auto" Foreground="{StaticResource White}"/>
+                    <TextBlock x:Name="Handshake"  Foreground="{StaticResource White}" Background="{StaticResource Transparent}" Text="{Binding Handshake}"  Height="Auto" TextAlignment="Center" Grid.Column="1" Grid.Row="0" Margin="2.154,5,9.846,3.634" Grid.RowSpan="3" RenderTransformOrigin="0.5,0.5"/>
+                </StackPanel>
+				<Viewbox Grid.Column="3" Grid.Row="1" MouseUp="listboxDeleteItem" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Stretch="Uniform" RenderTransformOrigin="0.523,0.45" Width="32.5" Height="Auto" HorizontalAlignment="Right">
+                		<Path Fill="{StaticResource White}" Data="M18 28c0.552 0 1-0.448 1-1V15c0-0.552-0.448-1-1-1c-0.552 0-1 0.448-1 1    v12C17 27.552 17.448 28 18 28z M24 4h-6V2c0-1.105-0.895-2-2-2h-6C8.895 0 8 0.895 8 2v2H2C0.895 4 0 4.895 0 6v2    c0 1.104 0.895 2 2 2v18c0 2.209 1.791 4 4 4h14c2.209 0 4-1.791 4-4V10c1.105 0 2-0.896 2-2V6C26 4.895 25.105 4 24 4z M10 3    c0-0.552 0.448-1 1-1h4c0.552 0 1 0.448 1 1v1c-0.969 0-6 0-6 0V3z M22 28c0 1.104-0.895 2-2 2H6c-1.105 0-2-0.896-2-2V10h18V28z     M23 8H3C2.448 8 2 7.552 2 7c0-0.552 0.448-1 1-1h20c0.552 0 1 0.448 1 1C24 7.552 23.552 8 23 8z M8 28c0.552 0 1-0.448 1-1V15    c0-0.552-0.448-1-1-1c-0.552 0-1 0.448-1 1v12C7 27.552 7.448 28 8 28z M13 28c0.552 0 1-0.448 1-1V15c0-0.552-0.448-1-1-1    c-0.552 0-1 0.448-1 1v12C12 27.552 12.448 28 13 28z" HorizontalAlignment="Left"/>
+                </Viewbox>
+            </Grid>
         </DataTemplate>
         <Style x:Key="FocusVisual">
-        	<Setter Property="Control.Template">
-        		<Setter.Value>
-        			<ControlTemplate>
-        				<Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
-        			</ControlTemplate>
-        		</Setter.Value>
-        	</Setter>
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
         <SolidColorBrush x:Key="Item.MouseOver.Background" Color="#1F26A0DA"/>
         <SolidColorBrush x:Key="Item.MouseOver.Border" Color="#a826A0Da"/>
@@ -71,126 +74,132 @@
         <SolidColorBrush x:Key="Item.SelectedActive.Background" Color="#3D26A0DA"/>
         <SolidColorBrush x:Key="Item.SelectedActive.Border" Color="#FF26A0DA"/>
         <Style x:Key="ListBoxItemStyleListePort" TargetType="{x:Type ListBoxItem}">
-        	<Setter Property="SnapsToDevicePixels" Value="True"/>
-        	<Setter Property="Padding" Value="4,1"/>
-        	<Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
-        	<Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
-        	<Setter Property="Background" Value="Transparent"/>
-        	<Setter Property="BorderBrush" Value="Transparent"/>
-        	<Setter Property="BorderThickness" Value="1"/>
-        	<Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
-        	<Setter Property="Template">
-        		<Setter.Value>
-        			<ControlTemplate TargetType="{x:Type ListBoxItem}">
-        				<Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
-        					<ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Focusable="True"/>
-        				</Border>
-        				<ControlTemplate.Triggers>
-        					<MultiTrigger>
-        						<MultiTrigger.Conditions>
-        							<Condition Property="IsMouseOver" Value="True"/>
-        						</MultiTrigger.Conditions>
-        						<Setter Property="Background" TargetName="Bd" Value="{StaticResource Item.MouseOver.Background}"/>
-        						<Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Item.MouseOver.Border}"/>
-        					</MultiTrigger>
-        					<MultiTrigger>
-        						<MultiTrigger.Conditions>
-        							<Condition Property="Selector.IsSelectionActive" Value="False"/>
-        							<Condition Property="IsSelected" Value="True"/>
-        						</MultiTrigger.Conditions>
-        						<Setter Property="Background" TargetName="Bd" Value="{StaticResource Item.SelectedInactive.Background}"/>
-        						<Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Item.SelectedInactive.Border}"/>
-        					</MultiTrigger>
-        					<MultiTrigger>
-        						<MultiTrigger.Conditions>
-        							<Condition Property="Selector.IsSelectionActive" Value="True"/>
-        							<Condition Property="IsSelected" Value="True"/>
-        						</MultiTrigger.Conditions>
-        						<Setter Property="Background" TargetName="Bd" Value="{StaticResource Item.SelectedActive.Background}"/>
-        						<Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Item.SelectedActive.Border}"/>
-        					</MultiTrigger>
-        					<Trigger Property="IsEnabled" Value="False">
-        						<Setter Property="TextElement.Foreground" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
-        					</Trigger>
-        				</ControlTemplate.Triggers>
-        			</ControlTemplate>
-        		</Setter.Value>
-        	</Setter>
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="Padding" Value="4,1"/>
+            <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+            <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                        <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Focusable="True"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Background" TargetName="Bd" Value="{StaticResource Item.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Item.MouseOver.Border}"/>
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="Selector.IsSelectionActive" Value="False"/>
+                                    <Condition Property="IsSelected" Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Background" TargetName="Bd" Value="{StaticResource Item.SelectedInactive.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Item.SelectedInactive.Border}"/>
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="Selector.IsSelectionActive" Value="True"/>
+                                    <Condition Property="IsSelected" Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Background" TargetName="Bd" Value="{StaticResource Item.SelectedActive.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Item.SelectedActive.Border}"/>
+                            </MultiTrigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="TextElement.Foreground" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
         <ItemsPanelTemplate x:Key="ItemsPanelTemplateListePort">
-        	<VirtualizingStackPanel IsItemsHost="True" IsEnabled="True"/>
+            <VirtualizingStackPanel IsItemsHost="True" IsEnabled="True"/>
         </ItemsPanelTemplate>
     </Page.Resources>
 
-	<Grid Background="{StaticResource primaryColor}">
-		<Grid.RowDefinitions>
-			<RowDefinition Height="80"/>
-			<RowDefinition Height="*"/>
-		</Grid.RowDefinitions>
-		<StackPanel Grid.Row="0" Orientation="Horizontal">
-			<Label Margin="20,0,0,0" Content="GPS Settings" Foreground="{StaticResource White}" Width="Auto" FontSize="40"  />
-			<Label Margin="20,0,0,0" Content="GPS View" Foreground="{StaticResource menuBisColor}" Width="Auto" FontSize="40" MouseUp="goToViewData"/>
-		</StackPanel>
-		<Image HorizontalAlignment="Right" Margin="0,0,20,0" Source="C:/Users/RNAV_user/Documents/MaximeStagiaire/NavRTK.png"/>
-		<Label HorizontalAlignment="Right" Margin="0,0,120,0" Content="NavRTK" Foreground="{StaticResource secondColor}" Width="Auto" FontSize="50"/>
-		<RichTextBox FontSize="15" Foreground="{StaticResource White}" x:Name="viewDatas" Margin="0,145,50,50" Grid.Row="1" Background="{StaticResource Transparent}" HorizontalAlignment="Right" Width="625"/>
-		<ListBox HorizontalContentAlignment="Stretch" Background="{StaticResource Transparent}" ItemsSource="{Binding objports}" SelectedItem="{Binding SelectedPort}" BorderThickness="0" FontSize="20" Foreground="{StaticResource White}" x:Name="listBox1" Margin="50,75,700,150" Grid.Row="1" ItemTemplate="{DynamicResource DataTemplateListPort}" ItemContainerStyle="{DynamicResource ListBoxItemStyleListePort}" ItemsPanel="{DynamicResource ItemsPanelTemplateListePort}" VerticalContentAlignment="Stretch"/>
-		<Button BorderThickness="0" Width="64" Height="64" Margin="0,30,50,0" Grid.Row="1" VerticalAlignment="Top" Click="goToPopUp" HorizontalAlignment="Right">
-			<Button.Background>
-				<ImageBrush ImageSource="/Pictures/plus.png" />
-			</Button.Background>
-		</Button>
-		<Popup x:Name="PortSettings" Placement="Center" Margin="0,100,0,0" IsOpen="False" Width="300" Height="500">
-			<Grid Background="#dd515151" >
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="*"/>
-					<ColumnDefinition Width="*"/>
-				</Grid.ColumnDefinitions>
-				<Button  Grid.ColumnSpan="2" HorizontalAlignment="Right" VerticalAlignment="Top" Content="X" Width="30" Height="30" Click="closePopUp"/>
-				<Label Grid.ColumnSpan="2" VerticalAlignment="Top" HorizontalContentAlignment="Center" Margin="50,0,50,0" Content="Configuration Settings"/>
-				<StackPanel Margin="0,40,0,0">
-					<Label Foreground="{StaticResource White}" Margin="40,20,0,15" Content="Name"/>
-					<Label Foreground="{StaticResource White}" Margin="40,0,0,15" Content="Speed (baud)"/>
-					<Label Foreground="{StaticResource White}" Margin="40,0,0,15" Content="Data bits"/>
-					<Label Foreground="{StaticResource White}" Margin="40,0,0,15" Content="Stop bits"/>
-					<Label Foreground="{StaticResource White}" Margin="40,0,0,15" Content="Parity"/>
-					<Label Foreground="{StaticResource White}" Margin="40,0,0,15" Content="Handhsake"/>
-				</StackPanel>
-				<StackPanel Margin="0,40,0,0" Grid.Column="1" >
-					<ComboBox x:Name="popupName" SelectedIndex="0" Width="100" Margin="0,20,0,10"/>
-					<ComboBox x:Name="popupBaud" SelectedIndex="0" Width="100" Margin="10">
-						<ComboBoxItem Content="115200"/>
-						<ComboBoxItem Content="4800"/>
-						<ComboBoxItem Content="9600"/>
-					</ComboBox>
-					<TextBox x:Name="popupDatabits" Text="8" Width="100" Margin="10"/>
-					<ComboBox x:Name="popupStopbit" SelectedIndex="0" Width="100" Margin="10">
-						<ComboBoxItem Content="One"/>
-						<ComboBoxItem Content="OnePointFive"/>
-						<ComboBoxItem Content="Two"/>
-						<ComboBoxItem Content="None"/>
-					</ComboBox>
-					<ComboBox x:Name="popupParity" SelectedIndex="0" Width="100" Margin="10">
-						<ComboBoxItem Content="None"/>
-						<ComboBoxItem Content="Even"/>
-						<ComboBoxItem Content="Mark"/>
-						<ComboBoxItem Content="Odd"/>
-						<ComboBoxItem Content="Space"/>
-					</ComboBox>
-					<ComboBox x:Name="popupHandshake" SelectedIndex="0" Width="100" Margin="10">
-						<ComboBoxItem Content="None"/>
-						<ComboBoxItem Content="XOnXOff"/>
-						<ComboBoxItem Content="RequestToSend"/>
-						<ComboBoxItem Content="RequestToSendXOnXOff"/>
-					</ComboBox>
-					<Button Margin="30" HorizontalAlignment="Center" Content="Validate" Width="100" Height="30" Click="portSettingsValid"/>
-				</StackPanel>
-			</Grid>
-		</Popup>
-		<Label x:Name="LabelOnOffButton" Foreground="{StaticResource White}" Content="Off" HorizontalAlignment="Center" Margin="0,0,450,100" Grid.Row="1" Width="55" Height="30" VerticalAlignment="Bottom"/>
+    <Grid Background="{StaticResource primaryColor}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Label Margin="20,0,0,0" Content="GPS Settings" Foreground="{StaticResource White}" Width="Auto" FontSize="40"  />
+            <Label Margin="20,0,0,0" Content="GPS View" Foreground="{StaticResource menuBisColor}" Width="Auto" FontSize="40" MouseUp="goToViewData"/>
+        </StackPanel>
+        <Image HorizontalAlignment="Right" Margin="0,0,20,0" Source="C:/Users/RNAV_user/Documents/MaximeStagiaire/NavRTK.png"/>
+        <Label HorizontalAlignment="Right" Margin="0,0,120,0" Content="NavRTK" Foreground="{StaticResource secondColor}" Width="Auto" FontSize="50"/>
+        <RichTextBox FontSize="15" Foreground="{StaticResource White}" x:Name="viewDatas" Margin="0,145,50,50" Grid.Row="1" Background="{StaticResource Transparent}" HorizontalAlignment="Right" Width="625"/>
+        <Grid Grid.Row="1" Margin="48,59,700,152">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="64"/>
+            </Grid.RowDefinitions>
+            <ListBox Grid.Row="0" HorizontalContentAlignment="Stretch" Background="{StaticResource Transparent}" ItemsSource="{Binding objports}" SelectedItem="{Binding SelectedPort}" BorderThickness="0" FontSize="20" Foreground="{StaticResource White}" x:Name="listBox1" ItemTemplate="{DynamicResource DataTemplateListPort}" ItemContainerStyle="{DynamicResource ListBoxItemStyleListePort}" ItemsPanel="{DynamicResource ItemsPanelTemplateListePort}" VerticalContentAlignment="Stretch"/>
+        </Grid>
+        <Button Background="{StaticResource Transparent}" BorderThickness="0" Width="50" Height="50" Margin="0,30,50,0" Grid.Row="1" VerticalAlignment="Top" Click="goToPopUp" HorizontalAlignment="Right">                
+            <Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Stretch="Uniform"><Canvas Name="Capa_1" Width="44.237" Height="44.237" Canvas.Left="0" Canvas.Top="0"><Canvas.RenderTransform><TranslateTransform X="0" Y="0"/></Canvas.RenderTransform><Canvas.Resources/><!--Unknown tag: metadata--><!--Unknown tag: sodipodi:namedview--><Canvas Name="g3"><Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5" Fill="#FFF9F9F9"><Path.Data><PathGeometry Figures="M22.119 44.237C9.922 44.237 0 34.315 0 22.119S9.922 0 22.119 0s22.119 9.922 22.119 22.119S34.315 44.237 22.119 44.237z    M22.119 1.5C10.75 1.5 1.5 10.75 1.5 22.119s9.25 20.619 20.619 20.619s20.619-9.25 20.619-20.619S33.488 1.5 22.119 1.5z" FillRule="NonZero"/></Path.Data></Path><Canvas Name="g7"><Line xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" X1="12.805" Y1="22.118" X2="31.433" Y2="22.118" Name="line9" Fill="#FFF9F9F9"/><Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path11" Fill="#FFF9F9F9"><Path.Data><PathGeometry Figures="M31.433 22.868H12.805c-0.414 0-0.75-0.336-0.75-0.75s0.336-0.75 0.75-0.75h18.628c0.414 0 0.75 0.336 0.75 0.75    S31.847 22.868 31.433 22.868z" FillRule="NonZero"/></Path.Data></Path></Canvas><Canvas Name="g13"><Line xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" X1="22.119" Y1="12.805" X2="22.119" Y2="31.432" Name="line15" Fill="#FFF9F9F9"/><Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path17" Fill="#FFF9F9F9"><Path.Data><PathGeometry Figures="M22.119 32.182c-0.414 0-0.75-0.336-0.75-0.75V12.805c0-0.414 0.336-0.75 0.75-0.75s0.75 0.336 0.75 0.75v18.627    C22.869 31.846 22.533 32.182 22.119 32.182z" FillRule="NonZero"/></Path.Data></Path></Canvas></Canvas><Canvas Name="g19"/><Canvas Name="g21"/><Canvas Name="g23"/><Canvas Name="g25"/><Canvas Name="g27"/><Canvas Name="g29"/><Canvas Name="g31"/><Canvas Name="g33"/><Canvas Name="g35"/><Canvas Name="g37"/><Canvas Name="g39"/><Canvas Name="g41"/><Canvas Name="g43"/><Canvas Name="g45"/><Canvas Name="g47"/></Canvas></Viewbox>
+</Button>
+        <Popup x:Name="PortSettings" Placement="Center" Margin="0,100,0,0" IsOpen="False" Width="300" Height="500">
+            <Grid Background="#dd515151" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button  Grid.ColumnSpan="2" HorizontalAlignment="Right" VerticalAlignment="Top" Content="X" Width="30" Height="30" Click="closePopUp"/>
+                <Label Grid.ColumnSpan="2" VerticalAlignment="Top" HorizontalContentAlignment="Center" Margin="50,0,50,0" Content="Configuration Settings"/>
+                <StackPanel Margin="0,40,0,0">
+                    <Label Foreground="{StaticResource White}" Margin="40,20,0,15" Content="Name"/>
+                    <Label Foreground="{StaticResource White}" Margin="40,0,0,15" Content="Speed (baud)"/>
+                    <Label Foreground="{StaticResource White}" Margin="40,0,0,15" Content="Data bits"/>
+                    <Label Foreground="{StaticResource White}" Margin="40,0,0,15" Content="Stop bits"/>
+                    <Label Foreground="{StaticResource White}" Margin="40,0,0,15" Content="Parity"/>
+                    <Label Foreground="{StaticResource White}" Margin="40,0,0,15" Content="Handhsake"/>
+                </StackPanel>
+                <StackPanel Margin="0,40,0,0" Grid.Column="1" >
+                    <ComboBox x:Name="popupName" SelectedIndex="0" Width="100" Margin="0,20,0,10"/>
+                    <ComboBox x:Name="popupBaud" SelectedIndex="0" Width="100" Margin="10">
+                        <ComboBoxItem Content="115200"/>
+                        <ComboBoxItem Content="4800"/>
+                        <ComboBoxItem Content="9600"/>
+                    </ComboBox>
+                    <TextBox x:Name="popupDatabits" Text="8" Width="100" Margin="10"/>
+                    <ComboBox x:Name="popupStopbit" SelectedIndex="0" Width="100" Margin="10">
+                        <ComboBoxItem Content="One"/>
+                        <ComboBoxItem Content="OnePointFive"/>
+                        <ComboBoxItem Content="Two"/>
+                        <ComboBoxItem Content="None"/>
+                    </ComboBox>
+                    <ComboBox x:Name="popupParity" SelectedIndex="0" Width="100" Margin="10">
+                        <ComboBoxItem Content="None"/>
+                        <ComboBoxItem Content="Even"/>
+                        <ComboBoxItem Content="Mark"/>
+                        <ComboBoxItem Content="Odd"/>
+                        <ComboBoxItem Content="Space"/>
+                    </ComboBox>
+                    <ComboBox x:Name="popupHandshake" SelectedIndex="0" Width="100" Margin="10">
+                        <ComboBoxItem Content="None"/>
+                        <ComboBoxItem Content="XOnXOff"/>
+                        <ComboBoxItem Content="RequestToSend"/>
+                        <ComboBoxItem Content="RequestToSendXOnXOff"/>
+                    </ComboBox>
+                    <Button Margin="30" HorizontalAlignment="Center" Content="Validate" Width="100" Height="30" Click="portSettingsValid"/>
+                </StackPanel>
+            </Grid>
+        </Popup>
+        <Label x:Name="LabelOnOffButton" Foreground="{StaticResource White}" Content="Off" HorizontalAlignment="Center" Margin="0,0,450,100" Grid.Row="1" Width="55" Height="30" VerticalAlignment="Bottom"/>
+
+
 		<Button Background="{StaticResource Black}" IsCancel="True" x:Name="OnOffButton" Margin="0,0,300,100"  Width="100" Grid.Row="1" Click="Button_Click" Height="30" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
-		<Rectangle Stroke="{StaticResource Black}"  StrokeThickness="1" x:Name="OnRect" Fill="{StaticResource White}" Margin="0,0,380,100" Grid.Row="1" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="20"/>
-		<Rectangle Stroke="{StaticResource Black}"  StrokeThickness="1" Visibility="Hidden" x:Name="OffRect" Fill="{StaticResource White}" Margin="0,0,220,100" Grid.Row="1" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="20"/>
+        <Rectangle Stroke="{StaticResource Black}"  StrokeThickness="1" x:Name="OnRect" Fill="{StaticResource White}" Margin="0,0,380,100" Grid.Row="1" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="20"/>
+        <Rectangle Stroke="{StaticResource Black}"  StrokeThickness="1" Visibility="Hidden" x:Name="OffRect" Fill="{StaticResource White}" Margin="0,0,220,100" Grid.Row="1" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="20"/>  
 	</Grid>
 </Page>
                                 

@@ -50,7 +50,7 @@ namespace WpfApplication1.Model
         /// </summary>
         /// <param name="t">String to parse</param>
         /// <returns>Return array parsed</returns>
-       public static string splitMessage(string t, Queue<Object> list) {
+       public static void splitMessage(string t, Queue<Object> list) {
             string[] split;
             string messageReturn="\tInitialisation"; 
 
@@ -99,8 +99,6 @@ namespace WpfApplication1.Model
                    
                }
            }
-
-           return messageReturn;
         }
         
         public static MessageGPGGA objGPRMC { get; set; }
