@@ -187,7 +187,7 @@
 				<ed:Arc x:Name="GridRMCArcSpeed" ArcThickness="1" ArcThicknessUnit="Percent" Grid.Column="3" EndAngle="-90" Fill="{DynamicResource secondColor}" HorizontalAlignment="Left" Height="44.333" Margin="54.333,20.554,0,0" Grid.Row="2" Stretch="None" StrokeThickness="0" StartAngle="-90" VerticalAlignment="Top" Width="44.333"/>
 			</Grid>
 			<Rectangle Grid.Column="1" HorizontalAlignment="Left" Height="386.616" Margin="50,0,0,0" VerticalAlignment="Top" Width="2.833" Fill="{DynamicResource White}" Opacity="0.405"/>
-			<Canvas HorizontalAlignment="Left" Height="36.051" Grid.Row="1" VerticalAlignment="Top" Width="200" Panel.ZIndex="1" Grid.ColumnSpan="10" Margin="452,0,0,0">
+			<Canvas Height="36.051" Grid.Row="1" VerticalAlignment="Top" Panel.ZIndex="1" Grid.ColumnSpan="2" Margin="452.5,0,0,0">
 				<Rectangle  Stroke="{StaticResource Black}"  StrokeThickness="1" x:Name="OnRect" Fill="{StaticResource White}" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="20" Canvas.Left="43"/>
 				<Rectangle  Stroke="{StaticResource Black}"  StrokeThickness="1" x:Name="OffRect" Fill="{StaticResource White}" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="20" Canvas.Left="133" Visibility="Hidden"/>
 				<Button Background="{StaticResource Black}" IsCancel="True" x:Name="OnOffButton"  Width="110" Click="Button_Click" Height="30" HorizontalAlignment="Center" VerticalAlignment="Bottom" Canvas.Left="43" Panel.ZIndex="-1"/>
