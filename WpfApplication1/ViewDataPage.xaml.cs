@@ -65,9 +65,7 @@ namespace WpfApplication1
 
                  //List<Object> list = new List<Object>();
                 GPSParsor.splitMessage(recieved_data, list);
-
-                Console.WriteLine(list.Count());
-
+                
                 if (list.Last().GetType() == typeof(MessageGPGGA))
                     Dispatcher.Invoke(DispatcherPriority.Send, new UpdateUiTextDelegate1(WriteDataGGA), list.Last());
                 if (list.Last().GetType() == typeof(MessageGPRMC))
@@ -85,8 +83,8 @@ namespace WpfApplication1
         {
             GridGGA.DataContext = objGGA;
 
-            GridGGATime.Text = objGGA.timeUTC.ToString();
-            GridGGALat.Text = objGGA.latitude.ToString("F6");
+            GridGGATime.Text = objGGA.timeUTC.ToString("d MMMM yyyy hh:mm:ss");
+            GridGGALat.Text = objGGA.latitude.ToString("F6"); 
             GridGGALon.Text = objGGA.longitude.ToString("F6");
             GridGGAQual.Text = objGGA.gpsQuality.ToString();
             GridGGANSat.Text = objGGA.nSat.ToString();
@@ -117,8 +115,15 @@ namespace WpfApplication1
             GridRMCModePos.Text = objRMC.integrity.ToString();
 
             if (objRMC.speed != 0)
-                GridRMCArcSpeed.EndAngle = (100 + objRMC.speed * 100) - 90;
-            else GridRMCArcSpeed.EndAngle = -90;
+                GridRMCArcSpeed.Value = (System.DateTime.Now.Second) * 2; 
+
+
+            //Random random = new Random();
+
+            //if (objRMC.speed != 0)
+            //    GridRMCArcSpeed.EndAngle = (System.DateTime.Now.Second) *3; 
+
+            //else GridRMCArcSpeed.EndAngle = 0;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
