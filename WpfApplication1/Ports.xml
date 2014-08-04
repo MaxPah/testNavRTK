@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfObjectPort xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ObjectPort id="2">
     <Name>COM1</Name>
@@ -18,7 +18,7 @@
   </ObjectPort>
   <ObjectPort id="4">
     <Name>COM1</Name>
-    <Baudrate>115200</Baudrate>
+    <Baudrate>9600</Baudrate>
     <Databits>8</Databits>
     <Stopbit>One</Stopbit>
     <Parity>None</Parity>

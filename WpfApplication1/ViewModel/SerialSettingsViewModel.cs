@@ -23,12 +23,9 @@ using System.Xml.XPath;
 using System.Xml.Serialization;
 using WpfApplication1.Model;
 
-namespace WpfApplication1
+namespace WpfApplication1.ViewModel
 {
-    /// <summary>
-    /// Interaction logic for Page2.xaml
-    /// </summary>
-    public partial class SettingsPage : Page
+    class SerialSettingsViewModel
     {
         #region variables
         //Richtextbox
@@ -43,13 +40,12 @@ namespace WpfApplication1
             
         #endregion
 
-        public SettingsPage()
+        public SerialSettingsViewModel()
         {
             link = "../../Ports.xml";
-            InitializeComponent();
-            popupName.ItemsSource = SerialPort.GetPortNames();
+            string[] portName;
+            portName = SerialPort.GetPortNames();
             XMLtoSerialPort();
-            this.DataContext = this;
         }
 
         public void XMLtoSerialPort()
@@ -66,7 +62,7 @@ namespace WpfApplication1
 
            // objports.Enregistrer(link);
         }
-
+/*
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (OnOffButton.IsCancel == true)
@@ -115,7 +111,7 @@ namespace WpfApplication1
                 }
             }
         }
-
+*/
         #region Recieving
 
         private delegate void UpdateUiTextDelegate(string text);
@@ -123,7 +119,7 @@ namespace WpfApplication1
         {
             // Collecting the characters received to our 'buffer' (string).
             recieved_data = sp.ReadExisting();
-            Dispatcher.Invoke(DispatcherPriority.Send, new UpdateUiTextDelegate(WriteData), recieved_data);
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.Send, new UpdateUiTextDelegate(WriteData), recieved_data);
         }
         private void WriteData(string text)
         {
@@ -174,23 +170,24 @@ namespace WpfApplication1
             PortSettings.IsOpen = true; 
         }
 
-        private void goToViewData(object sender, MouseButtonEventArgs e)
+       /* private void goToViewData(object sender, MouseButtonEventArgs e)
         {
             if (sp != null)
                 if (sp.IsOpen)
                     sp.Close();
-            this.NavigationService.Navigate(new ViewDataPage()); 
-        }
+            NavigationService.Navigate(new DataParsedView()); 
+        }*/
 
-        private void closePopUp(object sender, RoutedEventArgs e)
+       /* private void closePopUp(object sender, RoutedEventArgs e)
         {
             PortSettings.IsOpen = false; 
         }
+        * */
         #endregion
 
         private void OnOffButton_MouseEnter(object sender, MouseEventArgs e)
         {
-            OnOffButton.Background = (SolidColorBrush)this.FindResource("Transparent");
+            OnOffButton.Background = (SolidColorBrush)Application.Current.FindResource("Transparent");
         }
 
         private void listboxDeleteItem(object sender, MouseButtonEventArgs e)

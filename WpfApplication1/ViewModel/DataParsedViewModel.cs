@@ -3,84 +3,78 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.IO.Ports;
-using System.Windows.Threading;
 using WpfApplication1.Model;
+using System.Windows;
+using System.Windows.Media;
+using System.Windows.Input;
+using System.Windows.Threading;
+using System.Windows.Data;
+using System.ComponentModel;
 
-namespace WpfApplication1
+namespace WpfApplication1.ViewModel
 {
-    /// <summary>
-    /// Interaction logic for Page3.xaml
-    /// </summary>
-    public partial class ViewDataPage : Page
+    public class DataParsedViewModel : INotifyPropertyChanged
     {
-
-         #region variables
+        #region variables
 
         // Number Of Objects
         Queue<Object> list = new Queue<Object>();
-               
+
         //Serial 
         string recieved_data;
-            SerialPort sp;
-            #endregion
+        SerialPort sp;
+        #endregion
 
 
-        public ViewDataPage()
+        public DataParsedViewModel()
         {
-           
-            InitializeComponent();
-            string[] listPort = SerialPort.GetPortNames();
 
-            System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
-            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 2);
-            dispatcherTimer.Start();
-                     
-                
+            sp = new SerialPort("COM1", 115200);
+
+            if (!sp.IsOpen)
+                sp.Open();
+            sp.DataReceived += new SerialDataReceivedEventHandler(Recieve);
+
+
         }
 
-        private void dispatcherTimer_Tick(object sender, EventArgs e)
-        {
-           
-        }
+        public delegate void UpdateUiTextDelegate1(MessageGPGGA objGGA);
+        public delegate void UpdateUiTextDelegate2(MessageGPRMC objRMC);
 
-        private delegate void UpdateUiTextDelegate1(MessageGPGGA objGGA);
-        private delegate void UpdateUiTextDelegate2(MessageGPRMC objRMC);
-
-        private void Recieve(object sender, SerialDataReceivedEventArgs e)
+        public void Recieve(object sender, SerialDataReceivedEventArgs e)
         {
             try
             {
                 recieved_data = sp.ReadLine();
 
-                 //List<Object> list = new List<Object>();
                 GPSParsor.splitMessage(recieved_data, list);
-                
+
+                //  Console.WriteLine(list.Count());
+
                 if (list.Last().GetType() == typeof(MessageGPGGA))
-                    Dispatcher.Invoke(DispatcherPriority.Send, new UpdateUiTextDelegate1(WriteDataGGA), list.Last());
+                    Application.Current.Dispatcher.Invoke(DispatcherPriority.Send, new UpdateUiTextDelegate1(WriteDataGGA), list.Last());
                 if (list.Last().GetType() == typeof(MessageGPRMC))
-                    Dispatcher.Invoke(DispatcherPriority.Send, new UpdateUiTextDelegate2(WriteDataRMC), list.Last());
+                    Application.Current.Dispatcher.Invoke(DispatcherPriority.Send, new UpdateUiTextDelegate2(WriteDataRMC), list.Last());
             }
             catch
             {
-                
+
             }
-             
-          
+
+
         }
 
-        private void WriteDataGGA(MessageGPGGA objGGA)
+        public void WriteDataGGA(MessageGPGGA objGGA)
         {
+            Console.WriteLine("gga");
+
+            position = objGGA.latitude.ToString("F8");
+
+            //PropertyChanged(position);
+            Console.WriteLine(position);
+
+            /*
             GridGGA.DataContext = objGGA;
 
             GridGGATime.Text = objGGA.timeUTC.ToString("d MMMM yyyy hh:mm:ss");
@@ -101,10 +95,14 @@ namespace WpfApplication1
             GridGGAAlt.Text = objGGA.altitude.ToString("F2") + objGGA.altUnit.ToString();
             GridGGAGeo.Text = objGGA.geoidal.ToString("F2") + objGGA.geoUnit.ToString();
             GridGGADGPSUTC.Text = objGGA.dGPSTime.ToString("d MMM yyyy");
+             */
         }
 
-        private void WriteDataRMC(MessageGPRMC objRMC)
+        public static void WriteDataRMC(MessageGPRMC objRMC)
         {
+
+            Console.WriteLine("rmc");
+            /*
             GridRMC.DataContext = objRMC;
 
             GridRMCVal.Text = objRMC.status.ToString();
@@ -117,17 +115,16 @@ namespace WpfApplication1
             if (objRMC.speed != 0)
                 GridRMCArcSpeed.Value = (System.DateTime.Now.Second) * 2; 
 
-
-            //Random random = new Random();
-
             //if (objRMC.speed != 0)
             //    GridRMCArcSpeed.EndAngle = (System.DateTime.Now.Second) *3; 
 
             //else GridRMCArcSpeed.EndAngle = 0;
+            */
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            /*
            if ( OnOffButton.IsCancel == true)
            {
                sp = new SerialPort("COM1", 115200);
@@ -136,9 +133,11 @@ namespace WpfApplication1
                    sp.Open();
 
 
+            */
 
-               sp.DataReceived += new SerialDataReceivedEventHandler(Recieve);
+            sp.DataReceived += new SerialDataReceivedEventHandler(Recieve);
 
+            /*
                OnOffButton.IsCancel = false;
                OnOffButton.Background = (SolidColorBrush)this.FindResource("secondColor");
                LabelOnOffButton.Content = "On";
@@ -162,6 +161,7 @@ namespace WpfApplication1
                {
                }
            }
+            */
         }
 
         private void goToConnexion(object sender, MouseButtonEventArgs e)
@@ -170,8 +170,19 @@ namespace WpfApplication1
                 if (sp.IsOpen)
                     sp.Close();
 
-            this.NavigationService.Navigate(new SettingsPage());
+            // this.NavigationService.Navigate(new SerialSettingsView());
         }
 
+        public string position { get;set; }
+     
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged
+        {
+            add { }//throw new NotImplementedException(); }
+            remove {}// throw new NotImplementedException(); }
+        }
     }
+
 }

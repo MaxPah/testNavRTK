@@ -60,11 +60,11 @@
     <Compile Include="Model\ObjectGP.cs" />
     <Compile Include="Model\ObjectPort.cs" />
     <Compile Include="Model\ObjectsPorts.cs" />
-    <Page Include="SettingsPage.xaml">
+    <Page Include="View\SerialSettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewDataPage.xaml">
+    <Page Include="View\DataParsedView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -76,11 +76,13 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="SettingsPage.xaml.cs">
-      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    <Compile Include="ViewModel\DataParsedViewModel.cs" />
+    <Compile Include="ViewModel\SerialSettingsViewModel.cs" />
+    <Compile Include="View\SerialSettingsView.xaml.cs">
+      <DependentUpon>SerialSettingsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewDataPage.xaml.cs">
-      <DependentUpon>ViewDataPage.xaml</DependentUpon>
+    <Compile Include="View\DataParsedView.xaml.cs">
+      <DependentUpon>DataParsedView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
@@ -119,10 +121,7 @@
   <ItemGroup>
     <SplashScreen Include="Pictures\NavRTK.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModel\" />
-    <Folder Include="View\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Ports.xml" />
   </ItemGroup>

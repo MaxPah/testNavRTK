@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing" x:Class="WpfApplication1.ViewDataPage" 
+      xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing" x:Class="WpfApplication1.DataParsedView" 
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="1200"
 	Title="Page3">
@@ -91,20 +91,20 @@
     </Page.Resources>
 
 	<!-- Nav Bar top -->
-    <Grid Background="{StaticResource primaryColor}">
+    <Grid Background="{StaticResource primaryColor}" MinWidth="800" MinHeight="500">
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <Label Margin="20,0,0,0" Content="GPS Settings" Foreground="{StaticResource menuBisColor}" Width="Auto" FontSize="40"  MouseUp="goToConnexion"/>
+            <Label Margin="20,0,0,0" Content="GPS Settings" Foreground="{StaticResource menuBisColor}" Width="Auto" FontSize="40" />
             <Label Margin="20,0,0,0" Content="GPS View" Foreground="{StaticResource White}" Width="Auto" FontSize="40"/>
         </StackPanel>
         <Image HorizontalAlignment="Right" Margin="0,0,20,0" Source="C:/Users/RNAV_user/Documents/MaximeStagiaire/NavRTK.png"/>
         <Label HorizontalAlignment="Right" Margin="0,0,120,0" Content="NavRTK" Foreground="{StaticResource secondColor}" Width="Auto" FontSize="50"/>
 
         <!-- Infos Trames-->
-        <Grid Margin="20,10" Grid.Row="1">
+        <Grid Margin="20,10" Grid.Row="1" MinWidth="500" MinHeight="400">
             <Grid.RowDefinitions>
                 <RowDefinition Height="92*"/>
                 <RowDefinition Height="71*"/>
@@ -143,7 +143,7 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Viewbox Grid.Column="1" Grid.Row="0" Margin="5,5,5,5">
-					<TextBlock x:Name="GridGGAQual" Foreground="White"/>
+					<TextBlock Text="{Binding Path=position}" Foreground="White"/>
 				</Viewbox>
 				<Viewbox Grid.Column="1" Grid.Row="3" Margin="5,5,5,5">
 					<Border x:Name="GridGGAnSatFather" BorderThickness="2" Grid.Column="4" Width="30">
@@ -264,7 +264,7 @@
             <Canvas Grid.Row="4" Panel.ZIndex="1" Grid.Column="1" Margin="0,20,20,24">
                 <Rectangle  Stroke="{StaticResource Black}"  StrokeThickness="1" x:Name="OnRect" Fill="{StaticResource White}" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="20" Canvas.Left="43"/>
                 <Rectangle  Stroke="{StaticResource Black}"  StrokeThickness="1" x:Name="OffRect" Fill="{StaticResource White}" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="20" Canvas.Left="133" Visibility="Hidden"/>
-                <Button Background="{StaticResource Black}" IsCancel="True" x:Name="OnOffButton"  Width="110" Click="Button_Click" Height="30" HorizontalAlignment="Center" VerticalAlignment="Bottom" Canvas.Left="43" Panel.ZIndex="-1"/>
+                <Button Background="{StaticResource Black}" IsCancel="True" x:Name="OnOffButton"  Width="110" Height="30" HorizontalAlignment="Center" VerticalAlignment="Bottom" Canvas.Left="43" Panel.ZIndex="-1"/>
                 <Label x:Name="LabelOnOffButton" Foreground="{StaticResource White}" Content="Off" Width="29.5" Height="36.051"/>
             </Canvas>
             <Viewbox Width="Auto" Grid.ColumnSpan="3">

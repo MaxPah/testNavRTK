@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\RNAV_user\Documents\Visual Studio 2013\Projects\WpfApplication1\WpfApplication1\App.xaml
-31021149825
+3-849836809
 
-13-716150518
+15-686021551
 13-32892724
-SettingsPage.xaml;ViewDataPage.xaml;Shell.xaml;
+View\SerialSettingsView.xaml;View\DataParsedView.xaml;Shell.xaml;
 pictures\navrtk.png
 False
 

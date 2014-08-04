@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing" x:Class="WpfApplication1.SettingsPage" 
+      xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing" x:Class="WpfApplication1.SerialSettingsView" 
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="1200"
 	Title="Page2">
@@ -57,7 +57,7 @@
                     <Label x:Name="LabelHandshake" Content=",Handshake :" Margin="0" Width="Auto" Foreground="{StaticResource White}"/>
                     <TextBlock x:Name="Handshake"  Foreground="{StaticResource White}" Background="{StaticResource Transparent}" Text="{Binding Handshake}"  Height="Auto" TextAlignment="Center" Grid.Column="1" Grid.Row="0" Margin="2.154,5,9.846,3.634" Grid.RowSpan="3" RenderTransformOrigin="0.5,0.5"/>
                 </StackPanel>
-				<Viewbox Grid.Column="3" Grid.Row="1" MouseUp="listboxDeleteItem" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Stretch="Uniform" RenderTransformOrigin="0.523,0.45" Width="32.5" Height="Auto" HorizontalAlignment="Right">
+				<Viewbox Grid.Column="3" Grid.Row="1" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Stretch="Uniform" RenderTransformOrigin="0.523,0.45" Width="32.5" Height="Auto" HorizontalAlignment="Right">
                 		<Path Fill="{StaticResource White}" Data="M18 28c0.552 0 1-0.448 1-1V15c0-0.552-0.448-1-1-1c-0.552 0-1 0.448-1 1    v12C17 27.552 17.448 28 18 28z M24 4h-6V2c0-1.105-0.895-2-2-2h-6C8.895 0 8 0.895 8 2v2H2C0.895 4 0 4.895 0 6v2    c0 1.104 0.895 2 2 2v18c0 2.209 1.791 4 4 4h14c2.209 0 4-1.791 4-4V10c1.105 0 2-0.896 2-2V6C26 4.895 25.105 4 24 4z M10 3    c0-0.552 0.448-1 1-1h4c0.552 0 1 0.448 1 1v1c-0.969 0-6 0-6 0V3z M22 28c0 1.104-0.895 2-2 2H6c-1.105 0-2-0.896-2-2V10h18V28z     M23 8H3C2.448 8 2 7.552 2 7c0-0.552 0.448-1 1-1h20c0.552 0 1 0.448 1 1C24 7.552 23.552 8 23 8z M8 28c0.552 0 1-0.448 1-1V15    c0-0.552-0.448-1-1-1c-0.552 0-1 0.448-1 1v12C7 27.552 7.448 28 8 28z M13 28c0.552 0 1-0.448 1-1V15c0-0.552-0.448-1-1-1    c-0.552 0-1 0.448-1 1v12C12 27.552 12.448 28 13 28z" HorizontalAlignment="Left"/>
                 </Viewbox>
             </Grid>
@@ -136,7 +136,7 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal">
             <Label Margin="20,0,0,0" Content="GPS Settings" Foreground="{StaticResource White}" Width="Auto" FontSize="40"  />
-            <Label Margin="20,0,0,0" Content="GPS View" Foreground="{StaticResource menuBisColor}" Width="Auto" FontSize="40" MouseUp="goToViewData"/>
+            <Label Margin="20,0,0,0" Content="GPS View" Foreground="{StaticResource menuBisColor}" Width="Auto" FontSize="40" />
         </StackPanel>
         <Image HorizontalAlignment="Right" Margin="0,0,20,0" Source="C:/Users/RNAV_user/Documents/MaximeStagiaire/NavRTK.png"/>
         <Label HorizontalAlignment="Right" Margin="0,0,120,0" Content="NavRTK" Foreground="{StaticResource secondColor}" Width="Auto" FontSize="50"/>
@@ -151,7 +151,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button  Grid.ColumnSpan="2" HorizontalAlignment="Right" VerticalAlignment="Top" Content="X" Width="30" Height="30" Click="closePopUp"/>
+                <Button  Grid.ColumnSpan="2" HorizontalAlignment="Right" VerticalAlignment="Top" Content="X" Width="30" Height="30" />
                 <Label Grid.ColumnSpan="2" VerticalAlignment="Top" HorizontalContentAlignment="Center" Foreground="White" Margin="50,0,50,0" Content="Configuration Settings"/>
                 <StackPanel Margin="0,40,0,0">
                     <Label Foreground="{StaticResource White}" Margin="40,20,0,15" Content="Name"/>
@@ -162,7 +162,7 @@
                     <Label Foreground="{StaticResource White}" Margin="40,0,0,15" Content="Handhsake"/>
                 </StackPanel>
                 <StackPanel Margin="0,40,0,0" Grid.Column="1" >
-                    <ComboBox x:Name="popupName" SelectedIndex="0" Width="100" Margin="0,20,0,10"/>
+                    <ComboBox ItemsSource="{Binding portName}" SelectedIndex="0" Width="100" Margin="0,20,0,10"/>
                     <ComboBox x:Name="popupBaud" SelectedIndex="0" Width="100" Margin="10">
                         <ComboBoxItem Content="115200"/>
                         <ComboBoxItem Content="4800"/>
@@ -188,7 +188,7 @@
                         <ComboBoxItem Content="RequestToSend"/>
                         <ComboBoxItem Content="RequestToSendXOnXOff"/>
                     </ComboBox>
-                    <Button Margin="30" HorizontalAlignment="Center" Content="Validate" Width="100" Height="30" Click="portSettingsValid"/>
+                    <Button Margin="30" HorizontalAlignment="Center" Content="Validate" Width="100" Height="30"/>
                 </StackPanel>
             </Grid>
         </Popup>
@@ -207,11 +207,11 @@
         		<RichTextBox Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="1" Foreground="{StaticResource White}" x:Name="viewDatas" Background="{StaticResource Transparent}"/>
 
 			<ListBox Grid.Row="1" HorizontalContentAlignment="Stretch" Background="{StaticResource Transparent}" ItemsSource="{Binding objports}" SelectedItem="{Binding SelectedPort}" BorderThickness="0" FontSize="20" Foreground="{StaticResource White}" x:Name="listBox1" ItemTemplate="{DynamicResource DataTemplateListPort}" ItemContainerStyle="{DynamicResource ListBoxItemStyleListePort}" ItemsPanel="{DynamicResource ItemsPanelTemplateListePort}" VerticalContentAlignment="Stretch"/>
-        	<Button Background="{StaticResource Transparent}" BorderThickness="0" Click="goToPopUp" Grid.Column="3">                
+        	<Button Background="{StaticResource Transparent}" BorderThickness="0"  Grid.Column="3">                
         		<Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Stretch="Uniform"><Canvas x:Name="Capa_1" Width="44.237" Height="44.237" Canvas.Left="0" Canvas.Top="0" Margin="0,0,0,20"><Canvas.RenderTransform><TranslateTransform X="0" Y="0"/></Canvas.RenderTransform><!--Unknown tag: metadata--><!--Unknown tag: sodipodi:namedview--><Canvas x:Name="g3"><Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Name="path5" Fill="#FFF9F9F9"><Path.Data><PathGeometry Figures="M22.119 44.237C9.922 44.237 0 34.315 0 22.119S9.922 0 22.119 0s22.119 9.922 22.119 22.119S34.315 44.237 22.119 44.237z    M22.119 1.5C10.75 1.5 1.5 10.75 1.5 22.119s9.25 20.619 20.619 20.619s20.619-9.25 20.619-20.619S33.488 1.5 22.119 1.5z" FillRule="NonZero"/></Path.Data></Path><Canvas x:Name="g7"><Line xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" X1="12.805" Y1="22.118" X2="31.433" Y2="22.118" x:Name="line9" Fill="#FFF9F9F9"/><Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Name="path11" Fill="#FFF9F9F9"><Path.Data><PathGeometry Figures="M31.433 22.868H12.805c-0.414 0-0.75-0.336-0.75-0.75s0.336-0.75 0.75-0.75h18.628c0.414 0 0.75 0.336 0.75 0.75    S31.847 22.868 31.433 22.868z" FillRule="NonZero"/></Path.Data></Path></Canvas><Canvas x:Name="g13"><Line xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" X1="22.119" Y1="12.805" X2="22.119" Y2="31.432" x:Name="line15" Fill="#FFF9F9F9"/><Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Name="path17" Fill="#FFF9F9F9"><Path.Data><PathGeometry Figures="M22.119 32.182c-0.414 0-0.75-0.336-0.75-0.75V12.805c0-0.414 0.336-0.75 0.75-0.75s0.75 0.336 0.75 0.75v18.627    C22.869 31.846 22.533 32.182 22.119 32.182z" FillRule="NonZero"/></Path.Data></Path></Canvas></Canvas><Canvas x:Name="g19"/><Canvas x:Name="g21"/><Canvas x:Name="g23"/><Canvas x:Name="g25"/><Canvas x:Name="g27"/><Canvas x:Name="g29"/><Canvas x:Name="g31"/><Canvas x:Name="g33"/><Canvas x:Name="g35"/><Canvas x:Name="g37"/><Canvas x:Name="g39"/><Canvas x:Name="g41"/><Canvas x:Name="g43"/><Canvas x:Name="g45"/><Canvas x:Name="g47"/></Canvas></Viewbox>
         	</Button>
         	<Label Margin="0,0,100,0" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" x:Name="LabelOnOffButton" Foreground="{StaticResource White}" Content="Off" HorizontalAlignment="Right" Width="55" Height="30" VerticalAlignment="Center"/>
-        	<Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Background="{StaticResource Black}" IsCancel="True" x:Name="OnOffButton" Width="100" Click="Button_Click" Height="30" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        	<Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Background="{StaticResource Black}" IsCancel="True" x:Name="OnOffButton" Width="100" Height="30" HorizontalAlignment="Right" VerticalAlignment="Center"/>
         	<Rectangle Margin="0,0,80,0" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Stroke="{StaticResource Black}"  StrokeThickness="1" x:Name="OnRect" Fill="{StaticResource White}" Height="30" VerticalAlignment="Center" HorizontalAlignment="Right" Width="20"/>
         	<Rectangle  Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Stroke="{StaticResource Black}"  StrokeThickness="1" Visibility="Hidden" x:Name="OffRect" Fill="{StaticResource White}" Height="30" VerticalAlignment="Center" HorizontalAlignment="Right" Width="20"/>
         </Grid>  

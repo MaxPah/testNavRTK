@@ -40,7 +40,7 @@ namespace WpfApplication1 {
     /// <summary>
     /// SettingsPage
     /// </summary>
-    public partial class SettingsPage : System.Windows.Controls.Page, System.Windows.Markup.IComponentConnector, System.Windows.Markup.IStyleConnector {
+    public partial class SettingsPageView : System.Windows.Controls.Page, System.Windows.Markup.IComponentConnector, System.Windows.Markup.IStyleConnector {
         
         
         #line 148 "..\..\SettingsPage.xaml"

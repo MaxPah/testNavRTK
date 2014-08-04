@@ -23,12 +23,7 @@ namespace WpfApplication1
         public Shell()
         {
             InitializeComponent();
-            ShellFrame.Navigate(new SettingsPage());
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
+            ShellFrame.Navigate(new SerialSettingsView());
         }
     }
 }
