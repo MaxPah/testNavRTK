@@ -88,6 +88,7 @@
                 <StaticResource ResourceKey="{x:Type TextBoxBase}"/>
             </Style.BasedOn>
         </Style>
+        <Storyboard x:Key="OnChecked1"/>
     </Page.Resources>
 
 	<!-- Nav Bar top -->
@@ -97,7 +98,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <Label Margin="20,0,0,0" Content="GPS Settings" Foreground="{StaticResource menuBisColor}" Width="Auto" FontSize="40" />
+            <Label Margin="20,0,0,0" Content="GPS Settings" Foreground="{StaticResource menuBisColor}" Width="Auto" FontSize="40" MouseUp="goToConnexion"/>
             <Label Margin="20,0,0,0" Content="GPS View" Foreground="{StaticResource White}" Width="Auto" FontSize="40"/>
         </StackPanel>
         <Image HorizontalAlignment="Right" Margin="0,0,20,0" Source="C:/Users/RNAV_user/Documents/MaximeStagiaire/NavRTK.png"/>
@@ -129,7 +130,7 @@
                             <Run Text="GPRMC"/>
                 </TextBlock>
             </Viewbox>
-            <Grid x:Name="GridGGA" Grid.Row="3">
+            <Grid Grid.Row="3">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="5*"/>
                     <ColumnDefinition Width="5*"/>
@@ -143,24 +144,24 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Viewbox Grid.Column="1" Grid.Row="0" Margin="5,5,5,5">
-					<TextBlock Text="{Binding Path=position}" Foreground="White"/>
+					<TextBlock Text="{Binding Position}" Foreground="White"/>
 				</Viewbox>
 				<Viewbox Grid.Column="1" Grid.Row="3" Margin="5,5,5,5">
-					<Border x:Name="GridGGAnSatFather" BorderThickness="2" Grid.Column="4" Width="30">
-						<TextBlock x:Name="GridGGANSat" TextAlignment="Center" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+					<Border BorderThickness="2" Grid.Column="4" Width="30">
+                        <TextBlock Text="{Binding NSat}" TextAlignment="Center" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 					</Border>
 				</Viewbox>
 				<Viewbox Grid.Column="1" Grid.Row="1" Margin="5,5,5,5">
-					<TextBlock x:Name="GridGGADil" Foreground="White"/>
+                    <TextBlock Text="{Binding Dilution}" Foreground="White"/>
 				</Viewbox>
 				<Viewbox Grid.Column="4" Grid.Row="1" Margin="5,5,5,5">
-					<TextBlock x:Name="GridGGAAlt" Foreground="White"/>
+                    <TextBlock Text="{Binding Altitude}" Foreground="White"/>
                 </Viewbox>
 				<Viewbox Grid.Column="4" Grid.Row="0" Margin="5,5,5,5">
-					<TextBlock x:Name="GridGGAGeo" Foreground="White"/>
+                    <TextBlock Text="{Binding Geoidal}" Foreground="White"/>
                 </Viewbox>
 				<Viewbox Grid.Column="4" Grid.Row="2" Margin="5,5,5,5">
-					<TextBlock x:Name="GridGGADGPSUTC" Foreground="White"/>
+                    <TextBlock Text="{Binding GGALastDGPS}" Foreground="White"/>
                 </Viewbox>
 				<!-- Position Name-->
                 <Viewbox  Grid.Column="0" Grid.Row="0">
@@ -199,7 +200,7 @@
                     </TextBlock>
                 </Viewbox>
             </Grid>
-            <Grid x:Name="GridRMC" Margin="3,0,0,0" Grid.Column="2" DataContext="{Binding MessageRMC}" Grid.Row="3">
+            <Grid Margin="3,0,0,0" Grid.Column="2" Grid.Row="3">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="5*"/>
                     <ColumnDefinition Width="5*"/>
@@ -213,25 +214,25 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 				<Viewbox Grid.Column="1" Grid.Row="0" Margin="5,5,5,5">
-	                <TextBlock x:Name="GridRMCVal" Foreground="White"/>
+                    <TextBlock Text="{Binding Validity}" Foreground="White"/>
 				</Viewbox>
 		        <Viewbox Grid.Column="4" Margin="5,5,0,5">
-					<ProgressBar x:Name="GridRMCArcSpeed" Height="27.19" Width="62.667" Background="#FF3062B2" Foreground="{DynamicResource secondColor}" Maximum="120" LargeChange="2" SmallChange="1" Value="1" BorderThickness="0" Margin="0,5,0,0"/>
+                    <ProgressBar Height="27.19" Width="62.667" Background="#FF3062B2" Foreground="{DynamicResource secondColor}" Maximum="120" LargeChange="2" SmallChange="1" Value="1" BorderThickness="0" Margin="0,5,0,0"/>
 				</Viewbox>
 				<Viewbox Grid.Column="4" Grid.Row="0" Margin="5">
-						<TextBlock x:Name="GridRMCSpeed" Foreground="White"/>
+                    <TextBlock Text="{Binding Speed}" Foreground="White"/>
 				</Viewbox>
 				<Viewbox Grid.Column="1" Grid.Row="1" Margin="5,5,5,5">
-					<TextBlock x:Name="GridRMCCap" Foreground="White"/>
+                    <TextBlock Text="{Binding Cap}" Foreground="White"/>
 			    </Viewbox>
 				<Viewbox Grid.Column="4" Grid.Row="2" Margin="5,5,5,5">
-					<TextBlock x:Name="GridRMCDGPSUTC" Grid.Row="2" Foreground="White"/>
+                    <TextBlock Text="{Binding RMCLastDGPS}" Foreground="White"/>
 				</Viewbox>
 				<Viewbox Grid.Column="1" Grid.Row="2" Margin="5,5,5,5">
-					<TextBlock x:Name="GridRMCMagn" Foreground="White"/>
+                    <TextBlock Text="{Binding Magnetic}" Foreground="White"/>
 				</Viewbox>
 				<Viewbox Grid.Column="4" Grid.Row="1" Margin="5,5,5,5">
-					<TextBlock x:Name="GridRMCModePos" Foreground="White"/>
+                    <TextBlock Text="{Binding ModePos}" Foreground="White"/>
 				</Viewbox>
 
                 <!-- Validity Name-->
@@ -262,13 +263,12 @@
 				</Grid>
             <Rectangle Grid.Column="1" Margin="103,36,0,15" Fill="{DynamicResource White}" Opacity="0.405" HorizontalAlignment="Left" Width="1" Grid.Row="2" Grid.RowSpan="2"/>
             <Canvas Grid.Row="4" Panel.ZIndex="1" Grid.Column="1" Margin="0,20,20,24">
-                <Rectangle  Stroke="{StaticResource Black}"  StrokeThickness="1" x:Name="OnRect" Fill="{StaticResource White}" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="20" Canvas.Left="43"/>
-                <Rectangle  Stroke="{StaticResource Black}"  StrokeThickness="1" x:Name="OffRect" Fill="{StaticResource White}" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="20" Canvas.Left="133" Visibility="Hidden"/>
-                <Button Background="{StaticResource Black}" IsCancel="True" x:Name="OnOffButton"  Width="110" Height="30" HorizontalAlignment="Center" VerticalAlignment="Bottom" Canvas.Left="43" Panel.ZIndex="-1"/>
                 <Label x:Name="LabelOnOffButton" Foreground="{StaticResource White}" Content="Off" Width="29.5" Height="36.051"/>
+					<ToggleButton x:Name="toggleButton" Content="" Height="36.051" Canvas.Left="34.5" Width="75.5" Background="{DynamicResource secondColor}">
+			  </ToggleButton>
             </Canvas>
             <Viewbox Width="Auto" Grid.ColumnSpan="3">
-                <TextBlock x:Name="GridGGATime" Foreground="#FFFFFFFF" TextAlignment="Center">
+                <TextBlock Text="{Binding Time}" Foreground="#FFFFFFFF" TextAlignment="Center">
                     <Run></Run>
                 </TextBlock>
             </Viewbox>
@@ -285,7 +285,7 @@
                     </TextBlock>
                 </Viewbox>
                 <Viewbox Grid.Column="1">
-					<TextBlock x:Name="GridGGALat" Foreground="White" Margin="5,5,0,0"/>
+					<TextBlock Text="{Binding Latitude}" Foreground="White" Margin="5,5,0,0"/>
                 </Viewbox>
 			</Grid>
             <!-- Longitude-->
@@ -301,7 +301,7 @@
                     </TextBlock>
                 </Viewbox>
                 <Viewbox Grid.Column="1">
-					<TextBlock x:Name="GridGGALon" TextWrapping="Wrap" Foreground="White" FontSize="18.667" Margin="5,5,0,0"/>
+                    <TextBlock Text="{Binding Longitude}" TextWrapping="Wrap" Foreground="White" FontSize="18.667" Margin="5,5,0,0"/>
                 </Viewbox>				
             </Grid>
         </Grid>

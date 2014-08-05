@@ -54,6 +54,7 @@
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Compile Include="Helper\RelayCommand.cs" />
     <Compile Include="Model\GPSParsor.cs" />
     <Compile Include="Model\MessageGPGGA.cs" />
     <Compile Include="Model\MessageGPRMC.cs" />

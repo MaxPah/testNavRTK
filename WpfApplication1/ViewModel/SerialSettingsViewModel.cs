@@ -22,10 +22,11 @@ using System.Xml;
 using System.Xml.XPath;
 using System.Xml.Serialization;
 using WpfApplication1.Model;
+using System.ComponentModel;
 
 namespace WpfApplication1.ViewModel
 {
-    class SerialSettingsViewModel
+    class SerialSettingsViewModel : INotifyPropertyChanged
     {
         #region variables
         //Richtextbox
@@ -58,7 +59,7 @@ namespace WpfApplication1.ViewModel
                 objports = new ObjectsPorts();
             }
 
-            listBox1.ItemsSource = objports;
+            //listBox1.ItemsSource = objports;
 
            // objports.Enregistrer(link);
         }
@@ -126,8 +127,8 @@ namespace WpfApplication1.ViewModel
             // Assign the value of the recieved_data to the RichTextBox.
             para.Inlines.Add(text);
             mcFlowDoc.Blocks.Add(para);
-            viewDatas.Document = mcFlowDoc;
-            viewDatas.ScrollToEnd();
+            //viewDatas.Document = mcFlowDoc;
+            //viewDatas.ScrollToEnd();
         }
 
         #endregion
@@ -136,7 +137,7 @@ namespace WpfApplication1.ViewModel
         {
             ObjectsPorts objports;
 
-            PortSettings.IsOpen = false;
+            //PortSettings.IsOpen = false;
 
             if (File.Exists(link))
             {
@@ -150,12 +151,12 @@ namespace WpfApplication1.ViewModel
 
             ObjectPort obj = new ObjectPort() {
                Id = objports.MaxId() + 1,
-                Name = popupName.Text,
-                Baudrate = popupBaud.Text,
-                Databits = popupDatabits.Text,
-                Stopbit =  popupStopbit.Text,
-                Parity = popupParity.Text,
-                Handshake = popupHandshake.Text
+                //Name = popupName.Text,
+                //Baudrate = popupBaud.Text,
+                //Databits = popupDatabits.Text,
+                //Stopbit =  popupStopbit.Text,
+                //Parity = popupParity.Text,
+                //Handshake = popupHandshake.Text
                 };
                      
            objports.Add(obj);
@@ -167,7 +168,7 @@ namespace WpfApplication1.ViewModel
         #region Navigation
         private void goToPopUp(object sender, RoutedEventArgs e)
         {   
-            PortSettings.IsOpen = true; 
+            //PortSettings.IsOpen = true; 
         }
 
        /* private void goToViewData(object sender, MouseButtonEventArgs e)
@@ -187,19 +188,19 @@ namespace WpfApplication1.ViewModel
 
         private void OnOffButton_MouseEnter(object sender, MouseEventArgs e)
         {
-            OnOffButton.Background = (SolidColorBrush)Application.Current.FindResource("Transparent");
+            //OnOffButton.Background = (SolidColorBrush)Application.Current.FindResource("Transparent");
         }
 
         private void listboxDeleteItem(object sender, MouseButtonEventArgs e)
         {
-          if (listBox1.SelectedItem != null)
+          if (true)//listBox1.SelectedItem != null)
             try
             {
                 int id = 0;
 
-               var objdelete = (ObjectPort)listBox1.SelectedItem;
+              // var objdelete = (ObjectPort)listBox1.SelectedItem;
                 
-                    id = objdelete.Id;
+                  //  id = objdelete.Id;
 
                 XmlDocument doc = new XmlDocument();
                 doc.Load(link);
@@ -214,5 +215,19 @@ namespace WpfApplication1.ViewModel
             {
             }
         }
+
+        #region INotifyPropertyChanged Members
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string name)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(name));
+            }
+        }
+        #endregion
     }
 }

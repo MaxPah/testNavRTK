@@ -21,6 +21,28 @@ namespace WpfApplication1.ViewModel
         // Number Of Objects
         Queue<Object> list = new Queue<Object>();
 
+        //Both GGA & RMC
+        string _time;
+        string _latitude;
+        string _longitude;
+ 
+        //GGA
+        string _position;
+        string _quality;
+        string _nSat;
+        string _dilution;
+        string _altitude;
+        string _geoidal;
+        string _GGAlastDGPS;
+
+        //RMC
+        string _validity;
+        string _speed;
+        string _cap;
+        string _RMCLastDGPS;
+        string _magnetic;
+        string _modepos;
+
         //Serial 
         string recieved_data;
         SerialPort sp;
@@ -29,11 +51,11 @@ namespace WpfApplication1.ViewModel
 
         public DataParsedViewModel()
         {
-
             sp = new SerialPort("COM1", 115200);
 
             if (!sp.IsOpen)
-                sp.Open();
+                  sp.Open();
+            
             sp.DataReceived += new SerialDataReceivedEventHandler(Recieve);
 
 
@@ -50,12 +72,13 @@ namespace WpfApplication1.ViewModel
 
                 GPSParsor.splitMessage(recieved_data, list);
 
-                //  Console.WriteLine(list.Count());
-
-                if (list.Last().GetType() == typeof(MessageGPGGA))
-                    Application.Current.Dispatcher.Invoke(DispatcherPriority.Send, new UpdateUiTextDelegate1(WriteDataGGA), list.Last());
-                if (list.Last().GetType() == typeof(MessageGPRMC))
-                    Application.Current.Dispatcher.Invoke(DispatcherPriority.Send, new UpdateUiTextDelegate2(WriteDataRMC), list.Last());
+                if (list.Last() != null) 
+                { 
+                    if (list.Last().GetType() == typeof(MessageGPGGA))
+                        Application.Current.Dispatcher.Invoke(DispatcherPriority.Send, new UpdateUiTextDelegate1(WriteDataGGA), list.Last());
+                    if (list.Last().GetType() == typeof(MessageGPRMC))
+                        Application.Current.Dispatcher.Invoke(DispatcherPriority.Send, new UpdateUiTextDelegate2(WriteDataRMC), list.Last());
+                }
             }
             catch
             {
@@ -67,60 +90,237 @@ namespace WpfApplication1.ViewModel
 
         public void WriteDataGGA(MessageGPGGA objGGA)
         {
-            Console.WriteLine("gga");
 
-            position = objGGA.latitude.ToString("F8");
+            _time = objGGA.timeUTC.ToString("d MMMM yyyy hh:mm:ss");
+            OnPropertyChanged("Time");
 
-            //PropertyChanged(position);
-            Console.WriteLine(position);
+            _latitude = objGGA.latitude.ToString("F6");
+            OnPropertyChanged("Latitude");
 
-            /*
-            GridGGA.DataContext = objGGA;
+            _longitude = objGGA.longitude.ToString("F6");
+            OnPropertyChanged("Longitude");
 
-            GridGGATime.Text = objGGA.timeUTC.ToString("d MMMM yyyy hh:mm:ss");
-            GridGGALat.Text = objGGA.latitude.ToString("F6"); 
-            GridGGALon.Text = objGGA.longitude.ToString("F6");
-            GridGGAQual.Text = objGGA.gpsQuality.ToString();
-            GridGGANSat.Text = objGGA.nSat.ToString();
-            
-            if (objGGA.nSat >= 0 && objGGA.nSat < 3)
-                GridGGAnSatFather.BorderBrush = Brushes.Red;
-            else if (objGGA.nSat >= 3 && objGGA.nSat < 5)
-                GridGGAnSatFather.BorderBrush = Brushes.Orange;
-            else if (objGGA.nSat >= 5 && objGGA.nSat <= 14)
-                GridGGAnSatFather.BorderBrush = Brushes.Green;
-            else GridGGAnSatFather.BorderBrush = Brushes.Transparent;
+            _position = objGGA.gpsQuality.ToString();
+            OnPropertyChanged("Position");
 
-            GridGGADil.Text = objGGA.dilution.ToString("F2");
-            GridGGAAlt.Text = objGGA.altitude.ToString("F2") + objGGA.altUnit.ToString();
-            GridGGAGeo.Text = objGGA.geoidal.ToString("F2") + objGGA.geoUnit.ToString();
-            GridGGADGPSUTC.Text = objGGA.dGPSTime.ToString("d MMM yyyy");
-             */
+            _nSat = objGGA.nSat.ToString();
+            OnPropertyChanged("NSat");
+
+            _dilution = objGGA.dilution.ToString("F2");
+            OnPropertyChanged("Dilution");
+
+            _altitude = objGGA.altitude.ToString("F2") + objGGA.altUnit.ToString();
+            OnPropertyChanged("Altitude");
+
+            _geoidal = objGGA.geoidal.ToString("F2") + objGGA.geoUnit.ToString();
+            OnPropertyChanged("Geoidal");
+
+            _GGAlastDGPS = objGGA.dGPSTime.ToString("d MMM yyyy");
+            OnPropertyChanged("GGALastDGPS");
+
         }
+        
 
-        public static void WriteDataRMC(MessageGPRMC objRMC)
+        public void WriteDataRMC(MessageGPRMC objRMC)
         {
+           _validity = objRMC.status.ToString(); 
+            OnPropertyChanged("Validity");
 
-            Console.WriteLine("rmc");
-            /*
-            GridRMC.DataContext = objRMC;
+            _speed = objRMC.speed.ToString("F2"); 
+            OnPropertyChanged("Speed");
 
-            GridRMCVal.Text = objRMC.status.ToString();
-            GridRMCSpeed.Text = objRMC.speed.ToString("F2");
-            GridRMCCap.Text = objRMC.cap.ToString();
-            GridRMCDGPSUTC.Text = objRMC.date.ToString("d MMM yyyy");
-            GridRMCMagn.Text = objRMC.magnetic.ToString();
-            GridRMCModePos.Text = objRMC.integrity.ToString();
+            _cap = objRMC.cap.ToString(); 
+            OnPropertyChanged("Cap");
 
-            if (objRMC.speed != 0)
-                GridRMCArcSpeed.Value = (System.DateTime.Now.Second) * 2; 
+            _RMCLastDGPS = objRMC.date.ToString("d MMM yyyy"); 
+            OnPropertyChanged("RMCLastDGPS");
 
-            //if (objRMC.speed != 0)
-            //    GridRMCArcSpeed.EndAngle = (System.DateTime.Now.Second) *3; 
+            _magnetic = objRMC.magnetic.ToString(); 
+            OnPropertyChanged("Magnetic");
 
-            //else GridRMCArcSpeed.EndAngle = 0;
-            */
+            _modepos = objRMC.integrity; 
+            OnPropertyChanged("ModePos");
+
         }
+       
+        /// <summary>
+        /// Both
+        /// </summary>
+        #region Both
+        public string Time
+        {
+            get
+            { return _time; }
+            set
+            {
+                _time = value;
+                OnPropertyChanged("Time");
+            }
+        }
+        public string Latitude
+        {
+            get
+            { return _latitude; }
+            set
+            {
+                _latitude = value;
+                OnPropertyChanged("Latitude");
+            }
+        }
+        public string Longitude
+        {
+            get
+            { return _longitude; }
+            set
+            {
+                _longitude = value;
+                OnPropertyChanged("Longitude");
+            }
+        }
+        #endregion
+
+        /// <summary>
+        /// GGA
+        /// </summary>
+        #region Get Set GGA
+        public string Position
+        {
+            get
+            { return _position; }
+            set
+            {
+                _position = value;
+                OnPropertyChanged("Position");
+            }
+        }
+        public string Quality
+        {
+            get
+            { return _quality; }
+            set
+            {
+                _quality = value;
+                OnPropertyChanged("Quality");
+            }
+        }
+        public string NSat
+        {
+            get
+            { return _nSat; }
+            set
+            {
+                _nSat = value;
+                OnPropertyChanged("NSat");
+            }
+        }
+        public string Dilution
+        {
+            get
+            { return _dilution; }
+            set
+            {
+                _dilution = value;
+                OnPropertyChanged("Dilution");
+            }
+        }
+        public string Altitude
+        {
+            get
+            { return _altitude; }
+            set
+            {
+                _altitude = value;
+                OnPropertyChanged("Altitude");
+            }
+        }
+        public string Geoidal
+        {
+            get
+            { return _geoidal; }
+            set
+            {
+                _geoidal = value;
+                OnPropertyChanged("Geoidal");
+            }
+        }
+        public string GGALastDGPS
+        {
+            get
+            { return _GGAlastDGPS; }
+            set
+            {
+                _GGAlastDGPS = value;
+                OnPropertyChanged("GGALastDGPS");
+            }
+        }
+        public string Cap
+        {
+            get
+            { return _cap; }
+            set
+            {
+                _cap = value;
+                OnPropertyChanged("Cap");
+            }
+        }
+        #endregion GetSet
+
+        /// <summary>
+        /// RMC
+        /// </summary>
+        #region Get Set RMC
+        public string Validity
+        {
+            get
+            { return _validity; }
+            set
+            {
+                _validity = value;
+                OnPropertyChanged("Validity");
+            }
+        }
+        public string Speed
+        {
+            get
+            { return _speed; }
+            set
+            {
+                _speed = value;
+                OnPropertyChanged("Speed");
+            }
+        }
+        public string RMCLastDGPS
+        {
+            get
+            { return _RMCLastDGPS; }
+            set
+            {
+                _RMCLastDGPS = value;
+                OnPropertyChanged("RMCLastDGPS");
+            }
+        }
+        public string Magnetic
+        {
+            get
+            { return _magnetic; }
+            set
+            {
+                _magnetic = value;
+                OnPropertyChanged("Magnetic");
+            }
+        }
+        public string ModePos
+        {
+            get
+            { return _modepos; }
+            set
+            {
+                _modepos = value;
+                OnPropertyChanged("ModePos");
+            }
+        }
+        #endregion
+
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -173,16 +373,19 @@ namespace WpfApplication1.ViewModel
             // this.NavigationService.Navigate(new SerialSettingsView());
         }
 
-        public string position { get;set; }
-     
+        #region INotifyPropertyChanged Members
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged
+        protected void OnPropertyChanged(string name)
         {
-            add { }//throw new NotImplementedException(); }
-            remove {}// throw new NotImplementedException(); }
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(name));
+            }
         }
+        #endregion
     }
 
 }

@@ -15,11 +15,5 @@ namespace WpfApplication1
     /// </summary>
     public partial class App : Application
     {
-        private void InitializeViewService(Frame rootFrame)
-        {
-            ViewService.Service.NavigationService.Initialized(rootFrame);
-            ViewService.Service.RegisterView("DataParsedView", typeof(DataParsedView));
-            ViewService.Service.RegisterView("SerialSettingsView", typeof(SerialSettingsView));
-        }
     }
 }
