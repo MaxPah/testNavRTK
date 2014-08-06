@@ -23,6 +23,7 @@ using System.Xml.XPath;
 using System.Xml.Serialization;
 using WpfApplication1.Model;
 using System.ComponentModel;
+using WpfApplication1.Helper;
 
 namespace WpfApplication1.ViewModel
 {
@@ -30,23 +31,81 @@ namespace WpfApplication1.ViewModel
     {
         #region variables
         //Richtextbox
-        FlowDocument mcFlowDoc = new FlowDocument();
-        Paragraph para = new Paragraph();
-        string link;
-        
+        private Queue<string> gpsTrame;
+        private string link;
+
         //Serial 
         SerialPort sp = new SerialPort();
         string recieved_data;
         ObjectsPorts objports = new ObjectsPorts();
-            
+        private ObjectPort selectedObjectPort;
+
         #endregion
+
+        private RelayCommand goToView;
+        public ICommand GoToView
+        {
+            get
+            {
+                if (goToView == null)
+                {
+                    goToView = new RelayCommand(ExecuteGoToView, CanGoToView);
+                }
+                return goToView;
+            }
+        }
+        private RelayCommand stop;
+        public ICommand Stop
+        {
+            get
+            {
+                if (stop == null)
+                {
+                    stop = new RelayCommand(ExecuteStop, CanStop);
+                }
+                return stop;
+            }
+        }
 
         public SerialSettingsViewModel()
         {
             link = "../../Ports.xml";
             string[] portName;
             portName = SerialPort.GetPortNames();
+            gpsTrame = new Queue<string>();
+
             XMLtoSerialPort();
+            sp.PortName = "COM1";
+            sp.BaudRate = 115200;
+
+            
+            //GoToView = new CommandImpl(MyCommandExecute, MyCommandCanExecute);
+
+            if (!sp.IsOpen)
+                sp.Open();
+
+            //Sets button State and Creates function call on data recieved
+            sp.DataReceived += new SerialDataReceivedEventHandler(Recieve);
+        }
+
+        private void ExecuteGoToView()
+        {
+            Console.WriteLine("ViewClicked");
+            //(Frame)NavigationService.Navigate(new DataParsedView());
+        }
+
+        private bool CanGoToView()
+        {
+            return true;
+        }
+        private void ExecuteStop()
+        {
+            sp.Close();
+        }
+
+        private bool CanStop()
+        {
+            return true;
         }
 
         public void XMLtoSerialPort()
@@ -55,84 +114,85 @@ namespace WpfApplication1.ViewModel
             {
                 objports = ObjectsPorts.Charger(link);
             }
-            else {
-                objports = new ObjectsPorts();
-            }
-
-            //listBox1.ItemsSource = objports;
-
-           // objports.Enregistrer(link);
-        }
-/*
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            if (OnOffButton.IsCancel == true)
-            {
-                if(listBox1.SelectedItem != null)
-                {
-                  ObjectPort objectselected = (ObjectPort)listBox1.SelectedItem;
-                  sp.PortName = objectselected.Name;
-                  sp.BaudRate = int.Parse(objectselected.Baudrate);
-
-                }
-                else
-                {
-                    sp.PortName = "COM1";
-                    sp.BaudRate = 115200;
-                }
-
-               
-                if (!sp.IsOpen)
-                    sp.Open();
-
-                //Sets button State and Creates function call on data recieved
-                sp.DataReceived += new SerialDataReceivedEventHandler(Recieve);
-                
-                OnOffButton.IsCancel = false;
-                OnOffButton.Background = (SolidColorBrush)this.FindResource("secondColor");
-                LabelOnOffButton.Content = "On";
-                OffRect.Visibility = System.Windows.Visibility.Visible;
-                OnRect.Visibility = System.Windows.Visibility.Hidden;
-
-            }
             else
             {
-                try // just in case serial port is not open could also be acheved using if(serial.IsOpen)
-                {
-                    sp.Close();
-                    OnOffButton.IsCancel = true;
-                    OnOffButton.Background = (SolidColorBrush)this.FindResource("Black");
-                    LabelOnOffButton.Content = "Off";
-                    OnRect.Visibility = System.Windows.Visibility.Visible;
-                    OffRect.Visibility = System.Windows.Visibility.Hidden;
-                   
-                }
-                catch
-                {
-                }
+                objports = new ObjectsPorts();
+            }
+            objports.Enregistrer(link);
+        }
+
+        public ObjectsPorts ObjPorts
+        {
+            get
+            { return objports; }
+            set
+            {
+                objports = value;
+                OnPropertyChanged("ObjPorts");
             }
         }
-*/
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+            /*  if(listBox1.SelectedItem != null)
+              {
+                ObjectPort objectselected = (ObjectPort)listBox1.SelectedItem;
+                sp.PortName = objectselected.Name;
+                sp.BaudRate = int.Parse(objectselected.Baudrate);
+
+              }
+              else
+              {
+                  sp.PortName = "COM1";
+                  sp.BaudRate = 115200;
+              }
+              if (!sp.IsOpen)
+                  sp.Open();
+          */
+            //Sets button State and Creates function call on data recieved
+            sp.DataReceived += new SerialDataReceivedEventHandler(Recieve);
+        }
         #region Recieving
 
         private delegate void UpdateUiTextDelegate(string text);
         private void Recieve(object sender, SerialDataReceivedEventArgs e)
         {
             // Collecting the characters received to our 'buffer' (string).
-            recieved_data = sp.ReadExisting();
-            Application.Current.Dispatcher.Invoke(DispatcherPriority.Send, new UpdateUiTextDelegate(WriteData), recieved_data);
+            recieved_data = sp.ReadLine();
+            if (recieved_data !=null)
+                Application.Current.Dispatcher.Invoke(DispatcherPriority.Send, new UpdateUiTextDelegate(WriteData), recieved_data);
         }
         private void WriteData(string text)
         {
-            // Assign the value of the recieved_data to the RichTextBox.
-            para.Inlines.Add(text);
-            mcFlowDoc.Blocks.Add(para);
-            //viewDatas.Document = mcFlowDoc;
-            //viewDatas.ScrollToEnd();
+            if (gpsTrame != null)
+                if (gpsTrame.Count() > 12)
+                    gpsTrame.Clear();
+            if (text != null)
+                gpsTrame.Enqueue(text);
+            OnPropertyChanged("GpsTrame");
+        }
+
+        public string GpsTrame
+        {
+            get
+            {
+                string alltrames = "";
+                foreach (string o in gpsTrame)
+                    alltrames += o.ToString();
+                return alltrames;
+            }
+            set
+            {
+                gpsTrame.Enqueue(value);
+                OnPropertyChanged("GpsTrame");
+
+                Console.WriteLine(gpsTrame);
+            }
         }
 
         #endregion
-
+        /*
         private void portSettingsValid(object sender, RoutedEventArgs e)
         {
             ObjectsPorts objports;
@@ -179,13 +239,13 @@ namespace WpfApplication1.ViewModel
             NavigationService.Navigate(new DataParsedView()); 
         }*/
 
-       /* private void closePopUp(object sender, RoutedEventArgs e)
-        {
-            PortSettings.IsOpen = false; 
-        }
-        * */
-        #endregion
-
+        /* private void closePopUp(object sender, RoutedEventArgs e)
+         {
+             PortSettings.IsOpen = false; 
+         }
+         *
+         #endregion
+  */
         private void OnOffButton_MouseEnter(object sender, MouseEventArgs e)
         {
             //OnOffButton.Background = (SolidColorBrush)Application.Current.FindResource("Transparent");
@@ -193,26 +253,38 @@ namespace WpfApplication1.ViewModel
 
         private void listboxDeleteItem(object sender, MouseButtonEventArgs e)
         {
-          if (true)//listBox1.SelectedItem != null)
-            try
+            if (true)//listBox1.SelectedItem != null)
+                try
+                {
+                    int id = 0;
+
+                    // var objdelete = (ObjectPort)listBox1.SelectedItem;
+
+                    //  id = objdelete.Id;
+
+                    XmlDocument doc = new XmlDocument();
+                    doc.Load(link);
+                    XmlNode node = doc.SelectSingleNode("//ObjectPort[@id=" + id + "]");
+                    node.ParentNode.RemoveChild(node);
+
+                    doc.Save("../../Ports.xml");
+                    XMLtoSerialPort();
+                }
+                catch
+                {
+                }
+        }
+
+        public ObjectPort SelectedPort
+        {
+            get { return selectedObjectPort; }
+            set
             {
-                int id = 0;
-
-              // var objdelete = (ObjectPort)listBox1.SelectedItem;
-                
-                  //  id = objdelete.Id;
-
-                XmlDocument doc = new XmlDocument();
-                doc.Load(link);
-                XmlNode node = doc.SelectSingleNode("//ObjectPort[@id=" + id + "]");
-                node.ParentNode.RemoveChild(node);
-
-                doc.Save("../../Ports.xml");
-                XMLtoSerialPort();
-
-            }
-            catch
-            {
+                if (selectedObjectPort != value)
+                {
+                    selectedObjectPort = value;
+                    OnPropertyChanged("SelectedPort");
+                }
             }
         }
 

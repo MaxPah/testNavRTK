@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Threading;
 using System.Windows.Data;
 using System.ComponentModel;
+using WpfApplication1.Helper;
 
 namespace WpfApplication1.ViewModel
 {
@@ -22,26 +23,26 @@ namespace WpfApplication1.ViewModel
         Queue<Object> list = new Queue<Object>();
 
         //Both GGA & RMC
-        string _time;
-        string _latitude;
-        string _longitude;
+       private string _time;
+       private string _latitude;
+       private string _longitude;
  
         //GGA
-        string _position;
-        string _quality;
-        string _nSat;
-        string _dilution;
-        string _altitude;
-        string _geoidal;
-        string _GGAlastDGPS;
+       private string _position;
+       private string _quality;
+       private string _nSat;
+       private string _dilution;
+       private string _altitude;
+       private string _geoidal;
+       private string _GGAlastDGPS;
 
         //RMC
-        string _validity;
-        string _speed;
-        string _cap;
-        string _RMCLastDGPS;
-        string _magnetic;
-        string _modepos;
+       private string _validity;
+       private string _speed;
+       private string _cap;
+       private string _RMCLastDGPS;
+       private string _magnetic;
+       private string _modepos;
 
         //Serial 
         string recieved_data;
@@ -54,11 +55,39 @@ namespace WpfApplication1.ViewModel
             sp = new SerialPort("COM1", 115200);
 
             if (!sp.IsOpen)
-                  sp.Open();
-            
-            sp.DataReceived += new SerialDataReceivedEventHandler(Recieve);
+            {
+                try
+                {
+                    sp.Open();
+                    sp.DataReceived += new SerialDataReceivedEventHandler(Recieve);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
+        }
+        private RelayCommand goToData;
+        public ICommand GoToView
+        {
+            get
+            {
+                if (goToData == null)
+                {
+                    goToData = new RelayCommand(ExecuteGoToData, CanGoToData);
+                }
+                return goToData;
+            }
+        }
+        private void ExecuteGoToData()
+        {
+            Console.WriteLine("DataClicked");
+            //(Frame)NavigationService.Navigate(new DataParsedView());
+        }
 
-
+        private bool CanGoToData()
+        {
+            return true;
         }
 
         public delegate void UpdateUiTextDelegate1(MessageGPGGA objGGA);
@@ -80,11 +109,10 @@ namespace WpfApplication1.ViewModel
                         Application.Current.Dispatcher.Invoke(DispatcherPriority.Send, new UpdateUiTextDelegate2(WriteDataRMC), list.Last());
                 }
             }
-            catch
+            catch (Exception ex)
             {
-
+                Console.WriteLine(ex.Message);
             }
-
 
         }
 
