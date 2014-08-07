@@ -21,7 +21,7 @@
         </Style>
 
         <DataTemplate x:Key="DataTemplateListPort">
-            <Grid Height="120" Width="Auto">
+            <Grid MinHeight="120" Height="150" Width="Auto">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="35"/>
                     <ColumnDefinition Width="Auto"/>
@@ -37,29 +37,46 @@
                 <Rectangle Fill="#FF0080FF" HorizontalAlignment="Left" Height="Auto" Stroke="Black" VerticalAlignment="Stretch" Width="5.25" StrokeThickness="0" Margin="0,10" Grid.RowSpan="3" RadiusX="0" RadiusY="0"/>
                 <StackPanel Grid.ColumnSpan="1" Grid.Column="1" HorizontalAlignment="Stretch" Height="Auto" Grid.RowSpan="1" VerticalAlignment="Stretch" Width="Auto" Orientation="Horizontal">
                     <Viewbox>
-						<Label x:Name="LabelName" Content="Name : " Margin="0" Foreground="{StaticResource White}"/>
+                        <Label Content="Name : " Margin="0" Foreground="{StaticResource White}"/>
+                    </Viewbox>
+                    <Viewbox>
+                        <TextBlock Foreground="{StaticResource White}" Background="{StaticResource Transparent}"  Text="{Binding Name}"/>
+                    </Viewbox>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" Height="Auto" VerticalAlignment="Stretch">
+                    <Viewbox>
+						<Label Content="Bauds :" Margin="0" Width="Auto" Foreground="{StaticResource White}"/>
                     </Viewbox>
 					<Viewbox>
-						<TextBlock x:Name="Name" Foreground="{StaticResource White}" Background="{StaticResource Transparent}"  Text="{Binding Name}"/>
-	                </Viewbox>
+						<TextBlock Foreground="{StaticResource White}" Background="{StaticResource Transparent}" Text="{Binding Baudrate}"  Height="Auto" Width="Auto" TextAlignment="Center" Grid.Column="0" Grid.RowSpan="3" Grid.Row="0" Grid.ColumnSpan="1" Margin="0.923,5,5.231,3.634"/>
+                    </Viewbox>
+					<Viewbox>
+						<Label Content=",Databits : " Margin="0" Width="Auto" Foreground="{StaticResource White}"/>
+                    </Viewbox>
+					<Viewbox>
+						<TextBlock Foreground="{StaticResource White}" Background="{StaticResource Transparent}"  Text="{Binding Databits}" Height="Auto" TextAlignment="Center" Grid.Column="0" Grid.RowSpan="3" Grid.Row="0" Margin="2.769,5,2.462,3.634"/>
+					</Viewbox>
 				</StackPanel>
-                <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" Height="Auto" VerticalAlignment="Stretch">
-                    <Label x:Name="LabelBauds" Content="Bauds :" Margin="0" Width="Auto" Foreground="{StaticResource White}"/>
-                    <TextBlock x:Name="Bauds"  Foreground="{StaticResource White}" Background="{StaticResource Transparent}" Text="{Binding Baudrate}"  Height="Auto" Width="Auto" TextAlignment="Center" Grid.Column="0" Grid.RowSpan="3" Grid.Row="0" Grid.ColumnSpan="1" Margin="0.923,5,5.231,3.634"/>
-                    <Label x:Name="LabelDatabits" Content=",Databits : " Margin="0" Width="Auto" Foreground="{StaticResource White}"/>
-                    <TextBlock x:Name="Databits" Foreground="{StaticResource White}" Background="{StaticResource Transparent}"  Text="{Binding Databits}" Height="Auto" TextAlignment="Center" Grid.Column="0" Grid.RowSpan="3" Grid.Row="0" Margin="2.769,5,2.462,3.634"/>
-                </StackPanel>
                 <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" Height="Auto" Grid.ColumnSpan="2">
-                    <Label x:Name="LabelStopbit" Content="Stopbits : " Margin="0" Width="Auto" Foreground="{StaticResource White}"/>
-                    <TextBlock x:Name="Stopbit"  Foreground="{StaticResource White}" Background="{StaticResource Transparent}" Text="{Binding Stopbit}"  Height="Auto" Width="Auto" TextAlignment="Center" Grid.Column="0" Grid.Row="0" Margin="5.538,5,0.614,3.634" Grid.RowSpan="3"/>
-                    <Label x:Name="LabelParity" Content=",Parity : " Margin="0" Width="Auto" Foreground="{StaticResource White}"/>
-                    <TextBlock x:Name="Parity"  Foreground="{StaticResource White}" Background="{StaticResource Transparent}" Text="{Binding Parity}"  Height="Auto" Width="Auto" TextAlignment="Center" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="1" Margin="7.385,5,0.615,3.634" Grid.RowSpan="3"/>
-                    <Label x:Name="LabelHandshake" Content=",Handshake :" Margin="0" Width="Auto" Foreground="{StaticResource White}"/>
-                    <TextBlock x:Name="Handshake"  Foreground="{StaticResource White}" Background="{StaticResource Transparent}" Text="{Binding Handshake}"  Height="Auto" TextAlignment="Center" Grid.Column="1" Grid.Row="0" Margin="2.154,5,9.846,3.634" Grid.RowSpan="3" RenderTransformOrigin="0.5,0.5"/>
-                </StackPanel>
-				<Viewbox Grid.Column="3" Grid.Row="1" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Stretch="Uniform" RenderTransformOrigin="0.523,0.45" Width="32.5" Height="Auto" HorizontalAlignment="Right">
-                		<Path Fill="{StaticResource White}" Data="M18 28c0.552 0 1-0.448 1-1V15c0-0.552-0.448-1-1-1c-0.552 0-1 0.448-1 1    v12C17 27.552 17.448 28 18 28z M24 4h-6V2c0-1.105-0.895-2-2-2h-6C8.895 0 8 0.895 8 2v2H2C0.895 4 0 4.895 0 6v2    c0 1.104 0.895 2 2 2v18c0 2.209 1.791 4 4 4h14c2.209 0 4-1.791 4-4V10c1.105 0 2-0.896 2-2V6C26 4.895 25.105 4 24 4z M10 3    c0-0.552 0.448-1 1-1h4c0.552 0 1 0.448 1 1v1c-0.969 0-6 0-6 0V3z M22 28c0 1.104-0.895 2-2 2H6c-1.105 0-2-0.896-2-2V10h18V28z     M23 8H3C2.448 8 2 7.552 2 7c0-0.552 0.448-1 1-1h20c0.552 0 1 0.448 1 1C24 7.552 23.552 8 23 8z M8 28c0.552 0 1-0.448 1-1V15    c0-0.552-0.448-1-1-1c-0.552 0-1 0.448-1 1v12C7 27.552 7.448 28 8 28z M13 28c0.552 0 1-0.448 1-1V15c0-0.552-0.448-1-1-1    c-0.552 0-1 0.448-1 1v12C12 27.552 12.448 28 13 28z" HorizontalAlignment="Left"/>
-                </Viewbox>
+					<Viewbox>
+						<Label Content="Stopbits : " Margin="0" Width="Auto" Foreground="{StaticResource White}"/>
+                    </Viewbox>
+					<Viewbox>
+						<TextBlock Foreground="{StaticResource White}" Background="{StaticResource Transparent}" Text="{Binding Stopbit}"  Height="Auto" Width="Auto" TextAlignment="Center" Grid.Column="0" Grid.Row="0" Margin="5.538,5,0.614,3.634" Grid.RowSpan="3"/>
+					</Viewbox>
+					<Viewbox>
+						<Label Content=",Parity : " Margin="0" Width="Auto" Foreground="{StaticResource White}"/>
+					</Viewbox>
+					<Viewbox>
+						<TextBlock Foreground="{StaticResource White}" Background="{StaticResource Transparent}" Text="{Binding Parity}"  Height="Auto" Width="Auto" TextAlignment="Center" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="1" Margin="7.385,5,0.615,3.634" Grid.RowSpan="3"/>
+                    </Viewbox>
+					<Viewbox>
+						<Label Content=",Handshake :" Margin="0" Width="Auto" Foreground="{StaticResource White}"/>
+                    </Viewbox>
+					<Viewbox>
+						<TextBlock Foreground="{StaticResource White}" Background="{StaticResource Transparent}" Text="{Binding Handshake}"  Height="Auto" TextAlignment="Center" Grid.Column="1" Grid.Row="0" Margin="2.154,5,9.846,3.634" Grid.RowSpan="3" RenderTransformOrigin="0.5,0.5"/>
+                    </Viewbox>						
+					</StackPanel>
             </Grid>
         </DataTemplate>
         <Style x:Key="FocusVisual">
@@ -78,6 +95,7 @@
         <SolidColorBrush x:Key="Item.SelectedActive.Background" Color="#3D26A0DA"/>
         <SolidColorBrush x:Key="Item.SelectedActive.Border" Color="#FF26A0DA"/>
         <Style x:Key="ListBoxItemStyleListePort" TargetType="{x:Type ListBoxItem}">
+			<Setter Property="MinHeight" Value="200" />
             <Setter Property="SnapsToDevicePixels" Value="True"/>
             <Setter Property="Padding" Value="4,1"/>
             <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
@@ -90,7 +108,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ListBoxItem}">
                         <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
-                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Focusable="True"/>
+                            <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Focusable="True"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <MultiTrigger>
@@ -124,9 +142,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <ItemsPanelTemplate x:Key="ItemsPanelTemplateListePort">
-            <VirtualizingStackPanel IsItemsHost="True" IsEnabled="True"/>
-        </ItemsPanelTemplate>
     </Page.Resources>
     <Grid Background="{StaticResource primaryColor}">
         <Grid.RowDefinitions>
@@ -144,13 +159,13 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
         </Grid>
-        <Popup x:Name="PortSettings" Placement="Center" Width="Auto" Height="Auto" IsOpen="False">
+        <Popup Placement="Center" Width="Auto" Height="Auto" IsOpen="{Binding IsOpen}">
             <Grid Background="#dd515151" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button  Grid.ColumnSpan="2" HorizontalAlignment="Right" VerticalAlignment="Top" Content="X" Width="30" Height="30" />
+                <Button  Grid.ColumnSpan="2" HorizontalAlignment="Right" VerticalAlignment="Top" Content="X" Command="{Binding Path=ClosePopUp}" Width="30" Height="30" />
                 <Label Grid.ColumnSpan="2" VerticalAlignment="Top" HorizontalContentAlignment="Center" Foreground="White" Margin="50,0,50,0" Content="Configuration Settings"/>
                 <StackPanel Margin="0,40,0,0">
                     <Label Foreground="{StaticResource White}" Margin="40,20,0,15" Content="Name"/>
@@ -161,59 +176,72 @@
                     <Label Foreground="{StaticResource White}" Margin="40,0,0,15" Content="Handhsake"/>
                 </StackPanel>
                 <StackPanel Margin="0,40,0,0" Grid.Column="1" >
-                    <ComboBox ItemsSource="{Binding portName}" SelectedIndex="0" Width="100" Margin="0,20,0,10"/>
-                    <ComboBox x:Name="popupBaud" SelectedIndex="0" Width="100" Margin="10">
-                        <ComboBoxItem Content="115200"/>
-                        <ComboBoxItem Content="4800"/>
-                        <ComboBoxItem Content="9600"/>
-                    </ComboBox>
-                    <TextBox x:Name="popupDatabits" Text="8" Width="100" Margin="10"/>
-                    <ComboBox x:Name="popupStopbit" SelectedIndex="0" Width="100" Margin="10">
-                        <ComboBoxItem Content="One"/>
-                        <ComboBoxItem Content="OnePointFive"/>
-                        <ComboBoxItem Content="Two"/>
-                        <ComboBoxItem Content="None"/>
-                    </ComboBox>
-                    <ComboBox x:Name="popupParity" SelectedIndex="0" Width="100" Margin="10">
-                        <ComboBoxItem Content="None"/>
-                        <ComboBoxItem Content="Even"/>
-                        <ComboBoxItem Content="Mark"/>
-                        <ComboBoxItem Content="Odd"/>
-                        <ComboBoxItem Content="Space"/>
-                    </ComboBox>
-                    <ComboBox x:Name="popupHandshake" SelectedIndex="0" Width="100" Margin="10">
-                        <ComboBoxItem Content="None"/>
-                        <ComboBoxItem Content="XOnXOff"/>
-                        <ComboBoxItem Content="RequestToSend"/>
-                        <ComboBoxItem Content="RequestToSendXOnXOff"/>
-                    </ComboBox>
-                    <Button Margin="30" HorizontalAlignment="Center" Content="Validate" Width="100" Height="30"/>
+                    <ComboBox SelectedItem="{Binding SelectedName}" ItemsSource="{Binding PortName}" SelectedIndex="0"  Width="100" Margin="0,20,0,10"/>
+                    <ComboBox SelectedIndex="0" SelectedItem="{Binding SelectedBauds}" Width="100" ItemsSource="{Binding EnumBauds}" Margin="10"/>
+                    <ComboBox SelectedIndex="0" SelectedItem="{Binding SelectedDatabits}" Width="100" ItemsSource="{Binding EnumDatabits}" Margin="10"/>
+                    <ComboBox SelectedIndex="0" SelectedItem="{Binding SelectedStopbits}" Width="100" ItemsSource="{Binding EnumStopbit}" Margin="10"/>
+                    <ComboBox SelectedIndex="0" SelectedItem="{Binding SelectedParity}" Width="100" ItemsSource="{Binding EnumParity}" Margin="10"/>
+                    <ComboBox SelectedIndex="0" SelectedItem="{Binding SelectedHandshake}" Width="100" ItemsSource="{Binding EnumHandshake}" Margin="10"/>
+                    <Button Margin="30" HorizontalAlignment="Center" Content="Validate" Command="{Binding Path=ValidationNewPort}" Width="100" Height="30"/>
                 </StackPanel>
             </Grid>
         </Popup>
         <Grid Margin="20" Grid.Row="1">
-        	<Grid.RowDefinitions>
-        		<RowDefinition Height="94*" MinHeight="75"/>
-        		<RowDefinition Height="435*"/>
-        		<RowDefinition Height="52*"/>
-        	</Grid.RowDefinitions>
-        	<Grid.ColumnDefinitions>
-        		<ColumnDefinition Width="589*"/>
-        		<ColumnDefinition Width="30*"/>
-        		<ColumnDefinition Width="405*"/>
-        		<ColumnDefinition Width="136*" MinWidth="50"/>
-        	</Grid.ColumnDefinitions>
-            <Viewbox Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="2" VerticalAlignment="Top">
-                <TextBlock Background="Aqua" Foreground="{StaticResource White}" Text="{Binding GpsTrame}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="75*" MinHeight="75"/>
+                <RowDefinition Height="453*"  MinHeight="200"/>
+                <RowDefinition Height="52*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="589*"/>
+                <ColumnDefinition Width="30*"/>
+                <ColumnDefinition Width="476*"/>
+                <ColumnDefinition Width="65*" MinWidth="50"/>
+            </Grid.ColumnDefinitions>
+            <Viewbox Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2" >
+                <TextBlock Foreground="{StaticResource White}" Text="{Binding GpsTrame}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </Viewbox>
+            <!-- Delete item-->
 
-            <ListBox Grid.Row="1" HorizontalContentAlignment="Stretch" Background="{StaticResource Transparent}" ItemsSource="{Binding ObjPorts}" SelectedItem="{Binding SelectedPort}" BorderThickness="0" FontSize="20" Foreground="{StaticResource White}" x:Name="listBox1" ItemTemplate="{DynamicResource DataTemplateListPort}" ItemContainerStyle="{DynamicResource ListBoxItemStyleListePort}" ItemsPanel="{DynamicResource ItemsPanelTemplateListePort}" VerticalContentAlignment="Stretch"/>
-        	<Button Background="{StaticResource Transparent}" BorderThickness="0"  Grid.Column="3">                
-        		<Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Stretch="Uniform"><Canvas x:Name="Capa_1" Width="44.237" Height="44.237" Canvas.Left="0" Canvas.Top="0" Margin="0,0,0,20"><Canvas.RenderTransform><TranslateTransform X="0" Y="0"/></Canvas.RenderTransform><!--Unknown tag: metadata--><!--Unknown tag: sodipodi:namedview--><Canvas x:Name="g3"><Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Name="path5" Fill="#FFF9F9F9"><Path.Data><PathGeometry Figures="M22.119 44.237C9.922 44.237 0 34.315 0 22.119S9.922 0 22.119 0s22.119 9.922 22.119 22.119S34.315 44.237 22.119 44.237z    M22.119 1.5C10.75 1.5 1.5 10.75 1.5 22.119s9.25 20.619 20.619 20.619s20.619-9.25 20.619-20.619S33.488 1.5 22.119 1.5z" FillRule="NonZero"/></Path.Data></Path><Canvas x:Name="g7"><Line xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" X1="12.805" Y1="22.118" X2="31.433" Y2="22.118" x:Name="line9" Fill="#FFF9F9F9"/><Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Name="path11" Fill="#FFF9F9F9"><Path.Data><PathGeometry Figures="M31.433 22.868H12.805c-0.414 0-0.75-0.336-0.75-0.75s0.336-0.75 0.75-0.75h18.628c0.414 0 0.75 0.336 0.75 0.75    S31.847 22.868 31.433 22.868z" FillRule="NonZero"/></Path.Data></Path></Canvas><Canvas x:Name="g13"><Line xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" X1="22.119" Y1="12.805" X2="22.119" Y2="31.432" x:Name="line15" Fill="#FFF9F9F9"/><Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Name="path17" Fill="#FFF9F9F9"><Path.Data><PathGeometry Figures="M22.119 32.182c-0.414 0-0.75-0.336-0.75-0.75V12.805c0-0.414 0.336-0.75 0.75-0.75s0.75 0.336 0.75 0.75v18.627    C22.869 31.846 22.533 32.182 22.119 32.182z" FillRule="NonZero"/></Path.Data></Path></Canvas></Canvas><Canvas x:Name="g19"/><Canvas x:Name="g21"/><Canvas x:Name="g23"/><Canvas x:Name="g25"/><Canvas x:Name="g27"/><Canvas x:Name="g29"/><Canvas x:Name="g31"/><Canvas x:Name="g33"/><Canvas x:Name="g35"/><Canvas x:Name="g37"/><Canvas x:Name="g39"/><Canvas x:Name="g41"/><Canvas x:Name="g43"/><Canvas x:Name="g45"/><Canvas x:Name="g47"/></Canvas></Viewbox>
-        	</Button>
-        	<Label Margin="0,0,100,0" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" x:Name="LabelOnOffButton" Foreground="{StaticResource White}" Content="Off" HorizontalAlignment="Right" Width="55" Height="30" VerticalAlignment="Center"/>
-        	<ToggleButton Margin="0,0,0,10" Grid.Row="2" Background="{DynamicResource secondColor}" HorizontalAlignment="Right" Width="82" Command="{Binding Path=Stop}"/>
-        </Grid>  
-	</Grid>
+            <Button Grid.Column="0" Grid.Row="2" Width="Auto" HorizontalAlignment="Left" Command="{Binding Path=ListBoxDeleteItem}" Background="{DynamicResource Transparent}" >
+                <Viewbox>
+                    <Path Fill="{StaticResource White}" Data="M18 28c0.552 0 1-0.448 1-1V15c0-0.552-0.448-1-1-1c-0.552 0-1 0.448-1 1    v12C17 27.552 17.448 28 18 28z M24 4h-6V2c0-1.105-0.895-2-2-2h-6C8.895 0 8 0.895 8 2v2H2C0.895 4 0 4.895 0 6v2    c0 1.104 0.895 2 2 2v18c0 2.209 1.791 4 4 4h14c2.209 0 4-1.791 4-4V10c1.105 0 2-0.896 2-2V6C26 4.895 25.105 4 24 4z M10 3    c0-0.552 0.448-1 1-1h4c0.552 0 1 0.448 1 1v1c-0.969 0-6 0-6 0V3z M22 28c0 1.104-0.895 2-2 2H6c-1.105 0-2-0.896-2-2V10h18V28z     M23 8H3C2.448 8 2 7.552 2 7c0-0.552 0.448-1 1-1h20c0.552 0 1 0.448 1 1C24 7.552 23.552 8 23 8z M8 28c0.552 0 1-0.448 1-1V15    c0-0.552-0.448-1-1-1c-0.552 0-1 0.448-1 1v12C7 27.552 7.448 28 8 28z M13 28c0.552 0 1-0.448 1-1V15c0-0.552-0.448-1-1-1    c-0.552 0-1 0.448-1 1v12C12 27.552 12.448 28 13 28z" HorizontalAlignment="Left"/>
+                </Viewbox>
+            </Button>
+			<Viewbox Grid.Row="0" Grid.RowSpan="2" Grid.Column="0">
+                <ListBox VerticalAlignment="Stretch" Background="{StaticResource Transparent}" BorderThickness="0" ItemsSource="{Binding ObjPorts}" SelectedItem="{Binding SelectedPort}" Foreground="{StaticResource White}" ItemTemplate="{DynamicResource DataTemplateListPort}" />
+			</Viewbox>
+			<Button Background="{StaticResource Transparent}" BorderThickness="0"  Grid.Column="3" Command="{Binding Path=OpenPopUp}">
+            <Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Stretch="Uniform">
+                <Canvas x:Name="Capa_1" Width="44.237" Height="44.237" Canvas.Left="0" Canvas.Top="0" >
+                    <Canvas x:Name="g3">
+                        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Name="path5" Fill="#FFF9F9F9">
+                            <Path.Data>
+                                <PathGeometry Figures="M22.119 44.237C9.922 44.237 0 34.315 0 22.119S9.922 0 22.119 0s22.119 9.922 22.119 22.119S34.315 44.237 22.119 44.237z    M22.119 1.5C10.75 1.5 1.5 10.75 1.5 22.119s9.25 20.619 20.619 20.619s20.619-9.25 20.619-20.619S33.488 1.5 22.119 1.5z" FillRule="NonZero"/>
+                            </Path.Data>
+                        </Path>
+                        <Canvas x:Name="g7">
+                            <Line xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" X1="12.805" Y1="22.118" X2="31.433" Y2="22.118" x:Name="line9" Fill="#FFF9F9F9"/>
+                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Name="path11" Fill="#FFF9F9F9">
+                                <Path.Data>
+                                    <PathGeometry Figures="M31.433 22.868H12.805c-0.414 0-0.75-0.336-0.75-0.75s0.336-0.75 0.75-0.75h18.628c0.414 0 0.75 0.336 0.75 0.75    S31.847 22.868 31.433 22.868z" FillRule="NonZero"/>
+                                </Path.Data>
+                            </Path>
+                        </Canvas>
+                        <Canvas x:Name="g13">
+                            <Line xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" X1="22.119" Y1="12.805" X2="22.119" Y2="31.432" x:Name="line15" Fill="#FFF9F9F9"/>
+                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Name="path17" Fill="#FFF9F9F9">
+                                <Path.Data>
+                                    <PathGeometry Figures="M22.119 32.182c-0.414 0-0.75-0.336-0.75-0.75V12.805c0-0.414 0.336-0.75 0.75-0.75s0.75 0.336 0.75 0.75v18.627    C22.869 31.846 22.533 32.182 22.119 32.182z" FillRule="NonZero"/>
+                                </Path.Data>
+                            </Path>
+                        </Canvas>
+                    </Canvas>
+                </Canvas>
+            </Viewbox>
+        </Button>
+        <ToggleButton Margin="0,0,0,10" Grid.Row="2" Background="{DynamicResource secondColor}" HorizontalAlignment="Right" Content="{Binding OnOffButton}"  Width="82" Command="{Binding Path=Stop}"/>
+        </Grid>
+    </Grid>
 </Page>
                                 

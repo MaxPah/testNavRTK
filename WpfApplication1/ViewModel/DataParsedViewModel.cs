@@ -26,6 +26,7 @@ namespace WpfApplication1.ViewModel
        private string _time;
        private string _latitude;
        private string _longitude;
+       private SolidColorBrush _NSatColor; 
  
         //GGA
        private string _position;
@@ -39,8 +40,8 @@ namespace WpfApplication1.ViewModel
         //RMC
        private string _validity;
        private string _speed;
+       private double _speedBar;
        private string _cap;
-       private string _RMCLastDGPS;
        private string _magnetic;
        private string _modepos;
 
@@ -49,7 +50,7 @@ namespace WpfApplication1.ViewModel
         SerialPort sp;
         #endregion
 
-
+        #region Constructor
         public DataParsedViewModel()
         {
             sp = new SerialPort("COM1", 115200);
@@ -67,6 +68,8 @@ namespace WpfApplication1.ViewModel
                 }
             }
         }
+        #endregion Constructor
+
         private RelayCommand goToData;
         public ICommand GoToView
         {
@@ -84,7 +87,6 @@ namespace WpfApplication1.ViewModel
             Console.WriteLine("DataClicked");
             //(Frame)NavigationService.Navigate(new DataParsedView());
         }
-
         private bool CanGoToData()
         {
             return true;
@@ -127,12 +129,23 @@ namespace WpfApplication1.ViewModel
 
             _longitude = objGGA.longitude.ToString("F6");
             OnPropertyChanged("Longitude");
-
+            
             _position = objGGA.gpsQuality.ToString();
             OnPropertyChanged("Position");
 
             _nSat = objGGA.nSat.ToString();
             OnPropertyChanged("NSat");
+
+            if (int.Parse(_nSat) == 4)
+                _NSatColor = new SolidColorBrush(Colors.OrangeRed);
+            else if (int.Parse(_nSat) == 5)
+                _NSatColor = new SolidColorBrush(Colors.DarkOrange);
+            else if (int.Parse(_nSat) == 6)
+                _NSatColor = new SolidColorBrush(Colors.Orange);
+            else if (int.Parse(_nSat) >= 7)
+                _NSatColor = new SolidColorBrush(Colors.Green);
+            else  _NSatColor = new SolidColorBrush(Colors.Red);
+                OnPropertyChanged("NSatColor");
 
             _dilution = objGGA.dilution.ToString("F2");
             OnPropertyChanged("Dilution");
@@ -147,21 +160,20 @@ namespace WpfApplication1.ViewModel
             OnPropertyChanged("GGALastDGPS");
 
         }
-        
-
         public void WriteDataRMC(MessageGPRMC objRMC)
         {
            _validity = objRMC.status.ToString(); 
             OnPropertyChanged("Validity");
 
-            _speed = objRMC.speed.ToString("F2"); 
+            /*PREVISIONNEL*/
+            _speed = objRMC.speed.ToString() ;
             OnPropertyChanged("Speed");
+
+            _speedBar = double.Parse(_speed) * 1000;
+            OnPropertyChanged("SpeedBar");
 
             _cap = objRMC.cap.ToString(); 
             OnPropertyChanged("Cap");
-
-            _RMCLastDGPS = objRMC.date.ToString("d MMM yyyy"); 
-            OnPropertyChanged("RMCLastDGPS");
 
             _magnetic = objRMC.magnetic.ToString(); 
             OnPropertyChanged("Magnetic");
@@ -174,7 +186,7 @@ namespace WpfApplication1.ViewModel
         /// <summary>
         /// Both
         /// </summary>
-        #region Both
+        #region Get Set Both
         public string Time
         {
             get
@@ -317,14 +329,14 @@ namespace WpfApplication1.ViewModel
                 OnPropertyChanged("Speed");
             }
         }
-        public string RMCLastDGPS
+        public double SpeedBar
         {
             get
-            { return _RMCLastDGPS; }
+            { return _speedBar; }
             set
             {
-                _RMCLastDGPS = value;
-                OnPropertyChanged("RMCLastDGPS");
+                _speedBar = value;
+                OnPropertyChanged("SpeedBar");
             }
         }
         public string Magnetic
@@ -347,59 +359,17 @@ namespace WpfApplication1.ViewModel
                 OnPropertyChanged("ModePos");
             }
         }
+        public SolidColorBrush NSatColor
+        {
+            get
+            { return _NSatColor; }
+            set
+            {
+                _NSatColor = value;
+                OnPropertyChanged("NSatColor");
+            }
+        }
         #endregion
-
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            /*
-           if ( OnOffButton.IsCancel == true)
-           {
-               sp = new SerialPort("COM1", 115200);
-
-               if (!sp.IsOpen)
-                   sp.Open();
-
-
-            */
-
-            sp.DataReceived += new SerialDataReceivedEventHandler(Recieve);
-
-            /*
-               OnOffButton.IsCancel = false;
-               OnOffButton.Background = (SolidColorBrush)this.FindResource("secondColor");
-               LabelOnOffButton.Content = "On";
-                OffRect.Visibility = System.Windows.Visibility.Visible;
-                OnRect.Visibility = System.Windows.Visibility.Hidden;
-           }
-           else
-           {
-               try
-               {
-                   sp.Close();
-                   OnOffButton.IsCancel = true;
-                    OnOffButton.Background = (SolidColorBrush)this.FindResource("Transparent");
-                    LabelOnOffButton.Content = "Off";
-                    OnRect.Visibility = System.Windows.Visibility.Visible;
-                    OffRect.Visibility = System.Windows.Visibility.Hidden;
-                   
-
-               }
-               catch
-               {
-               }
-           }
-            */
-        }
-
-        private void goToConnexion(object sender, MouseButtonEventArgs e)
-        {
-            if (sp != null)
-                if (sp.IsOpen)
-                    sp.Close();
-
-            // this.NavigationService.Navigate(new SerialSettingsView());
-        }
 
         #region INotifyPropertyChanged Members
 

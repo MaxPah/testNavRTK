@@ -46,16 +46,16 @@ namespace WpfApplication1.Model
         /// <param name="a"></param>
         /// <param name="var"></param>
         /// <returns></returns>
-        public MessageGPGGA GGAInit(MessageGPGGA a, string[] var)
+        public MessageGPGGA GGAInit(MessageGPGGA obj, string[] var)
         {
-
+            Console.WriteLine(var[1]);
             string separator = System.Globalization.NumberFormatInfo.CurrentInfo.CurrencyDecimalSeparator;
             int year = DateTime.Now.Year;
             int month = DateTime.Now.Month;
             int day = DateTime.Now.Day;
 
             //TYPE OF OBJECT
-            a.type = "GPGGA"; 
+            obj.type = "GPGGA"; 
 
             //TIME UTC
             if (!var[1].Equals(string.Empty))
@@ -67,71 +67,74 @@ namespace WpfApplication1.Model
                 if (var[1].Length > 6)
                     ms = int.Parse(var[1].Substring(7, 2));
                 else ms = 0;
-                a.timeUTC = new DateTime(year, month, day, h, m, s, ms);
+                obj.timeUTC = new DateTime(year, month, day, h, m, s, ms);
             }
-            else a.timeUTC = new DateTime(1, 1, 1);
+            else obj.timeUTC = new DateTime(1, 1, 1);
 
             //LATITUDE
             if (!var[2].Equals(string.Empty))
-                a.latitude = toLatitude(var[2], char.Parse(var[3]));
-            else a.latitude = 0;
+                obj.latitude = toLatitude(var[2], char.Parse(var[3]));
+            else obj.latitude = 0;
 
             //LONGITUDE
             if (!var[4].Equals(string.Empty))
-                a.longitude = toLongitude(var[4], char.Parse(var[5]));
-            else a.longitude = 0;
+                obj.longitude = toLongitude(var[4], char.Parse(var[5]));
+            else obj.longitude = 0;
 
             //GPS QUALITY
             if (!var[6].Equals(string.Empty))
-                a.gpsQuality = byte.Parse(var[6]);
-            else a.gpsQuality = 0;
+                obj.gpsQuality = byte.Parse(var[6]);
+            else obj.gpsQuality = 0;
 
             //NUMBER OF SATELITES
             if (!var[7].Equals(string.Empty))
-                a.nSat = byte.Parse(var[7]);
-            else a.nSat = 0;
+                obj.nSat = byte.Parse(var[7]);
+            else obj.nSat = 0;
 
             //DILUTION
             if (!var[8].Equals(string.Empty))
-                a.dilution = Convert.ToSingle(var[8].Replace(".", separator));
-            else a.dilution = 0;
+                obj.dilution = Convert.ToSingle(var[8].Replace(".", separator));
+            else obj.dilution = 0;
 
             //ALTITUDE
             if (!var[9].Equals(string.Empty))
-                a.altitude = Convert.ToSingle(var[9].Replace(".", separator));
-            else a.altitude = 0;
+                obj.altitude = Convert.ToSingle(var[9].Replace(".", separator));
+            else obj.altitude = 0;
 
             //ALTITUDE FORMAT
             if (var[10].Equals(string.Empty))
-                a.altUnit = '\0';
-            else a.altUnit = char.Parse(var[10]);
+                obj.altUnit = '\0';
+            else obj.altUnit = char.Parse(var[10]);
 
             //GEOIDAL
             if (!var[11].Equals(string.Empty))
-                a.geoidal = Convert.ToSingle(var[11].Replace(".", separator));
-            else a.geoidal = 0;
+                obj.geoidal = Convert.ToSingle(var[11].Replace(".", separator));
+            else obj.geoidal = 0;
 
             //GEOIDAL FORMAT
             if (!var[12].Equals(string.Empty))
-                a.geoUnit = '0';
-            else a.geoUnit = char.Parse(var[12]);
+                obj.geoUnit = '0';
+            else obj.geoUnit = char.Parse(var[12]);
 
+
+
+            Console.WriteLine(var[13]);
             //DIFFERENTIAL TIME
             if (var[13].Equals(string.Empty))
-                a.dGPSTime = new DateTime();
-            else a.dGPSTime = new DateTime(year, month, day, int.Parse(var[13].Substring(0, 2)), int.Parse(var[13].Substring(2, 2)), int.Parse(var[13].Substring(4, 2)), int.Parse(var[13].Substring(7, 3)));
+                obj.dGPSTime = new DateTime(1,1,1);
+            else obj.dGPSTime = new DateTime(year, month, day, int.Parse(var[13].Substring(0, 2)), int.Parse(var[13].Substring(2, 2)), int.Parse(var[13].Substring(4, 2)), int.Parse(var[13].Substring(7, 3)));
 
             //STATION VIEWED
             if (var[14].Length > 5)
-                a.stationRef = var[14].Substring(0, 4);
-            else a.stationRef = "0000";
+                obj.stationRef = var[14].Substring(0, 4);
+            else obj.stationRef = "0000";
 
             //CHECKSUM
             string[] check;
             check = var[14].Split('*');
-            a.checksum = check[1].Substring(0,2);
+            obj.checksum = check[1].Substring(0, 2);
 
-            return a;
+            return obj;
         }
 
         /// <summary>

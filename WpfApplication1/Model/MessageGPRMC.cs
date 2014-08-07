@@ -55,7 +55,7 @@ namespace WpfApplication1.Model
             obj.type = "GPRMC";
 
             //TIME UTC
-            if (var[1] != String.Empty)
+            if (!var[1].Equals(string.Empty))
             {
                 int h = int.Parse(var[1].Substring(0, 2));
                 int m = int.Parse(var[1].Substring(2, 2));
@@ -93,10 +93,12 @@ namespace WpfApplication1.Model
                 obj.cap = var[8];
             else obj.cap = " ";
 
-            //DATE
+
+            Console.WriteLine(var[9]);
+            //DATE OF THE DAY
            if (var[9].Equals(string.Empty))
                 obj.date = new DateTime(1,1,1);
-           else   obj.date = new DateTime(int.Parse(var[9].Substring(4, 2)) + 2000, int.Parse(var[9].Substring(2, 2)), int.Parse(var[9].Substring(0, 2)));
+           else   obj.date = new DateTime(year,month,day,int.Parse(var[9].Substring(4, 2)), int.Parse(var[9].Substring(2, 2)), int.Parse(var[9].Substring(0, 2)));
 
 
             //MAGNETIC
