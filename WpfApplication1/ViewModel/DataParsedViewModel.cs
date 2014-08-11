@@ -12,6 +12,7 @@ using System.Windows.Threading;
 using System.Windows.Data;
 using System.ComponentModel;
 using WpfApplication1.Helper;
+using System.IO;
 
 namespace WpfApplication1.ViewModel
 {
@@ -21,6 +22,8 @@ namespace WpfApplication1.ViewModel
             
             Queue<ObjectGP> list = new Queue<ObjectGP>();
             private string onOffButton = "Break";// Used to stock the content of the switch button
+            ObjectsPorts objports = new ObjectsPorts();//Used to be the list of ObjectPort from Ports.xml
+            private string link;
             //Both GGA & RMC
            private string _time;
            private string _latitude;
@@ -286,7 +289,68 @@ namespace WpfApplication1.ViewModel
         #region CONSTRUCTOR
             public DataParsedViewModel()
             {
-                sp = new SerialPort("COM1", 115200);
+                link = "../../Ports.xml";
+                
+                if (File.Exists(link))
+                {
+                    objports = ObjectsPorts.Charger(link);
+                }
+
+                foreach (ObjectPort o in objports)
+                {
+                    if (o.Id == 0)
+                    {
+                        sp = new SerialPort();
+                        sp.PortName = o.Name;
+                        sp.BaudRate = int.Parse(o.Baudrate);
+                        sp.DataBits = int.Parse(o.Databits);
+                        switch (o.Stopbit)
+	                    {
+                            case "One":
+                                sp.StopBits = StopBits.One;
+                                break;
+                            case "Two":
+                                sp.StopBits = StopBits.Two;
+                                break;
+                            case "OnePointFive":
+                                sp.StopBits = StopBits.OnePointFive;
+                                break;
+                            default: sp.StopBits = StopBits.None;
+                                break;
+	                    }
+                        switch (o.Parity)
+                            {
+                                case "Even":
+                                    sp.Parity = Parity.Even;
+                                    break;
+                                case "Mark":
+                                    sp.Parity = Parity.Mark;
+                                    break;
+                                case "Odd":
+                                    sp.Parity = Parity.Odd;
+                                    break;
+                                case "Space":
+                                    sp.Parity = Parity.Space;
+                                    break;
+                                default: sp.Parity = Parity.None;
+                                    break;
+                            } 
+                        switch (o.Handshake)
+                        {
+                            case "One":
+                                sp.Handshake = Handshake.XOnXOff;
+                                break;
+                            case "Two":
+                                sp.Handshake = Handshake.RequestToSend;
+                                break;
+                            case "OnePointFive":
+                                sp.Handshake = Handshake.RequestToSendXOnXOff;
+                                break;
+                            default: sp.Handshake = Handshake.None;
+                                break;
+                        }
+                    }
+                }
 
                 if (!sp.IsOpen)
                 {
@@ -385,11 +449,13 @@ namespace WpfApplication1.ViewModel
                 _nSat = objGGA.nSat.ToString();
                 OnPropertyChanged("NSat");
 
+                //_nSat = (DateTime.Now.Second % 7).ToString();   test color
+
                 if (int.Parse(_nSat) == 4)
                     _NSatColor = new SolidColorBrush(Colors.OrangeRed);
                 else if (int.Parse(_nSat) == 5)
                     _NSatColor = new SolidColorBrush(Colors.Orange);
-                else if (int.Parse(_nSat) < 14 && int.Parse(_nSat) >5)
+                else if (int.Parse(_nSat) < 14 && int.Parse(_nSat) > 5)
                     _NSatColor = new SolidColorBrush(Colors.Green);
                 else  _NSatColor = new SolidColorBrush(Colors.Red);
                     OnPropertyChanged("NSatColor");

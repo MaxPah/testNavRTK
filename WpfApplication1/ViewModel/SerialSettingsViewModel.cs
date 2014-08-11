@@ -346,6 +346,22 @@ namespace WpfApplication1.ViewModel
                     return listBoxDeleteItem;
                 }
             }
+
+            /// <summary>
+            ///  Delete an ObjectPort from the list and Ports.xml
+            /// </summary>
+            private RelayCommand listBoxDefaultItem;
+            public ICommand ListBoxDefaultItem
+            {
+                get
+                {
+                    if (listBoxDefaultItem == null)
+                    {
+                        listBoxDefaultItem = new RelayCommand(ExecuteListBoxDefaultItem, CanListBoxDefaultItem);
+                    }
+                    return listBoxDefaultItem;
+                }
+            }
             #endregion COMMANDS
 
         #region CONSTRUCTOR
@@ -359,23 +375,48 @@ namespace WpfApplication1.ViewModel
         #endregion CONSTRUCTOR
 
         #region COMMANDS IMPLEMENTATION
-            private bool CanListBoxDeleteItem() { return true;}
+            private bool CanListBoxDeleteItem() { return true; }
             private void ExecuteListBoxDeleteItem()
             {
-            try
+                try
                 {
-                    int id=0; 
+                    int id = 0;
 
-                    if( selectedObjectPort != null)
-                         id = selectedObjectPort.Id;
+                    if (selectedObjectPort != null)
+                        id = selectedObjectPort.Id;
 
                     XmlDocument doc = new XmlDocument();
                     doc.Load(link);
                     XmlNode node = doc.SelectSingleNode("//ObjectPort[@id=" + id + "]");
-                if (node !=null)
-                    node.ParentNode.RemoveChild(node);
-                    
+                    if (node != null)
+                        node.ParentNode.RemoveChild(node);
+
                     doc.Save("../../Ports.xml");
+                    XMLtoSerialPort();
+                    OnPropertyChanged("ObjPorts");
+                    OnPropertyChanged("ListBoxDeleteItem");
+                }
+                catch (Exception listboxDeleteItemException)
+                {
+                    Console.WriteLine(listboxDeleteItemException.Message);
+                }
+
+            }
+            private bool CanListBoxDefaultItem() { return true; }
+            private void ExecuteListBoxDefaultItem()
+            {
+                try
+                {
+                    int id = 0;
+
+                    if (selectedObjectPort != null)
+                        id = selectedObjectPort.Id;
+                    if (File.Exists(link))
+                    {
+                        objports = ObjectsPorts.Charger(link);
+                    }
+                    objports.DefaultSwap(id);
+                    objports.Enregistrer(link);
                     XMLtoSerialPort();
                     OnPropertyChanged("ObjPorts");
                     OnPropertyChanged("ListBoxDeleteItem");

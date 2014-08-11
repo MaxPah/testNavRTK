@@ -43,6 +43,17 @@ namespace WpfApplication1.Model
              }
              return max;
          }
+        public void DefaultSwap(int i)
+        {
+                foreach (ObjectPort o in this)
+                {
+                    if (o.Id == 0)
+                        o.Id = i;
+                    else if (o.Id == i)
+                        o.Id = 0;
+
+                }
+        }
 
     }
 }
