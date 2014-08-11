@@ -8,8 +8,8 @@
       d:DesignHeight="700" d:DesignWidth="1200"
 	Title="Page3">
     <Page.Resources>
-        <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
-        <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA"/>
+        <!--<SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
+        <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FFff"/>
         <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF569DE5"/>
         <Style x:Key="{x:Type TextBoxBase}" TargetType="{x:Type TextBoxBase}">
             <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
@@ -66,8 +66,8 @@
                     <Setter Property="Cursor" Value="Hand"/>
                 </Trigger>
             </Style.Triggers>
-        </Style>
-        <Style x:Key="GPSViewRichTextBoxStyle" TargetType="{x:Type RichTextBox}">
+        </Style>-->
+        <!--<Style x:Key="GPSViewRichTextBoxStyle" TargetType="{x:Type RichTextBox}">
             <Style.Resources>
                 <Style x:Key="{x:Type FlowDocument}" TargetType="{x:Type FlowDocument}">
                     <Setter Property="OverridesDefaultStyle" Value="true"/>
@@ -83,12 +83,22 @@
                     </Style.Triggers>
                 </Style>
             </Style.Resources>
-            <Setter Property="MinWidth" Value="10"/>
             <Style.BasedOn>
                 <StaticResource ResourceKey="{x:Type TextBoxBase}"/>
             </Style.BasedOn>
+        </Style>-->
+        <!--<Storyboard x:Key="OnChecked1"/>-->
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
-        <Storyboard x:Key="OnChecked1"/>
     </Page.Resources>
 
 	<!-- Nav Bar top -->
@@ -98,11 +108,10 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <Button Margin="20,0,0,0" Content="GPS Settings" Foreground="{StaticResource menuBisColor}" Width="Auto" FontSize="40" Command="{Binding GoToView}" Background="{DynamicResource Transparent}" BorderBrush="{DynamicResource Transparent}"/>
+            <Button Margin="20,5,5,5" Content="GPS Settings" Foreground="{StaticResource menuBisColor}" Width="Auto" FontSize="40" Click="ExecuteGoToSettings" Command="{Binding ExecuteGoToSettings}" Background="{DynamicResource Transparent}" BorderBrush="{DynamicResource Transparent}" />
             <Label Margin="20,0,0,0" Content="GPS View" Foreground="{StaticResource White}" Width="Auto" FontSize="40"/>
         </StackPanel>
-        <Image HorizontalAlignment="Right" Margin="0,0,20,0" Source="C:/Users/RNAV_user/Documents/MaximeStagiaire/NavRTK.png"/>
-        <Label HorizontalAlignment="Right" Margin="0,0,120,0" Content="NavRTK" Foreground="{StaticResource secondColor}" Width="Auto" FontSize="50"/>
+        <Label HorizontalAlignment="Right" Margin="0,0,20,0" Content="NavRTK" Foreground="{StaticResource secondColor}" Width="Auto" FontSize="50"/>
 
         <!-- Infos Trames-->
         <Grid Margin="20,10" Grid.Row="1" MinWidth="500" MinHeight="400">
@@ -120,15 +129,11 @@
             </Grid.ColumnDefinitions>
             <!-- GPGGA Name-->
             <Viewbox  Grid.ColumnSpan="1" Grid.Row="2">
-                <TextBlock Foreground="#FF2672EC" TextAlignment="Center">
-                            <Run Text="GPGGA"/>
-                </TextBlock>
+                <TextBlock Foreground="#FF2672EC" TextAlignment="Center" Text="GPGGA"/>
             </Viewbox>
             <!-- GPRMC Name-->
             <Viewbox  Grid.Column="2" Grid.Row="2">
-                <TextBlock Foreground="#FF2672EC" TextAlignment="Center">
-                            <Run Text="GPRMC"/>
-                </TextBlock>
+                <TextBlock Foreground="#FF2672EC" TextAlignment="Center" Text="GPRMC" />
             </Viewbox>
             <Grid Grid.Row="3">
                 <Grid.ColumnDefinitions>
@@ -165,39 +170,27 @@
                 </Viewbox>
 				<!-- Position Name-->
                 <Viewbox  Grid.Column="0" Grid.Row="0">
-                    <TextBlock Foreground="#FFFFFFFF" TextAlignment="Center">
-                            <Run Text="Position :"/>
-                    </TextBlock>
+                    <TextBlock Foreground="#FFFFFFFF" TextAlignment="Center" Text="Position :" />
                 </Viewbox>
                 <!-- Hdop Name-->
                 <Viewbox  Grid.Column="0" Grid.Row="1">
-                    <TextBlock Foreground="#FFFFFFFF" TextAlignment="Center">
-                            <Run Text="Hdop :"/>
-                    </TextBlock>
+                    <TextBlock Foreground="#FFFFFFFF" TextAlignment="Center" Text="Hdop :" />
                 </Viewbox>
                 <!-- Geiodal Name-->
                 <Viewbox  Grid.Column="3" Grid.Row="0">
-                    <TextBlock Foreground="#FFFFFFFF" TextAlignment="Center">
-                            <Run Text="Geoidal :"/>
-                    </TextBlock>
+                    <TextBlock Foreground="#FFFFFFFF" TextAlignment="Center" Text="Geoidal :"/>
                 </Viewbox>
                 <!-- Number of Satellites Name-->
                 <Viewbox  Grid.Column="0" Grid.Row="2">
-                    <TextBlock Foreground="#FFFFFFFF" TextAlignment="Center">
-                            <Run Text="Nb Sat :"/>
-                    </TextBlock>
+                    <TextBlock Foreground="#FFFFFFFF" TextAlignment="Center" Text="Nb Sat :" />
                 </Viewbox>
                 <!-- Hdop Name-->
                 <Viewbox  Grid.Column="3" Grid.Row="1">
-                    <TextBlock Foreground="#FFFFFFFF" TextAlignment="Center">
-                            <Run Text="Alt (m) :"/>
-                    </TextBlock>
+                    <TextBlock Foreground="#FFFFFFFF" TextAlignment="Center" Text="Alt (m) :"/>
                 </Viewbox>
                 <!-- Geiodal Name-->
                 <Viewbox  Grid.Column="3" Grid.Row="2">
-                    <TextBlock Foreground="#FFFFFFFF" TextAlignment="Center">
-                            <Run Text="Last DGPS :"/>
-                    </TextBlock>
+                    <TextBlock Foreground="#FFFFFFFF" TextAlignment="Center" Text="Last DGPS :"/>
                 </Viewbox>
             </Grid>
             <Grid Margin="3,0,0,0" Grid.Column="2" Grid.Row="3">
@@ -234,29 +227,29 @@
 
                 <!-- Validity Name-->
                 <Viewbox  Grid.Column="0" Grid.Row="0">
-                    <TextBlock Foreground="#FFFFFFFF" TextAlignment="Center"><Run Text="Validity :"/></TextBlock>
+                    <TextBlock Foreground="#FFFFFFFF" TextAlignment="Center" Text="Validity :"/>
                 </Viewbox>
                 <!-- Cap Name-->
                 <Viewbox  Grid.Column="0" Grid.Row="1">
-                    <TextBlock Foreground="#FFFFFFFF" TextAlignment="Center"><Run Text="Cap :"/></TextBlock>
+                    <TextBlock Foreground="#FFFFFFFF" TextAlignment="Center" Text="Cap :"/>
                 </Viewbox>
                 <!-- Magnetic Name-->
                 <Viewbox  Grid.Column="0" Grid.Row="2">
-                    <TextBlock Foreground="#FFFFFFFF" TextAlignment="Center"><Run Text="Magnetic :"/></TextBlock>
+                    <TextBlock Foreground="#FFFFFFFF" TextAlignment="Center" Text="Magnetic :"/>
                 </Viewbox>
                 <!-- Speed Name-->
                 <Viewbox  Grid.Column="3" Grid.Row="0">
-                    <TextBlock Foreground="#FFFFFFFF" TextAlignment="Center"><Run Text="Speed :"/></TextBlock>
+                    <TextBlock Foreground="#FFFFFFFF" TextAlignment="Center" Text="Speed :"/>
                 </Viewbox>
                 
                 <!-- Mode Name-->
                 <Viewbox  Grid.Column="3" Grid.Row="1">
-                    <TextBlock Foreground="#FFFFFFFF" TextAlignment="Center"><Run Text="Mode :"/></TextBlock>
+                    <TextBlock Foreground="#FFFFFFFF" TextAlignment="Center" Text="Mode :"/>
                 </Viewbox>
 				</Grid>
             <Rectangle Grid.Column="1" Margin="103,36,0,15" Fill="{DynamicResource White}" Opacity="0.405" HorizontalAlignment="Left" Width="1" Grid.Row="2" Grid.RowSpan="2"/>
-            <ToggleButton Grid.Row="4" Grid.Column="1" Margin="0,20,20,24" Height="36.051" Canvas.Left="34.5" Width="75.5" Background="{DynamicResource secondColor}"/>
-            <Viewbox Grid.ColumnSpan="2">
+            <ToggleButton Grid.Row="4" Grid.Column="1" Margin="20,20,20,20" Command="{Binding Path=Stop}" Content="{Binding OnOffButton}" Background="{DynamicResource secondColor}"/>
+            <Viewbox Grid.ColumnSpan="3">
                 <TextBlock Text="{Binding Time}" Foreground="#FFFFFFFF" TextAlignment="Center"/>
             </Viewbox>
             

@@ -23,8 +23,8 @@ namespace WpfApplication1
         public Shell()
         {
             InitializeComponent();
-            //ShellFrame.Navigate(new DataParsedView());
-            ShellFrame.Navigate(new SerialSettingsView());
+            //ShellFrame.Navigate(new SerialSettingsView());
+            ShellFrame.Navigate(new DataParsedView());
         }
     }
 }

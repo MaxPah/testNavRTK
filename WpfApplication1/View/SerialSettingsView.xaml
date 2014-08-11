@@ -150,10 +150,9 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal">
             <Label Margin="20,0,0,0" Content="GPS Settings" Foreground="{StaticResource White}" Width="Auto" FontSize="40"  />
-            <Button Margin="20,0,0,0" Content="GPS View" Foreground="{StaticResource menuBisColor}" Width="Auto" FontSize="40" Command="{Binding Path=GoToView}" Background="{DynamicResource Transparent}" BorderBrush="{DynamicResource Transparent}" />
+            <Button Margin="20,0,0,0" Content="GPS View" Foreground="{StaticResource menuBisColor}" Width="Auto" FontSize="40" Click="ExecuteGoToView" Command="{Binding Path=GoToView}" Background="{DynamicResource Transparent}" BorderBrush="{DynamicResource Transparent}" />
         </StackPanel>
-        <Image HorizontalAlignment="Right" Margin="0,0,20,0" Source="C:/Users/RNAV_user/Documents/MaximeStagiaire/NavRTK.png"/>
-        <Label HorizontalAlignment="Right" Margin="0,0,120,0" Content="NavRTK" Foreground="{StaticResource secondColor}" Width="Auto" FontSize="50"/>
+        <Label HorizontalAlignment="Right" Margin="0,0,20,0" Content="NavRTK" Foreground="{StaticResource secondColor}" Width="Auto" FontSize="50"/>
         <Grid Grid.Row="1" Margin="48,59,700,152">
             <Grid.RowDefinitions>
                 <RowDefinition/>

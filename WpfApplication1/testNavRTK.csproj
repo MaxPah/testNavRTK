@@ -120,7 +120,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <SplashScreen Include="Pictures\NavRTK.png" />
+    <Resource Include="Pictures\NavRTK.png" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

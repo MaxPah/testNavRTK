@@ -93,8 +93,6 @@ namespace WpfApplication1.Model
                 obj.cap = var[8];
             else obj.cap = " ";
 
-
-            Console.WriteLine(var[9]);
             //DATE OF THE DAY
            if (var[9].Equals(string.Empty))
                 obj.date = new DateTime(1,1,1);

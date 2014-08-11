@@ -48,8 +48,7 @@ namespace WpfApplication1.Model
         /// <returns></returns>
         public MessageGPGGA GGAInit(MessageGPGGA obj, string[] var)
         {
-            Console.WriteLine(var[1]);
-            string separator = System.Globalization.NumberFormatInfo.CurrentInfo.CurrencyDecimalSeparator;
+           string separator = System.Globalization.NumberFormatInfo.CurrentInfo.CurrencyDecimalSeparator;
             int year = DateTime.Now.Year;
             int month = DateTime.Now.Month;
             int day = DateTime.Now.Day;
@@ -116,9 +115,6 @@ namespace WpfApplication1.Model
                 obj.geoUnit = '0';
             else obj.geoUnit = char.Parse(var[12]);
 
-
-
-            Console.WriteLine(var[13]);
             //DIFFERENTIAL TIME
             if (var[13].Equals(string.Empty))
                 obj.dGPSTime = new DateTime(1,1,1);

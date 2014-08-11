@@ -50,10 +50,8 @@ namespace WpfApplication1.Model
         /// </summary>
         /// <param name="t">String to parse</param>
         /// <returns>Return array parsed</returns>
-       public static void splitMessage(string t, Queue<Object> list) {
+       public static Queue<ObjectGP> splitMessage(string t, Queue<ObjectGP> list) {
             string[] split;
-            string messageReturn="\tInitialisation"; 
-
            if (t != null)
            {
 
@@ -80,14 +78,12 @@ namespace WpfApplication1.Model
                                    
                                     MessageGPGGA objGPGGA = new MessageGPGGA(split2[i]);
                                     list.Enqueue(objGPGGA);
-                                   messageReturn = MessageGPGGA.printGPGGA(objGPGGA);
                                 }
                                 else if (split2[i][0] == "GPRMC")
                                 {
                                    
                                     MessageGPRMC objGPRMC = new MessageGPRMC(split2[i]);
                                     list.Enqueue(objGPRMC);
-                                    messageReturn = MessageGPRMC.printGPRMC(objGPRMC);
                                 }
                             }
                         }
@@ -99,6 +95,7 @@ namespace WpfApplication1.Model
                    
                }
            }
+           return list;
         }
         
         public static MessageGPGGA objGPRMC { get; set; }

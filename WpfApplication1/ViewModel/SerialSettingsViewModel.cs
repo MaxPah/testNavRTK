@@ -29,46 +29,40 @@ namespace WpfApplication1.ViewModel
 {
     class SerialSettingsViewModel : INotifyPropertyChanged
     {
-        #region Variables
+        #region FIELDS
+            private Queue<string> gpsTrame; // Used to stock ALL trames GPS Message
+            string recieved_data; // Used to stock one trame of the GPS Message
+            private string link; // Used to stock the path for Ports.xml
+            ObjectsPorts objports = new ObjectsPorts();//Used to be the list of ObjectPort from Ports.xml
+            SerialPort sp = new SerialPort(); // Used to bo THE SerialPort of NavRTK
+            private string[] portName;//Used to stock all ports names availables
+            private string onOffButton = "Read";// Used to stock the content of the switch button
+            private string[] enumBauds = { "115200", "4800", "9600" };// Used to stock all bauds availables
+            private string[] enumDatabits = { "8", "7", "6", "5" };// Used to stock all bits availables
+            private string[] enumStopbit = { "One", "OntPointFive", "Two", "None" };// Used to stock all the stopbits availables
+            private string[] enumParity = { "None", "Even", "Mark", "Odd", "Space" };// Used to stock all parity availables
+            private string[] enumHandshake = { "None", "XOnXOff", "RequestToSend", "RequestToSendXOnXOff" };// Used to stock all handshake available
+            private string selectedName; // Used to stock the name selected
+            private string selectedBauds;// Used to stock the baud selected
+            private string selectedDatabits;// Used to stock the databits selected
+            private string selectedStopbits;// Used to stock the stopbit selected
+            private string selectedParity;// Used to stock the parity selected
+            private string selectedHandshake;// Used to stock the handshake selected
+            private ObjectPort selectedObjectPort;// Used to be the ObjectPort selected for recieved data
+            private bool isOpen; // Used to determind if the popup "new port" is hidden or not
+        #endregion FIELDS
 
-            private Queue<string> gpsTrame;
-            private string link;
-            private string[] portName;
-            private string onOffButton = "Off";
-            private string[] enumBauds = { "115200", "4800", "9600"};
-            private string[] enumDatabits = { "8", "7", "6", "5" };
-            private string[] enumStopbit = { "One", "OntPointFive", "Two", "None" };
-            private string[] enumParity ={ "None", "Even", "Mark", "Odd", "Space"};
-            private string[] enumHandshake = { "None", "XOnXOff", "RequestToSend", "RequestToSendXOnXOff" };
-            private bool _isOpen;
-            private string selectedName;
-            private string selectedBauds;
-            private string selectedDatabits;
-            private string selectedStopbits;
-            private string selectedParity;
-            private string selectedHandshake;
-            private RelayCommand openPopUp;
-            private RelayCommand closePopUp;
-            private RelayCommand validationNewPort;
-            private RelayCommand goToView;
-            private RelayCommand stop;
-            private RelayCommand listBoxDeleteItem;
-            SerialPort sp = new SerialPort();
-            string recieved_data;
-            ObjectsPorts objports = new ObjectsPorts();
-            private ObjectPort selectedObjectPort;
-       
-        #endregion Variables
-
-        #region Accessors
-
+        #region PROPERTIES
+            /// <summary>
+            /// Determine if the PopUp is open or not
+            /// </summary>
             public bool IsOpen
             {
-                get { return _isOpen; }
+                get { return isOpen; }
                 set
                 {
-                    if (_isOpen == value) return;
-                    _isOpen = value;
+                    if (isOpen == value) return;
+                    isOpen = value;
                     OnPropertyChanged("IsOpen");
                 }
             }
@@ -121,83 +115,7 @@ namespace WpfApplication1.ViewModel
                     enumStopbit = value;
                     OnPropertyChanged("EnumStopbit");
                 }
-            }
-            public ICommand OpenPopUp
-            {
-                get
-                {
-                    if (openPopUp == null)
-                    {
-                        openPopUp = new RelayCommand(ExecuteOpenPopUp, CanOpenPopUp);
-                    }
-                    return openPopUp;
-                }
-            }
-            public ICommand ClosePopUp
-            {
-                get
-                {
-                    if (closePopUp == null)
-                    {
-                        closePopUp = new RelayCommand(ExecuteClosePopUp, CanClosePopUp);
-                    }
-                    return closePopUp;
-                }
-            }
-            public ICommand ValidationNewPort
-            {
-                get
-                {
-                    if (validationNewPort == null)
-                    {
-                        validationNewPort = new RelayCommand(ExecuteValidationNewPort, CanValidationNewPort);
-                    }
-                    return validationNewPort;
-                }
-            }
-            public ICommand GoToView
-            {
-                get
-                {
-                    if (goToView == null)
-                    {
-                        goToView = new RelayCommand(ExecuteGoToView, CanGoToView);
-                    }
-                    return goToView;
-                }
-            }
-            public ICommand Stop
-            {
-                get
-                {
-                    if (stop == null)
-                    {
-                        stop = new RelayCommand(ExecuteStop, CanStop);
-                    }
-                    return stop;
-                }
-            }
-            public ICommand ListBoxDeleteItem
-            {
-                get
-                {
-                    if (listBoxDeleteItem == null)
-                    {
-                        listBoxDeleteItem = new RelayCommand(ExecuteListBoxDeleteItem, CanListBoxDeleteItem);
-                    }
-                    return listBoxDeleteItem;
-                }
-            }
-            public ObjectsPorts ObjPorts
-            {
-                get
-                { return objports; }
-                set
-                {
-                    objports = value;
-                    OnPropertyChanged("ObjPorts");
-                }
-            }
+            } 
             public string OnOffButton
             {
                 get
@@ -320,23 +238,127 @@ namespace WpfApplication1.ViewModel
                     OnPropertyChanged("GpsTrame");
                 }
             }
+            public ObjectsPorts ObjPorts
+            {
+                get
+                { return objports; }
+                set
+                {
+                    objports = value;
+                    OnPropertyChanged("ObjPorts");
+                }
+            }
+        #endregion PROPERTIES
 
-        #endregion Accessors
+        #region COMMANDS
+            /// <summary>
+            /// Open the popup "new port settings"
+            /// </summary>
+            private RelayCommand openPopUp;
+            public ICommand OpenPopUp
+        {
+            get
+            {
+                if (openPopUp == null)
+                {
+                    openPopUp = new RelayCommand(ExecuteOpenPopUp, CanOpenPopUp);
+                }
+                return openPopUp;
+            }
+        }
 
-        #region Constructor
+            /// <summary>
+            /// Close the popup "new port settings"
+            /// </summary>
+            private RelayCommand closePopUp;
+            public ICommand ClosePopUp
+            {
+                get
+                {
+                    if (closePopUp == null)
+                    {
+                        closePopUp = new RelayCommand(ExecuteClosePopUp, CanClosePopUp);
+                    }
+                    return closePopUp;
+                }
+            }
+
+            /// <summary>
+            /// Save the new port to Ports.xml
+            /// </summary>
+            private RelayCommand validationNewPort;
+            public ICommand ValidationNewPort
+            {
+                get
+                {
+                    if (validationNewPort == null)
+                    {
+                        validationNewPort = new RelayCommand(ExecuteValidationNewPort, CanValidationNewPort);
+                    }
+                    return validationNewPort;
+                }
+            }
+
+            /// <summary>
+            /// Go to the other page
+            /// </summary>
+            private RelayCommand goToView;
+            public ICommand GoToView
+            {
+                get
+                {
+                    if (goToView == null)
+                    {
+                        goToView = new RelayCommand(ExecuteGoToView, CanGoToView);
+                    }
+                    return goToView;
+                }
+            }
+
+            /// <summary>
+            /// Stop receiving data
+            /// </summary>
+            private RelayCommand stop;
+            public ICommand Stop
+            {
+                get
+                {
+                    if (stop == null)
+                    {
+                        stop = new RelayCommand(ExecuteStop, CanStop);
+                    }
+                    return stop;
+                }
+            }
+
+            /// <summary>
+            ///  Delete an ObjectPort from the list and Ports.xml
+            /// </summary>
+            private RelayCommand listBoxDeleteItem;
+            public ICommand ListBoxDeleteItem
+            {
+                get
+                {
+                    if (listBoxDeleteItem == null)
+                    {
+                        listBoxDeleteItem = new RelayCommand(ExecuteListBoxDeleteItem, CanListBoxDeleteItem);
+                    }
+                    return listBoxDeleteItem;
+                }
+            }
+            #endregion COMMANDS
+
+        #region CONSTRUCTOR
             public SerialSettingsViewModel()
             {
                 link = "../../Ports.xml";
                 portName = SerialPort.GetPortNames();
                 gpsTrame = new Queue<string>();
-
                 XMLtoSerialPort();
+             }
+        #endregion CONSTRUCTOR
 
-        }
-        #endregion Constructor
-
-        #region Methods
-
+        #region COMMANDS IMPLEMENTATION
             private bool CanListBoxDeleteItem() { return true;}
             private void ExecuteListBoxDeleteItem()
             {
@@ -364,22 +386,11 @@ namespace WpfApplication1.ViewModel
                 }
 
             }
-            private void ExecuteGoToView()
-            {
-                sp.Close();
-                Console.WriteLine("ViewClicked");
-                Frame ShellFrame = new Frame();
-                ShellFrame.Navigate(new SerialSettingsView());
-
-                
-            }
-            private bool CanGoToView()
-            { return true; }
             private bool CanValidationNewPort()
             { return true; }
             private void ExecuteValidationNewPort()
             {
-                _isOpen = false;
+                isOpen = false;
                 OnPropertyChanged("IsOpen");
 
                 if (File.Exists(link))
@@ -409,10 +420,10 @@ namespace WpfApplication1.ViewModel
             }
             private void ExecuteStop()
             {
-                if (onOffButton == "On")
+                if (onOffButton == "Break")
                 {
                     sp.Close();
-                    onOffButton = "Off";
+                    onOffButton = "Read";
                 }
                 else
                 {
@@ -434,7 +445,7 @@ namespace WpfApplication1.ViewModel
                     //Sets button State and Creates function call on data recieved
                     sp.DataReceived += new SerialDataReceivedEventHandler(Recieve);
 
-                    onOffButton = "On";
+                    onOffButton = "Break";
                     if (!sp.IsOpen)
                         sp.Open();
                 }
@@ -448,66 +459,72 @@ namespace WpfApplication1.ViewModel
             { return true; }
             private void ExecuteOpenPopUp()
             {
-                _isOpen = true;
+                isOpen = true;
                 OnPropertyChanged("IsOpen");
             }
             private bool CanClosePopUp()
             { return true; }
             private void ExecuteClosePopUp()
             {
-                _isOpen = false;
+                isOpen = false;
                 OnPropertyChanged("IsOpen");
             }
+        #endregion COMMANDS IMPLEMENTATION           
 
-        #endregion Methods
+        #region RECIEVING
+            private void Recieve(object sender, SerialDataReceivedEventArgs e)
+            {
+                // Collecting the characters received to our 'buffer' (string).
+                try
+                {
+                    if (sp.IsOpen == true)
+                        recieved_data = sp.ReadLine();
+                }
+                catch (Exception exp)
+                {
+                    Console.WriteLine(" recieve" + exp.Message);
+                   
+                } 
+               
+                if (recieved_data != null && recieved_data.Substring(0,3) != "$GP")
+                    recieved_data = "Data error\n";
 
+                if (gpsTrame != null)
+                {
+                    if (gpsTrame.Count() > 22)
+                        gpsTrame.Dequeue();
+
+                    if (recieved_data != null)
+                        gpsTrame.Enqueue(recieved_data);
+                    OnPropertyChanged("GpsTrame");
+                }
+            }
+        #endregion RECIEVING
+
+        #region METHODS
             public void XMLtoSerialPort()
-        {
-            if (File.Exists(link))
             {
-                objports = ObjectsPorts.Charger(link);
+                if (File.Exists(link))
+                {
+                    objports = ObjectsPorts.Charger(link);
+                }
+                else
+                {
+                    objports = new ObjectsPorts();
+                }
+                objports.Enregistrer(link);
             }
-            else
-            {
-                objports = new ObjectsPorts();
-            }
-            objports.Enregistrer(link);
-        }
+        #endregion METHODS
 
-        #region Recieving
-
-        private delegate void UpdateUiTextDelegate(Queue<string> gpsTrame);
-        private void Recieve(object sender, SerialDataReceivedEventArgs e)
-        {
-            
-
-            // Collecting the characters received to our 'buffer' (string).
-            recieved_data = sp.ReadLine();
-
-            if (gpsTrame != null)
-            {
-                if (gpsTrame.Count() > 22)
-                    gpsTrame.Dequeue();
-
-                if (recieved_data != null)
-                    gpsTrame.Enqueue(recieved_data);
-                OnPropertyChanged("GpsTrame");
-            }
-
-           
-                Application.Current.Dispatcher.Invoke(DispatcherPriority.Send, new UpdateUiTextDelegate(WriteData), gpsTrame);
-        }
-
-        private void WriteData(Queue<string> gpsTrame)
-        {
-            OnPropertyChanged("GpsTrame");
-        }
-        
-        #endregion
-
-    
         #region Navigation
-         #endregion
+            private void ExecuteGoToView()
+            {
+                sp.Close();
+                Console.WriteLine("ViewClicked");
+            }
+            private bool CanGoToView()
+            { return true; }
+        #endregion
 
         #region INotifyPropertyChanged Members
 
