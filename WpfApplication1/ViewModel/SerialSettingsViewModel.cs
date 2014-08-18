@@ -34,7 +34,7 @@ namespace WpfApplication1.ViewModel
             string recieved_data; // Used to stock one trame of the GPS Message
             private string link; // Used to stock the path for Ports.xml
             ObjectsPorts objports = new ObjectsPorts();//Used to be the list of ObjectPort from Ports.xml
-            SerialPort sp = new SerialPort(); // Used to bo THE SerialPort of NavRTK
+            SerialPort sp = new SerialPort(); // Used to be THE SerialPort of NavRTK
             private string[] portName;//Used to stock all ports names availables
             private string onOffButton = "Read";// Used to stock the content of the switch button
             private string[] enumBauds = { "115200", "4800", "9600" };// Used to stock all bauds availables
@@ -42,14 +42,15 @@ namespace WpfApplication1.ViewModel
             private string[] enumStopbit = { "One", "OntPointFive", "Two", "None" };// Used to stock all the stopbits availables
             private string[] enumParity = { "None", "Even", "Mark", "Odd", "Space" };// Used to stock all parity availables
             private string[] enumHandshake = { "None", "XOnXOff", "RequestToSend", "RequestToSendXOnXOff" };// Used to stock all handshake available
-            private string selectedName; // Used to stock the name selected
-            private string selectedBauds;// Used to stock the baud selected
-            private string selectedDatabits;// Used to stock the databits selected
-            private string selectedStopbits;// Used to stock the stopbit selected
-            private string selectedParity;// Used to stock the parity selected
-            private string selectedHandshake;// Used to stock the handshake selected
+            private string selectedName; // Used to stock the name selected in the popup window
+            private string selectedBauds;// Used to stock the baud selected in the popup window
+            private string selectedDatabits;// Used to stock the databits selected in the popup window
+            private string selectedStopbits;// Used to stock the stopbit selected in the popup window 
+            private string selectedParity;// Used to stock the parity selected in the popup window
+            private string selectedHandshake;// Used to stock the handshake selected in the popup window
             private ObjectPort selectedObjectPort;// Used to be the ObjectPort selected for recieved data
             private bool isOpen; // Used to determind if the popup "new port" is hidden or not
+            private SolidColorBrush defaultItemColor = new SolidColorBrush(Colors.DeepSkyBlue);
         #endregion FIELDS
 
         #region PROPERTIES
@@ -248,6 +249,15 @@ namespace WpfApplication1.ViewModel
                     OnPropertyChanged("ObjPorts");
                 }
             }
+            public SolidColorBrush DefaultItemColor
+            {
+                get { return defaultItemColor; }
+                set
+                {
+                    defaultItemColor = value;
+                    OnPropertyChanged("DefaultItemColor");
+                }
+            }
         #endregion PROPERTIES
 
         #region COMMANDS
@@ -407,7 +417,7 @@ namespace WpfApplication1.ViewModel
             {
                 try
                 {
-                    int id = 0;
+                    int id=-1 ;
 
                     if (selectedObjectPort != null)
                         id = selectedObjectPort.Id;
@@ -418,6 +428,7 @@ namespace WpfApplication1.ViewModel
                     objports.DefaultSwap(id);
                     objports.Enregistrer(link);
                     XMLtoSerialPort();
+
                     OnPropertyChanged("ObjPorts");
                     OnPropertyChanged("ListBoxDeleteItem");
                 }
@@ -479,9 +490,9 @@ namespace WpfApplication1.ViewModel
                         sp.BaudRate = int.Parse(selectedObjectPort.Baudrate);
                     }
 
-
-                    if (!sp.IsOpen)
-                        sp.Open();
+                    if (sp != null)
+                        if (!sp.IsOpen)
+                            sp.Open();
 
                     //Sets button State and Creates function call on data recieved
                     sp.DataReceived += new SerialDataReceivedEventHandler(Recieve);
@@ -548,6 +559,14 @@ namespace WpfApplication1.ViewModel
                 if (File.Exists(link))
                 {
                     objports = ObjectsPorts.Charger(link);
+                    foreach (ObjectPort o  in objports)
+                    {
+                        if (o.Id == 0)
+                            defaultItemColor = new SolidColorBrush(Colors.Red);
+                        else defaultItemColor = new SolidColorBrush(Colors.DeepSkyBlue);
+                        OnPropertyChanged("DefaultItemColor");
+                    }
+
                 }
                 else
                 {
@@ -557,11 +576,23 @@ namespace WpfApplication1.ViewModel
             }
         #endregion METHODS
 
-        #region Navigation
+        #region NAVIGATION
             private void ExecuteGoToView()
             {
-                sp.Close();
+
                 Console.WriteLine("ViewClicked");
+                if (sp.IsOpen)
+                    sp.Close();
+
+                App.Current.MainWindow.Visibility = Visibility.Hidden;
+                App.Current.MainWindow = new DataParsedView();
+                App.Current.MainWindow.Visibility = Visibility.Visible;
+                //App.Current.MainWindow.Visibility = Visibility.Visible;
+                //var newwindow = new DataParsedView();
+                //App.Current.MainWindow.Close();
+               // newwindow.Show();
+
+               
             }
             private bool CanGoToView()
             { return true; }

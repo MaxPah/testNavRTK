@@ -1,4 +1,4 @@
-﻿<Page
+﻿<Window
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,8 +6,8 @@
       xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing" x:Class="WpfApplication1.DataParsedView" 
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="1200"
-	Title="Page3">
-    <Page.Resources>
+	Title="DataParsed Page">
+    <Window.Resources>
         <Style TargetType="{x:Type Button}">
             <Setter Property="Template">
                 <Setter.Value>
@@ -30,16 +30,16 @@
                 </Setter.Value>
             </Setter>
         </Style>
-    </Page.Resources>
+    </Window.Resources>
 
-	<!-- Nav Bar top -->
+    <!-- Nav Bar top -->
     <Grid Background="{StaticResource primaryColor}" MinWidth="800" MinHeight="500">
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <Button Margin="20,5,5,5" Content="GPS Settings" Foreground="{StaticResource menuBisColor}" Width="Auto" FontSize="40" Click="ExecuteGoToSettings" Command="{Binding ExecuteGoToSettings}" Background="{DynamicResource Transparent}" BorderBrush="{DynamicResource Transparent}" />
+            <Button Margin="20,5,5,5" Content="GPS Settings" Foreground="{StaticResource menuBisColor}" Width="Auto" FontSize="40" Command="{Binding Path=GoToSettings}" Background="{DynamicResource Transparent}" BorderBrush="{DynamicResource Transparent}" />
             <Label Margin="20,0,0,0" Content="GPS View" Foreground="{StaticResource White}" Width="Auto" FontSize="40"/>
         </StackPanel>
         <Label HorizontalAlignment="Right" Margin="0,0,20,0" Content="NavRTK" Foreground="{StaticResource secondColor}" Width="Auto" FontSize="50"/>
@@ -80,26 +80,26 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Viewbox Grid.Column="1" Grid.Row="0" Margin="5,5,5,5">
-					<TextBlock Text="{Binding Position}" Foreground="White"/>
-				</Viewbox>
-				<Viewbox Grid.Column="1" Grid.Row="3" Margin="5,5,5,5">
-					<Border BorderThickness="2" Grid.Column="4" Width="30" BorderBrush="{Binding NSatColor}">
+                    <TextBlock Text="{Binding Position}" Foreground="White"/>
+                </Viewbox>
+                <Viewbox Grid.Column="1" Grid.Row="3" Margin="5,5,5,5">
+                    <Border BorderThickness="2" Grid.Column="4" Width="30" BorderBrush="{Binding NSatColor}">
                         <TextBlock Text="{Binding NSat}" TextAlignment="Center" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-					</Border>
-				</Viewbox>
-				<Viewbox Grid.Column="1" Grid.Row="1" Margin="5,5,5,5">
+                    </Border>
+                </Viewbox>
+                <Viewbox Grid.Column="1" Grid.Row="1" Margin="5,5,5,5">
                     <TextBlock Text="{Binding Dilution}" Foreground="White"/>
-				</Viewbox>
-				<Viewbox Grid.Column="4" Grid.Row="1" Margin="5,5,5,5">
+                </Viewbox>
+                <Viewbox Grid.Column="4" Grid.Row="1" Margin="5,5,5,5">
                     <TextBlock Text="{Binding Altitude}" Foreground="White"/>
                 </Viewbox>
-				<Viewbox Grid.Column="4" Grid.Row="0" Margin="5,5,5,5">
+                <Viewbox Grid.Column="4" Grid.Row="0" Margin="5,5,5,5">
                     <TextBlock Text="{Binding Geoidal}" Foreground="White"/>
                 </Viewbox>
-				<Viewbox Grid.Column="4" Grid.Row="2" Margin="5,5,5,5">
+                <Viewbox Grid.Column="4" Grid.Row="2" Margin="5,5,5,5">
                     <TextBlock Text="{Binding GGALastDGPS}" Foreground="White"/>
                 </Viewbox>
-				<!-- Position Name-->
+                <!-- Position Name-->
                 <Viewbox  Grid.Column="0" Grid.Row="0">
                     <TextBlock Foreground="#FFFFFFFF" TextAlignment="Center" Text="Position :" />
                 </Viewbox>
@@ -137,24 +137,24 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-				<Viewbox Grid.Column="1" Grid.Row="0" Margin="5,5,5,5">
+                <Viewbox Grid.Column="1" Grid.Row="0" Margin="5,5,5,5">
                     <TextBlock Text="{Binding Validity}" Foreground="White"/>
-				</Viewbox>
-		        <Viewbox Grid.Column="4" Margin="5,5,0,5">
+                </Viewbox>
+                <Viewbox Grid.Column="4" Margin="5,5,0,5">
                     <ProgressBar Height="27.19" Width="62.667" Background="#FF224174" Foreground="#FF2672EC" Minimum="0" Maximum="150" SmallChange="2" Value="{Binding SpeedBar}" BorderThickness="0" Margin="0,5,0,0" LargeChange="2"/>
-				</Viewbox>
-				<Viewbox Grid.Column="4" Grid.Row="0" Margin="5">
+                </Viewbox>
+                <Viewbox Grid.Column="4" Grid.Row="0" Margin="5">
                     <TextBlock Text="{Binding Speed}" Foreground="White"/>
-				</Viewbox>
-				<Viewbox Grid.Column="1" Grid.Row="1" Margin="5,5,5,5">
+                </Viewbox>
+                <Viewbox Grid.Column="1" Grid.Row="1" Margin="5,5,5,5">
                     <TextBlock Text="{Binding Cap}" Foreground="White"/>
-			    </Viewbox>
-				<Viewbox Grid.Column="1" Grid.Row="2" Margin="5,5,5,5">
+                </Viewbox>
+                <Viewbox Grid.Column="1" Grid.Row="2" Margin="5,5,5,5">
                     <TextBlock Text="{Binding Magnetic}" Foreground="White"/>
-				</Viewbox>
-				<Viewbox Grid.Column="4" Grid.Row="1" Margin="5,5,5,5">
+                </Viewbox>
+                <Viewbox Grid.Column="4" Grid.Row="1" Margin="5,5,5,5">
                     <TextBlock Text="{Binding ModePos}" Foreground="White"/>
-				</Viewbox>
+                </Viewbox>
 
                 <!-- Validity Name-->
                 <Viewbox  Grid.Column="0" Grid.Row="0">
@@ -172,40 +172,40 @@
                 <Viewbox  Grid.Column="3" Grid.Row="0">
                     <TextBlock Foreground="#FFFFFFFF" TextAlignment="Center" Text="Speed :"/>
                 </Viewbox>
-                
+
                 <!-- Mode Name-->
                 <Viewbox  Grid.Column="3" Grid.Row="1">
                     <TextBlock Foreground="#FFFFFFFF" TextAlignment="Center" Text="Mode :"/>
                 </Viewbox>
-				</Grid>
+            </Grid>
             <Rectangle Grid.Column="1" Margin="103,36,0,15" Fill="{DynamicResource White}" Opacity="0.405" HorizontalAlignment="Left" Width="1" Grid.Row="2" Grid.RowSpan="2"/>
             <ToggleButton Grid.Row="4" Grid.Column="1" Margin="20,20,20,20" Command="{Binding Path=Stop}" Content="{Binding OnOffButton}" Background="{DynamicResource secondColor}"/>
             <Viewbox Grid.ColumnSpan="3">
                 <TextBlock Text="{Binding Time}" Foreground="#FFFFFFFF" TextAlignment="Center"/>
             </Viewbox>
-            
+
             <!-- Latitude-->
             <Grid Grid.Row="1" Grid.RowSpan="1">
                 <Grid.ColumnDefinitions>
-					<ColumnDefinition Width="1*"/>
-					<ColumnDefinition Width="1*"/>
-				</Grid.ColumnDefinitions>
-				<!-- Latitude Name-->
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <!-- Latitude Name-->
                 <Viewbox Width="Auto" Grid.Column="0">
                     <TextBlock Foreground="#FFFFFFFF">
                             <Run Text="Latitude :"/>
                     </TextBlock>
                 </Viewbox>
                 <Viewbox Grid.Column="1">
-					<TextBlock Text="{Binding Latitude}" Foreground="White" Margin="5,5,0,0"/>
+                    <TextBlock Text="{Binding Latitude}" Foreground="White" Margin="5,5,0,0"/>
                 </Viewbox>
-			</Grid>
+            </Grid>
             <!-- Longitude-->
             <Grid Grid.Row="1" Grid.Column="2">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="1*"/>
-					<ColumnDefinition Width="1*"/>
-				</Grid.ColumnDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
                 <!-- Latitude Name-->
                 <Viewbox Grid.Column="0">
                     <TextBlock Foreground="#FFFFFFFF" TextAlignment="Center">
@@ -214,8 +214,11 @@
                 </Viewbox>
                 <Viewbox Grid.Column="1">
                     <TextBlock Text="{Binding Longitude}" TextWrapping="Wrap" Foreground="White" FontSize="18.667" Margin="5,5,0,0"/>
-                </Viewbox>				
+                </Viewbox>
             </Grid>
         </Grid>
+        <Viewbox  Height="20" Width="Auto" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Bottom" >
+            <TextBlock Foreground="Red" Text="{Binding GPSStatus}" Background="{DynamicResource Transparent}"/>
+        </Viewbox>
     </Grid>
-</Page>
+</Window>

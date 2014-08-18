@@ -15,5 +15,17 @@ namespace WpfApplication1
     /// </summary>
     public partial class App : Application
     {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            try
+            {
+                var mainView = new DataParsedView();
+                mainView.Show();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+        }
     }
 }

@@ -31,11 +31,9 @@ C:\Users\RNAV_user\Documents\Visual Studio 2013\Projects\WpfApplication1\WpfAppl
 C:\Users\RNAV_user\Documents\Visual Studio 2013\Projects\WpfApplication1\WpfApplication1\bin\Debug\zh-Hant\Microsoft.Expression.Drawing.resources.dll
 C:\Users\RNAV_user\Documents\Visual Studio 2013\Projects\WpfApplication1\WpfApplication1\obj\Debug\View\SerialSettingsView.baml
 C:\Users\RNAV_user\Documents\Visual Studio 2013\Projects\WpfApplication1\WpfApplication1\obj\Debug\View\DataParsedView.baml
-C:\Users\RNAV_user\Documents\Visual Studio 2013\Projects\WpfApplication1\WpfApplication1\obj\Debug\Shell.baml
 C:\Users\RNAV_user\Documents\Visual Studio 2013\Projects\WpfApplication1\WpfApplication1\obj\Debug\App.baml
 C:\Users\RNAV_user\Documents\Visual Studio 2013\Projects\WpfApplication1\WpfApplication1\obj\Debug\View\SerialSettingsView.g.cs
 C:\Users\RNAV_user\Documents\Visual Studio 2013\Projects\WpfApplication1\WpfApplication1\obj\Debug\View\DataParsedView.g.cs
-C:\Users\RNAV_user\Documents\Visual Studio 2013\Projects\WpfApplication1\WpfApplication1\obj\Debug\Shell.g.cs
 C:\Users\RNAV_user\Documents\Visual Studio 2013\Projects\WpfApplication1\WpfApplication1\obj\Debug\App.g.cs
 C:\Users\RNAV_user\Documents\Visual Studio 2013\Projects\WpfApplication1\WpfApplication1\obj\Debug\WpfApplication1_MarkupCompile.cache
 C:\Users\RNAV_user\Documents\Visual Studio 2013\Projects\WpfApplication1\WpfApplication1\obj\Debug\WpfApplication1.g.resources

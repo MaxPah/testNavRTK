@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Stretch="Uniform">
+  <Canvas Name="Capa_1" Width="44.237" Height="44.237" Canvas.Left="0" Canvas.Top="0">
+    <Canvas.RenderTransform>
+      <TranslateTransform X="0" Y="0"/>
+    </Canvas.RenderTransform>
+    <Canvas.Resources/>
+    <!--Unknown tag: metadata-->
+    <!--Unknown tag: sodipodi:namedview-->
+    <Canvas Name="g3">
+      <Canvas Name="g5">
+        <Line xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" X1="15.533" Y1="28.704" X2="28.704" Y2="15.533" Name="line7" Fill="#FFF9F9F9"/>
+        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path9" Fill="#FFF9F9F9">
+          <Path.Data>
+            <PathGeometry Figures="M15.533 29.454c-0.192 0-0.384-0.073-0.53-0.22c-0.293-0.293-0.293-0.768 0-1.061l13.171-13.171    c0.293-0.293 0.768-0.293 1.061 0s0.293 0.768 0 1.061L16.063 29.234C15.917 29.381 15.725 29.454 15.533 29.454z" FillRule="NonZero"/>
+          </Path.Data>
+        </Path>
+      </Canvas>
+      <Canvas Name="g11">
+        <Line xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" X1="15.533" Y1="15.533" X2="28.704" Y2="28.704" Name="line13" Fill="#FFF9F9F9"/>
+        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path15" Fill="#FFF9F9F9">
+          <Path.Data>
+            <PathGeometry Figures="M28.704 29.454c-0.192 0-0.384-0.073-0.53-0.22L15.002 16.063c-0.293-0.293-0.293-0.768 0-1.061s0.768-0.293 1.061 0    l13.171 13.171c0.293 0.293 0.293 0.768 0 1.061C29.088 29.381 28.896 29.454 28.704 29.454z" FillRule="NonZero"/>
+          </Path.Data>
+        </Path>
+      </Canvas>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path17" Fill="#FFF9F9F9">
+        <Path.Data>
+          <PathGeometry Figures="M22.119 44.237C9.922 44.237 0 34.315 0 22.119S9.922 0 22.119 0s22.119 9.922 22.119 22.119S34.315 44.237 22.119 44.237z    M22.119 1.5C10.75 1.5 1.5 10.75 1.5 22.119s9.25 20.619 20.619 20.619s20.619-9.25 20.619-20.619S33.488 1.5 22.119 1.5z" FillRule="NonZero"/>
+        </Path.Data>
+      </Path>
+    </Canvas>
+    <Canvas Name="g19"/>
+    <Canvas Name="g21"/>
+    <Canvas Name="g23"/>
+    <Canvas Name="g25"/>
+    <Canvas Name="g27"/>
+    <Canvas Name="g29"/>
+    <Canvas Name="g31"/>
+    <Canvas Name="g33"/>
+    <Canvas Name="g35"/>
+    <Canvas Name="g37"/>
+    <Canvas Name="g39"/>
+    <Canvas Name="g41"/>
+    <Canvas Name="g43"/>
+    <Canvas Name="g45"/>
+    <Canvas Name="g47"/>
+  </Canvas>
+</Viewbox>

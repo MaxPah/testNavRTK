@@ -23,33 +23,36 @@ namespace WpfApplication1.ViewModel
             Queue<ObjectGP> list = new Queue<ObjectGP>();
             private string onOffButton = "Break";// Used to stock the content of the switch button
             ObjectsPorts objports = new ObjectsPorts();//Used to be the list of ObjectPort from Ports.xml
-            private string link;
-            //Both GGA & RMC
-           private string _time;
-           private string _latitude;
-           private string _longitude;
-           private SolidColorBrush _NSatColor; 
+            private string link; // Used to stock the path for Ports.xml
+            string recieved_data; // Used to stock one trame of the GPS Message
+            SerialPort sp; // Used to be THE SerialPort of NavRTK
+            private string gPSStatus = " Status : Wrong data, please check PortSettings";
+            /*** GPS FIELDS ***
+             Used to fill in the elements of the view
+             */
+                //Both GGA & RMC
+                private string time;
+                private string latitude;
+                private string longitude;
  
-            //GGA
-           private string _position;
-           private string _quality;
-           private string _nSat;
-           private string _dilution;
-           private string _altitude;
-           private string _geoidal;
-           private string _GGAlastDGPS;
+                //GGA
+                private string position;
+                private string quality;
+                private string nSat;
+                private SolidColorBrush nSatColor; 
+                private string dilution;
+                private string altitude;
+                private string geoidal;
+                private string GGAlastDGPS;
 
-            //RMC
-           private string _validity;
-           private string _speed;
-           private double _speedBar;
-           private string _cap;
-           private string _magnetic;
-           private string _modepos;
-
-            //Serial 
-            string recieved_data;
-            SerialPort sp;
+                //RMC
+                private string validity;
+                private string speed;
+                private double speedBar;
+                private string cap;
+                private string magnetic;
+                private string modepos;
+            /*** GPS FIELDS END ***/
         #endregion FIELDS
 
         #region PROPERTIES
@@ -63,6 +66,16 @@ namespace WpfApplication1.ViewModel
                     OnPropertyChanged("OnOffButton");
                 }
             }
+            public string GPSStatus
+            {
+                get
+                { return gPSStatus; }
+                set
+                {
+                    gPSStatus = value;
+                    OnPropertyChanged("GPSStatus");
+                }
+            }
             /// <summary>
             /// Both
             /// </summary>
@@ -70,30 +83,30 @@ namespace WpfApplication1.ViewModel
             public string Time
             {
                 get
-                { return _time; }
+                { return time; }
                 set
                 {
-                    _time = value;
+                    time = value;
                     OnPropertyChanged("Time");
                 }
             }
             public string Latitude
             {
                 get
-                { return _latitude; }
+                { return latitude; }
                 set
                 {
-                    _latitude = value;
+                    latitude = value;
                     OnPropertyChanged("Latitude");
                 }
             }
             public string Longitude
             {
                 get
-                { return _longitude; }
+                { return longitude; }
                 set
                 {
-                    _longitude = value;
+                    longitude = value;
                     OnPropertyChanged("Longitude");
                 }
             }
@@ -106,80 +119,80 @@ namespace WpfApplication1.ViewModel
             public string Position
             {
                 get
-                { return _position; }
+                { return position; }
                 set
                 {
-                    _position = value;
+                    position = value;
                     OnPropertyChanged("Position");
                 }
             }
             public string Quality
             {
                 get
-                { return _quality; }
+                { return quality; }
                 set
                 {
-                    _quality = value;
+                    quality = value;
                     OnPropertyChanged("Quality");
                 }
             }
             public string NSat
             {
                 get
-                { return _nSat; }
+                { return nSat; }
                 set
                 {
-                    _nSat = value;
+                    nSat = value;
                     OnPropertyChanged("NSat");
                 }
             }
             public string Dilution
             {
                 get
-                { return _dilution; }
+                { return dilution; }
                 set
                 {
-                    _dilution = value;
+                    dilution = value;
                     OnPropertyChanged("Dilution");
                 }
             }
             public string Altitude
             {
                 get
-                { return _altitude; }
+                { return altitude; }
                 set
                 {
-                    _altitude = value;
+                    altitude = value;
                     OnPropertyChanged("Altitude");
                 }
             }
             public string Geoidal
             {
                 get
-                { return _geoidal; }
+                { return geoidal; }
                 set
                 {
-                    _geoidal = value;
+                    geoidal = value;
                     OnPropertyChanged("Geoidal");
                 }
             }
             public string GGALastDGPS
             {
                 get
-                { return _GGAlastDGPS; }
+                { return GGAlastDGPS; }
                 set
                 {
-                    _GGAlastDGPS = value;
+                    GGAlastDGPS = value;
                     OnPropertyChanged("GGALastDGPS");
                 }
             }
             public string Cap
             {
                 get
-                { return _cap; }
+                { return cap; }
                 set
                 {
-                    _cap = value;
+                    cap = value;
                     OnPropertyChanged("Cap");
                 }
             }
@@ -192,60 +205,60 @@ namespace WpfApplication1.ViewModel
             public string Validity
             {
                 get
-                { return _validity; }
+                { return validity; }
                 set
                 {
-                    _validity = value;
+                    validity = value;
                     OnPropertyChanged("Validity");
                 }
             }
             public string Speed
             {
                 get
-                { return _speed; }
+                { return speed; }
                 set
                 {
-                    _speed = value;
+                    speed = value;
                     OnPropertyChanged("Speed");
                 }
             }
             public double SpeedBar
             {
                 get
-                { return _speedBar; }
+                { return speedBar; }
                 set
                 {
-                    _speedBar = value;
+                    speedBar = value;
                     OnPropertyChanged("SpeedBar");
                 }
             }
             public string Magnetic
             {
                 get
-                { return _magnetic; }
+                { return magnetic; }
                 set
                 {
-                    _magnetic = value;
+                    magnetic = value;
                     OnPropertyChanged("Magnetic");
                 }
             }
             public string ModePos
             {
                 get
-                { return _modepos; }
+                { return modepos; }
                 set
                 {
-                    _modepos = value;
+                    modepos = value;
                     OnPropertyChanged("ModePos");
                 }
             }
             public SolidColorBrush NSatColor
             {
                 get
-                { return _NSatColor; }
+                { return nSatColor; }
                 set
                 {
-                    _NSatColor = value;
+                    nSatColor = value;
                     OnPropertyChanged("NSatColor");
                 }
             }
@@ -253,16 +266,19 @@ namespace WpfApplication1.ViewModel
         #endregion PROPERTIES
 
         #region COMMANDS
-            private RelayCommand goToData;
-            public ICommand GoToView
+            /// <summary>
+            /// Go to the other page
+            /// </summary>
+            private RelayCommand goToSettings;
+            public ICommand GoToSettings
             {
                 get
                 {
-                    if (goToData == null)
+                    if (goToSettings == null)
                     {
-                        goToData = new RelayCommand(ExecuteGoToData, CanGoToData);
+                        goToSettings = new RelayCommand(ExecuteGoToSettings, CanGoToSettings);
                     }
-                    return goToData;
+                    return goToSettings;
                 }
             }
             /// <summary>
@@ -281,11 +297,7 @@ namespace WpfApplication1.ViewModel
                 }
             }
         #endregion COMMANDS
-        
-        #region METHODS
-            
-        #endregion METHODS
-
+     
         #region CONSTRUCTOR
             public DataParsedViewModel()
             {
@@ -296,62 +308,8 @@ namespace WpfApplication1.ViewModel
                     objports = ObjectsPorts.Charger(link);
                 }
 
-                foreach (ObjectPort o in objports)
-                {
-                    if (o.Id == 0)
-                    {
-                        sp = new SerialPort();
-                        sp.PortName = o.Name;
-                        sp.BaudRate = int.Parse(o.Baudrate);
-                        sp.DataBits = int.Parse(o.Databits);
-                        switch (o.Stopbit)
-	                    {
-                            case "One":
-                                sp.StopBits = StopBits.One;
-                                break;
-                            case "Two":
-                                sp.StopBits = StopBits.Two;
-                                break;
-                            case "OnePointFive":
-                                sp.StopBits = StopBits.OnePointFive;
-                                break;
-                            default: sp.StopBits = StopBits.None;
-                                break;
-	                    }
-                        switch (o.Parity)
-                            {
-                                case "Even":
-                                    sp.Parity = Parity.Even;
-                                    break;
-                                case "Mark":
-                                    sp.Parity = Parity.Mark;
-                                    break;
-                                case "Odd":
-                                    sp.Parity = Parity.Odd;
-                                    break;
-                                case "Space":
-                                    sp.Parity = Parity.Space;
-                                    break;
-                                default: sp.Parity = Parity.None;
-                                    break;
-                            } 
-                        switch (o.Handshake)
-                        {
-                            case "One":
-                                sp.Handshake = Handshake.XOnXOff;
-                                break;
-                            case "Two":
-                                sp.Handshake = Handshake.RequestToSend;
-                                break;
-                            case "OnePointFive":
-                                sp.Handshake = Handshake.RequestToSendXOnXOff;
-                                break;
-                            default: sp.Handshake = Handshake.None;
-                                break;
-                        }
-                    }
-                }
-
+                initSerialPort(objports);
+                if(sp != null)
                 if (!sp.IsOpen)
                 {
                     try
@@ -391,15 +349,7 @@ namespace WpfApplication1.ViewModel
             {
                 return true;
             }
-            private void ExecuteGoToData()
-            {
-                Console.WriteLine("SettingsClicked");
-                //(Frame)NavigationService.Navigate(new DataParsedView());
-            }
-            private bool CanGoToData()
-            {
-                return true;
-            }
+            
         #endregion COMMANDS IMPLEMENTATION
 
         #region RECIEVED
@@ -416,12 +366,25 @@ namespace WpfApplication1.ViewModel
 
                     GPSParsor.splitMessage(recieved_data, list);
 
-                    if (list.Last() != null) 
-                    { 
+                    if (list.Last() != null  && Application.Current != null) 
+                    {
                         if (list.Last().GetType() == typeof(MessageGPGGA))
+                        {                            
                             Application.Current.Dispatcher.Invoke(DispatcherPriority.Send, new UpdateUiTextDelegate1(WriteDataGGA), list.Last());
-                        if (list.Last().GetType() == typeof(MessageGPRMC))
+                            gPSStatus = " Status : Data Ok";
+                            OnPropertyChanged("GPSStatus");
+                        }
+                        else if (list.Last().GetType() == typeof(MessageGPRMC))
+                        {
                             Application.Current.Dispatcher.Invoke(DispatcherPriority.Send, new UpdateUiTextDelegate2(WriteDataRMC), list.Last());
+                            gPSStatus = " Status : Data Ok";
+                            OnPropertyChanged("GPSStatus");
+                        }                           
+                        else
+                        {
+                            gPSStatus = " Status : Data error, please check the selected port";
+                            OnPropertyChanged("GPSStatus");
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -429,89 +392,184 @@ namespace WpfApplication1.ViewModel
                     Console.WriteLine(ex.Message);
                 }
 
-            }
+            }           
 
+        #endregion RECIEVED
+
+        #region METHODS
+            /// <summary>
+            /// Used to initialize the object port 
+            /// </summary>
+            /// <param name="objports">list of ObjectPort</param>
+            public void initSerialPort(ObjectsPorts objports)
+            {
+                foreach (ObjectPort o in objports)
+                {
+                    if (o.Id == 0)
+                    {
+                        sp = new SerialPort();
+                        sp.PortName = o.Name;
+                        sp.BaudRate = int.Parse(o.Baudrate);
+                        sp.DataBits = int.Parse(o.Databits);
+                        switch (o.Stopbit)
+                        {
+                            case "One":
+                                sp.StopBits = StopBits.One;
+                                break;
+                            case "Two":
+                                sp.StopBits = StopBits.Two;
+                                break;
+                            case "OnePointFive":
+                                sp.StopBits = StopBits.OnePointFive;
+                                break;
+                            default: sp.StopBits = StopBits.None;
+                                break;
+                        }
+                        switch (o.Parity)
+                        {
+                            case "Even":
+                                sp.Parity = Parity.Even;
+                                break;
+                            case "Mark":
+                                sp.Parity = Parity.Mark;
+                                break;
+                            case "Odd":
+                                sp.Parity = Parity.Odd;
+                                break;
+                            case "Space":
+                                sp.Parity = Parity.Space;
+                                break;
+                            default: sp.Parity = Parity.None;
+                                break;
+                        }
+                        switch (o.Handshake)
+                        {
+                            case "One":
+                                sp.Handshake = Handshake.XOnXOff;
+                                break;
+                            case "Two":
+                                sp.Handshake = Handshake.RequestToSend;
+                                break;
+                            case "OnePointFive":
+                                sp.Handshake = Handshake.RequestToSendXOnXOff;
+                                break;
+                            default: sp.Handshake = Handshake.None;
+                                break;
+                        }
+                    }
+                }
+            }
+            /// <summary>
+            /// Used to load GGA fields
+            /// </summary>
+            /// <param name="objGGA"></param>
             public void WriteDataGGA(MessageGPGGA objGGA)
             {
 
-                _time = objGGA.timeUTC.ToString("d MMMM yyyy hh:mm:ss");
+                time = objGGA.timeUTC.ToString("d MMMM yyyy hh:mm:ss");
                 OnPropertyChanged("Time");
 
-                _latitude = objGGA.latitude.ToString("F6");
+                latitude = objGGA.latitude.ToString("F6");
                 OnPropertyChanged("Latitude");
 
-                _longitude = objGGA.longitude.ToString("F6");
+                longitude = objGGA.longitude.ToString("F6");
                 OnPropertyChanged("Longitude");
-            
-                _position = objGGA.gpsQuality.ToString();
+
+                position = objGGA.gpsQuality.ToString();
                 OnPropertyChanged("Position");
 
-                _nSat = objGGA.nSat.ToString();
+                nSat = objGGA.nSat.ToString();
                 OnPropertyChanged("NSat");
 
                 //_nSat = (DateTime.Now.Second % 7).ToString();   test color
 
-                if (int.Parse(_nSat) == 4)
-                    _NSatColor = new SolidColorBrush(Colors.OrangeRed);
-                else if (int.Parse(_nSat) == 5)
-                    _NSatColor = new SolidColorBrush(Colors.Orange);
-                else if (int.Parse(_nSat) < 14 && int.Parse(_nSat) > 5)
-                    _NSatColor = new SolidColorBrush(Colors.Green);
-                else  _NSatColor = new SolidColorBrush(Colors.Red);
-                    OnPropertyChanged("NSatColor");
+                if (int.Parse(nSat) == 4)
+                    nSatColor = new SolidColorBrush(Colors.OrangeRed);
+                else if (int.Parse(nSat) == 5)
+                    nSatColor = new SolidColorBrush(Colors.Orange);
+                else if (int.Parse(nSat) < 14 && int.Parse(nSat) > 5)
+                    nSatColor = new SolidColorBrush(Colors.Green);
+                else nSatColor = new SolidColorBrush(Colors.Red);
+                OnPropertyChanged("NSatColor");
 
-                _dilution = objGGA.dilution.ToString("F2");
+                dilution = objGGA.dilution.ToString("F2");
                 OnPropertyChanged("Dilution");
 
-                _altitude = objGGA.altitude.ToString("F2") + objGGA.altUnit.ToString();
+                altitude = objGGA.altitude.ToString("F2") + objGGA.altUnit.ToString();
                 OnPropertyChanged("Altitude");
 
-                _geoidal = objGGA.geoidal.ToString("F2") + objGGA.geoUnit.ToString();
+                geoidal = objGGA.geoidal.ToString("F2") + objGGA.geoUnit.ToString();
                 OnPropertyChanged("Geoidal");
 
-                _GGAlastDGPS = objGGA.dGPSTime.ToString("d MMM yyyy");
+                GGAlastDGPS = objGGA.dGPSTime.ToString("d MMM yyyy");
                 OnPropertyChanged("GGALastDGPS");
 
             }
+            /// <summary>
+            /// Used to load RMC fields
+            /// </summary>
+            /// <param name="objRMC"></param>
             public void WriteDataRMC(MessageGPRMC objRMC)
             {
-               _validity = objRMC.status.ToString(); 
+                validity = objRMC.status.ToString();
                 OnPropertyChanged("Validity");
 
                 /*PREVISIONNEL*/
-                _speed = objRMC.speed.ToString() ;
+                speed = objRMC.speed.ToString();
                 OnPropertyChanged("Speed");
 
-                _speedBar = double.Parse(_speed) * 1000;
+                speedBar = double.Parse(speed) * 1000;
                 OnPropertyChanged("SpeedBar");
 
-                _cap = objRMC.cap.ToString(); 
+                cap = objRMC.cap.ToString();
                 OnPropertyChanged("Cap");
 
-                _magnetic = objRMC.magnetic.ToString(); 
+                magnetic = objRMC.magnetic.ToString();
                 OnPropertyChanged("Magnetic");
 
-                _modepos = objRMC.integrity; 
+                modepos = objRMC.integrity;
                 OnPropertyChanged("ModePos");
 
             }
-
-        #endregion RECIEVED
+        #endregion METHODS
 
         #region NAVIGATION
+            private void ExecuteGoToSettings()
+            {
+                Console.WriteLine("SettingsClicked");
+                
+                
+                if (sp != null)
+                    if(sp.IsOpen)
+                        sp.Close();
+
+                App.Current.MainWindow.Visibility = Visibility.Hidden;
+                App.Current.MainWindow = new SerialSettingsView();
+                App.Current.MainWindow.Visibility = Visibility.Visible;
+                //App.Current.MainWindow.Visibility = Visibility.Hidden;
+                //var newwindow = new SerialSettingsView();
+                //App.Current.MainWindow.Close();
+                //newwindow.Show();
+                
+               
+            }
+            private bool CanGoToSettings()
+            {
+                return true;
+            }
         #endregion
 
         #region INotifyPropertyChanged Members
-            public event PropertyChangedEventHandler PropertyChanged;
-            protected void OnPropertyChanged(string name)
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string name)
+{
+    PropertyChangedEventHandler handler = PropertyChanged;
+    if (handler != null)
     {
-        PropertyChangedEventHandler handler = PropertyChanged;
-        if (handler != null)
-        {
-            handler(this, new PropertyChangedEventArgs(name));
-        }
+        handler(this, new PropertyChangedEventArgs(name));
     }
-        #endregion
+}
+    #endregion
     }
 
 }

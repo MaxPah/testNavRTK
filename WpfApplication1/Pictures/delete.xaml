@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Stretch="Uniform">
+  <Canvas Name="Capa_1" Canvas.Left="0" Canvas.Top="0" Width="26" Height="32">
+    <Canvas.RenderTransform>
+      <TranslateTransform X="0" Y="0"/>
+    </Canvas.RenderTransform>
+    <Canvas.Resources/>
+    <!--Unknown tag: metadata-->
+    <!--Unknown tag: sodipodi:namedview-->
+    <Canvas Name="_x34__19_">
+      <Canvas Name="g4">
+        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path6" Fill="#FFF9F9F9">
+          <Path.Data>
+            <PathGeometry Figures="M18 28c0.552 0 1-0.448 1-1V15c0-0.552-0.448-1-1-1c-0.552 0-1 0.448-1 1    v12C17 27.552 17.448 28 18 28z M24 4h-6V2c0-1.105-0.895-2-2-2h-6C8.895 0 8 0.895 8 2v2H2C0.895 4 0 4.895 0 6v2    c0 1.104 0.895 2 2 2v18c0 2.209 1.791 4 4 4h14c2.209 0 4-1.791 4-4V10c1.105 0 2-0.896 2-2V6C26 4.895 25.105 4 24 4z M10 3    c0-0.552 0.448-1 1-1h4c0.552 0 1 0.448 1 1v1c-0.969 0-6 0-6 0V3z M22 28c0 1.104-0.895 2-2 2H6c-1.105 0-2-0.896-2-2V10h18V28z     M23 8H3C2.448 8 2 7.552 2 7c0-0.552 0.448-1 1-1h20c0.552 0 1 0.448 1 1C24 7.552 23.552 8 23 8z M8 28c0.552 0 1-0.448 1-1V15    c0-0.552-0.448-1-1-1c-0.552 0-1 0.448-1 1v12C7 27.552 7.448 28 8 28z M13 28c0.552 0 1-0.448 1-1V15c0-0.552-0.448-1-1-1    c-0.552 0-1 0.448-1 1v12C12 27.552 12.448 28 13 28z" FillRule="evenodd"/>
+          </Path.Data>
+        </Path>
+      </Canvas>
+    </Canvas>
+    <Canvas Name="g8"/>
+    <Canvas Name="g10"/>
+    <Canvas Name="g12"/>
+    <Canvas Name="g14"/>
+    <Canvas Name="g16"/>
+    <Canvas Name="g18"/>
+    <Canvas Name="g20"/>
+    <Canvas Name="g22"/>
+    <Canvas Name="g24"/>
+    <Canvas Name="g26"/>
+    <Canvas Name="g28"/>
+    <Canvas Name="g30"/>
+    <Canvas Name="g32"/>
+    <Canvas Name="g34"/>
+    <Canvas Name="g36"/>
+  </Canvas>
+</Viewbox>
