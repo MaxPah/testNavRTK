@@ -112,11 +112,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Pictures\NavRTK.png" />
+    <SplashScreen Include="Pictures\LogoNavRTK.png" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Resource Include="Ports.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\IconNavRTK.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

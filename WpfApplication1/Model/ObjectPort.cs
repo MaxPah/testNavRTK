@@ -11,7 +11,7 @@ namespace WpfApplication1.Model
     [Serializable]
     public class ObjectPort
     {
-        [XmlAttribute("id")]
+        [XmlAttribute("Id")]
         public int Id { get; set; }
 
         public string Name { get; set; }

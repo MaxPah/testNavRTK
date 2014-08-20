@@ -27,6 +27,7 @@ namespace WpfApplication1.ViewModel
             string recieved_data; // Used to stock one trame of the GPS Message
             SerialPort sp; // Used to be THE SerialPort of NavRTK
             private string gPSStatus = " Status : Wrong data, please check PortSettings";
+            private SolidColorBrush gPSStatusColor = new SolidColorBrush(Colors.Red);
             /*** GPS FIELDS ***
              Used to fill in the elements of the view
              */
@@ -74,6 +75,13 @@ namespace WpfApplication1.ViewModel
                 {
                     gPSStatus = value;
                     OnPropertyChanged("GPSStatus");
+                }
+            }
+            public SolidColorBrush GPSStatusColor
+            {
+                get { return gPSStatusColor; }
+                set { gPSStatusColor = value;
+                OnPropertyChanged("GPSStatusColor");
                 }
             }
             /// <summary>
@@ -196,6 +204,16 @@ namespace WpfApplication1.ViewModel
                     OnPropertyChanged("Cap");
                 }
             }
+            public SolidColorBrush NSatColor
+            {
+                get
+                { return nSatColor; }
+                set
+                {
+                    nSatColor = value;
+                    OnPropertyChanged("NSatColor");
+                }
+            }
             #endregion GetSet
 
             /// <summary>
@@ -250,16 +268,6 @@ namespace WpfApplication1.ViewModel
                 {
                     modepos = value;
                     OnPropertyChanged("ModePos");
-                }
-            }
-            public SolidColorBrush NSatColor
-            {
-                get
-                { return nSatColor; }
-                set
-                {
-                    nSatColor = value;
-                    OnPropertyChanged("NSatColor");
                 }
             }
             #endregion
@@ -372,18 +380,24 @@ namespace WpfApplication1.ViewModel
                         {                            
                             Application.Current.Dispatcher.Invoke(DispatcherPriority.Send, new UpdateUiTextDelegate1(WriteDataGGA), list.Last());
                             gPSStatus = " Status : Data Ok";
+                            gPSStatusColor = new SolidColorBrush(Colors.Green);
                             OnPropertyChanged("GPSStatus");
+                            OnPropertyChanged("GPSStatusColor");
                         }
                         else if (list.Last().GetType() == typeof(MessageGPRMC))
                         {
                             Application.Current.Dispatcher.Invoke(DispatcherPriority.Send, new UpdateUiTextDelegate2(WriteDataRMC), list.Last());
                             gPSStatus = " Status : Data Ok";
+                            gPSStatusColor = new SolidColorBrush(Colors.Green);
                             OnPropertyChanged("GPSStatus");
+                            OnPropertyChanged("GPSStatusColor");
                         }                           
                         else
                         {
-                            gPSStatus = " Status : Data error, please check the selected port";
+                            gPSStatus = " Status : Data error, please check the selected port"; 
+                            gPSStatusColor = new SolidColorBrush(Colors.Red);
                             OnPropertyChanged("GPSStatus");
+                            OnPropertyChanged("GPSStatusColor");
                         }
                     }
                 }

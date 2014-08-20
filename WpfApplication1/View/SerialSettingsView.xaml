@@ -5,7 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing" x:Class="WpfApplication1.SerialSettingsView" 
       mc:Ignorable="d" 
-      d:DesignHeight="700" d:DesignWidth="1200"
+      d:DesignHeight="700" d:DesignWidth="1200"    
+      Icon="/Pictures/IconNavRTK.png"
 	Title="SerialSettings Page">
     <Window.Resources>
         <Style TargetType="{x:Type Button}">
@@ -32,7 +33,7 @@
         </Style>
 
         <DataTemplate x:Key="DataTemplateListPort">
-            <Grid MinHeight="120" Height="150" Width="Auto">
+            <Grid Height="150" Width="Auto">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="35"/>
                     <ColumnDefinition Width="Auto"/>
@@ -51,13 +52,13 @@
                         <Label Content="Name : " Margin="0" Foreground="{StaticResource White}"/>
                     </Viewbox>
                     <Viewbox>
-                        <TextBlock Foreground="{StaticResource White}" Background="{StaticResource Transparent}"  Text="{Binding Name}"/>
+                        <TextBlock Background="{StaticResource Transparent}"  Text="{Binding Name}"/>
                     </Viewbox>
                 </StackPanel>
 				<Viewbox Grid.Row="0" Grid.Column="2">
 						<TextBlock Foreground="{StaticResource White}" Background="{StaticResource Transparent}" />
 				</Viewbox>
-                <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" Height="Auto" VerticalAlignment="Stretch">
+                <StackPanel  Grid.Column="1" Grid.Row="1" Orientation="Horizontal" Height="Auto" VerticalAlignment="Stretch">
                     <Viewbox>
 						<Label Content="Bauds :" Margin="0" Width="Auto" Foreground="{StaticResource White}"/>
                     </Viewbox>
@@ -90,9 +91,71 @@
 					<Viewbox>
 						<TextBlock Foreground="{StaticResource White}" Background="{StaticResource Transparent}" Text="{Binding Handshake}"  Height="Auto" TextAlignment="Center" Grid.Column="1" Grid.Row="0" Margin="2.154,5,9.846,3.634" Grid.RowSpan="3" RenderTransformOrigin="0.5,0.5"/>
                     </Viewbox>						
-					</StackPanel>
+				</StackPanel>
             </Grid>
         </DataTemplate>
+        <Style x:Key="FocusVisual">
+        	<Setter Property="Control.Template">
+        		<Setter.Value>
+        			<ControlTemplate>
+        				<Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+        			</ControlTemplate>
+        		</Setter.Value>
+        	</Setter>
+        </Style>
+        <SolidColorBrush x:Key="Item.MouseOver.Background" Color="#1F26A0DA"/>
+        <SolidColorBrush x:Key="Item.MouseOver.Border" Color="#a826A0Da"/>
+        <SolidColorBrush x:Key="Item.SelectedInactive.Background" Color="#3DDADADA"/>
+        <SolidColorBrush x:Key="Item.SelectedInactive.Border" Color="#FFDADADA"/>
+        <SolidColorBrush x:Key="Item.SelectedActive.Background" Color="#3D26A0DA"/>
+        <SolidColorBrush x:Key="Item.SelectedActive.Border" Color="#FF26A0DA"/>
+        <Style x:Key="ListBoxItemStyle1" TargetType="{x:Type ListBoxItem}">
+        	<Setter Property="SnapsToDevicePixels" Value="True"/>
+        	<Setter Property="Padding" Value="4,1"/>
+        	<Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+        	<Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+        	<Setter Property="Background" Value="Transparent"/>
+        	<Setter Property="BorderBrush" Value="Transparent"/>
+        	<Setter Property="BorderThickness" Value="1"/>
+        	<Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+        	<Setter Property="Template">
+        		<Setter.Value>
+        			<ControlTemplate TargetType="{x:Type ListBoxItem}">
+        				<Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+        					<ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" MinHeight="150"/>
+        				</Border>
+        				<ControlTemplate.Triggers>
+        					<MultiTrigger>
+        						<MultiTrigger.Conditions>
+        							<Condition Property="IsMouseOver" Value="True"/>
+        						</MultiTrigger.Conditions>
+        						<Setter Property="Background" TargetName="Bd" Value="{StaticResource Item.MouseOver.Background}"/>
+        						<Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Item.MouseOver.Border}"/>
+        					</MultiTrigger>
+        					<MultiTrigger>
+        						<MultiTrigger.Conditions>
+        							<Condition Property="Selector.IsSelectionActive" Value="False"/>
+        							<Condition Property="IsSelected" Value="True"/>
+        						</MultiTrigger.Conditions>
+        						<Setter Property="Background" TargetName="Bd" Value="{StaticResource Item.SelectedInactive.Background}"/>
+        						<Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Item.SelectedInactive.Border}"/>
+        					</MultiTrigger>
+        					<MultiTrigger>
+        						<MultiTrigger.Conditions>
+        							<Condition Property="Selector.IsSelectionActive" Value="True"/>
+        							<Condition Property="IsSelected" Value="True"/>
+        						</MultiTrigger.Conditions>
+        						<Setter Property="Background" TargetName="Bd" Value="{StaticResource Item.SelectedActive.Background}"/>
+        						<Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Item.SelectedActive.Border}"/>
+        					</MultiTrigger>
+        					<Trigger Property="IsEnabled" Value="False">
+        						<Setter Property="TextElement.Foreground" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+        					</Trigger>
+        				</ControlTemplate.Triggers>
+        			</ControlTemplate>
+        		</Setter.Value>
+        	</Setter>
+        </Style>
     </Window.Resources>
     <Grid Background="{StaticResource primaryColor}">
         <Grid.RowDefinitions>
@@ -103,12 +166,7 @@
             <Label Margin="20,0,0,0" Content="GPS Settings" Foreground="{StaticResource White}" Width="Auto" FontSize="40"  />
             <Button Margin="20,0,0,0" Content="GPS View" Foreground="{StaticResource menuBisColor}" Width="Auto" FontSize="40" Command="{Binding Path=GoToView}" Background="{DynamicResource Transparent}" BorderBrush="{DynamicResource Transparent}" />
         </StackPanel>
-        <Label HorizontalAlignment="Right" Margin="0,0,20,0" Content="NavRTK" Foreground="{StaticResource secondColor}" Width="Auto" FontSize="50"/>
-        <Grid Grid.Row="1" Margin="48,59,700,152">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-        </Grid>
+        <Image Panel.ZIndex="1" HorizontalAlignment="Right" Margin="5,5,5,5" Source="/Pictures/LogoNavRTK.png"/>
         <Popup Placement="Center" Width="Auto" Height="Auto" IsOpen="{Binding IsOpen}">
             <Grid Background="#dd515151" >
                 <Grid.ColumnDefinitions>
@@ -136,11 +194,11 @@
                 </StackPanel>
             </Grid>
         </Popup>
-        <Grid Margin="20" Grid.Row="1">
+        <Grid Margin="65,25,20,20" Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="75*" MinHeight="75"/>
-                <RowDefinition Height="453*"  MinHeight="200"/>
-                <RowDefinition Height="52*"/>
+                <RowDefinition Height="436*"  MinHeight="200"/>
+                <RowDefinition Height="38*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="589*"/>
@@ -148,40 +206,41 @@
                 <ColumnDefinition Width="476*"/>
                 <ColumnDefinition Width="65*" MinWidth="50"/>
             </Grid.ColumnDefinitions>
+            <TextBlock Foreground="{StaticResource White}" Text="Used by Default" HorizontalAlignment="Right" Margin="10" VerticalAlignment="Top"></TextBlock>
             <Viewbox Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2" >
                 <TextBlock Foreground="{StaticResource White}" Text="{Binding GpsTrame}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </Viewbox>
             <!-- Delete item-->
 
-            <Button Grid.Column="0" Grid.Row="2" Width="Auto" HorizontalAlignment="Left" Command="{Binding Path=ListBoxDeleteItem}" Background="{DynamicResource Transparent}" >
+            <Button Grid.Column="0" Grid.Row="2" Width="30.875" HorizontalAlignment="Left" Command="{Binding Path=ListBoxDeleteItem}" Background="{DynamicResource Transparent}" >
                 <Viewbox>
                     <Path Fill="{StaticResource White}" Data="M18 28c0.552 0 1-0.448 1-1V15c0-0.552-0.448-1-1-1c-0.552 0-1 0.448-1 1    v12C17 27.552 17.448 28 18 28z M24 4h-6V2c0-1.105-0.895-2-2-2h-6C8.895 0 8 0.895 8 2v2H2C0.895 4 0 4.895 0 6v2    c0 1.104 0.895 2 2 2v18c0 2.209 1.791 4 4 4h14c2.209 0 4-1.791 4-4V10c1.105 0 2-0.896 2-2V6C26 4.895 25.105 4 24 4z M10 3    c0-0.552 0.448-1 1-1h4c0.552 0 1 0.448 1 1v1c-0.969 0-6 0-6 0V3z M22 28c0 1.104-0.895 2-2 2H6c-1.105 0-2-0.896-2-2V10h18V28z     M23 8H3C2.448 8 2 7.552 2 7c0-0.552 0.448-1 1-1h20c0.552 0 1 0.448 1 1C24 7.552 23.552 8 23 8z M8 28c0.552 0 1-0.448 1-1V15    c0-0.552-0.448-1-1-1c-0.552 0-1 0.448-1 1v12C7 27.552 7.448 28 8 28z M13 28c0.552 0 1-0.448 1-1V15c0-0.552-0.448-1-1-1    c-0.552 0-1 0.448-1 1v12C12 27.552 12.448 28 13 28z" HorizontalAlignment="Left"/>
                 </Viewbox>
             </Button>
-            <Button Grid.Column="0" Grid.Row="2" Margin="70,0,0,0" Width="Auto" HorizontalAlignment="Left" Command="{Binding Path=ListBoxDefaultItem}" Background="{DynamicResource Transparent}">
+            <Button Grid.Column="0" Grid.Row="2" Margin="70,0,0,0" Width="38" HorizontalAlignment="Left" Command="{Binding Path=ListBoxDefaultItem}" Background="{DynamicResource Transparent}">
 
                 <Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Stretch="Uniform">
-                    <Canvas Width="32" Height="32" Canvas.Left="0" Canvas.Top="0">
+                    <Canvas Width="26" Height="32" Canvas.Left="0" Canvas.Top="0">
                         <Canvas>
                             <Canvas.RenderTransform>
                                 <MatrixTransform Matrix="0.87592138 0 0 1 2.004914 0.07862408"/>
                             </Canvas.RenderTransform>
-                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path3007" Fill="#FFF9F9F9">
+                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path3007" Fill="#FFF9F9F9" Height="30" Stretch="Fill" Canvas.Top="2" Width="26">
                                 <Path.Data>
                                     <PathGeometry Figures="M 26 0 H 24 V 13 H 8 V 0 H 0 V 32 H 32 V 6 L 26 0 z m 2 30 H 4 V 16 h 24 v 14 z" FillRule="NonZero"/>
                                 </Path.Data>
                             </Path>
-                            <Rectangle Canvas.Left="6" Canvas.Top="18" Width="20" Height="2" Fill="#FFF9F9F9"/>
-                            <Rectangle Canvas.Left="6" Canvas.Top="22" Width="20" Height="2" Fill="#FFF9F9F9"/>
-                            <Rectangle Canvas.Left="6" Canvas.Top="26" Width="20" Height="2" Fill="#FFF9F9F9"/>
-                            <Rectangle Canvas.Left="18" Canvas.Top="2" Width="4" Height="9" Fill="#FFF9F9F9"/>
+                            <Rectangle Canvas.Left="2.875" Canvas.Top="19" Width="20" Height="2" Fill="#FFF9F9F9"/>
+                            <Rectangle Canvas.Left="3" Canvas.Top="22.5" Width="20" Height="2" Fill="#FFF9F9F9"/>
+                            <Rectangle Canvas.Left="3" Canvas.Top="26" Width="20" Height="2" Fill="#FFF9F9F9"/>
+                            <Rectangle Canvas.Left="13.433" Canvas.Top="2" Width="4" Height="9" Fill="#FFF9F9F9"/>
                         </Canvas>
                     </Canvas>
                 </Viewbox>
             </Button>
-			<Viewbox Grid.Row="0" Grid.RowSpan="2" Grid.Column="0">
-                <ListBox VerticalAlignment="Stretch" Background="{StaticResource Transparent}" BorderThickness="0" ItemsSource="{Binding ObjPorts}" SelectedItem="{Binding SelectedPort}" Foreground="{StaticResource White}" ItemTemplate="{DynamicResource DataTemplateListPort}" />
-			</Viewbox>
+            <ListBox  VerticalAlignment="Stretch" Background="{StaticResource Transparent}" BorderThickness="0" ItemsSource="{Binding ObjPorts}" SelectedItem="{Binding SelectedPort}" Foreground="{StaticResource White}" ItemTemplate="{DynamicResource DataTemplateListPort}" ItemContainerStyle="{DynamicResource ListBoxItemStyle1}" Grid.RowSpan="2" />
+
+			<Viewbox Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Margin="31,0,0,0" MinHeight="400"/>
 			<Button Background="{StaticResource Transparent}" BorderThickness="0"  Grid.Column="3" Command="{Binding Path=OpenPopUp}">
             <Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Stretch="Uniform">
                 <Canvas Width="44.237" Height="44.237" Canvas.Left="0" Canvas.Top="0" >

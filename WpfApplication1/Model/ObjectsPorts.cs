@@ -29,7 +29,6 @@ namespace WpfApplication1.Model
             StreamReader lecteur = new StreamReader(link);
             ObjectsPorts p = (ObjectsPorts)deserializer.Deserialize(lecteur);
             lecteur.Close();
-
             return p;
         }
 
@@ -53,6 +52,9 @@ namespace WpfApplication1.Model
                         o.Id = 0;
 
                 }
+
+
+                this.OrderBy(x => x.Id);
         }
 
     }

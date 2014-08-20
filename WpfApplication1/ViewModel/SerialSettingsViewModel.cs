@@ -242,7 +242,9 @@ namespace WpfApplication1.ViewModel
             public ObjectsPorts ObjPorts
             {
                 get
-                { return objports; }
+                {
+                    return objports;
+                    }
                 set
                 {
                     objports = value;
@@ -388,29 +390,22 @@ namespace WpfApplication1.ViewModel
             private bool CanListBoxDeleteItem() { return true; }
             private void ExecuteListBoxDeleteItem()
             {
-                try
-                {
-                    int id = 0;
+               int id = -1;
 
                     if (selectedObjectPort != null)
                         id = selectedObjectPort.Id;
-
-                    XmlDocument doc = new XmlDocument();
-                    doc.Load(link);
-                    XmlNode node = doc.SelectSingleNode("//ObjectPort[@id=" + id + "]");
-                    if (node != null)
-                        node.ParentNode.RemoveChild(node);
-
-                    doc.Save("../../Ports.xml");
-                    XMLtoSerialPort();
-                    OnPropertyChanged("ObjPorts");
-                    OnPropertyChanged("ListBoxDeleteItem");
-                }
-                catch (Exception listboxDeleteItemException)
-                {
-                    Console.WriteLine(listboxDeleteItemException.Message);
-                }
-
+                    foreach(ObjectPort o in objports)
+                    {
+                        if (o.Id == id)
+                        {
+                            objports.Remove(o);
+                            break;
+                        }
+                    }
+                        objports.Enregistrer(link);
+                        XMLtoSerialPort();
+                        OnPropertyChanged("ObjPorts");
+                        OnPropertyChanged("ListBoxDeleteItem");
             }
             private bool CanListBoxDefaultItem() { return true; }
             private void ExecuteListBoxDefaultItem()
@@ -421,20 +416,25 @@ namespace WpfApplication1.ViewModel
 
                     if (selectedObjectPort != null)
                         id = selectedObjectPort.Id;
+
+                    Console.WriteLine(id);
                     if (File.Exists(link))
                     {
                         objports = ObjectsPorts.Charger(link);
                     }
                     objports.DefaultSwap(id);
+
+                  objports.Sort(delegate(ObjectPort op1, ObjectPort op2)
+                    {
+                        return op1.Id.CompareTo(op2.Id);
+                    });
+                    
                     objports.Enregistrer(link);
                     XMLtoSerialPort();
-
                     OnPropertyChanged("ObjPorts");
-                    OnPropertyChanged("ListBoxDeleteItem");
                 }
-                catch (Exception listboxDeleteItemException)
-                {
-                    Console.WriteLine(listboxDeleteItemException.Message);
+                catch(Exception e){
+                    Console.WriteLine(e.Message);
                 }
 
             }
@@ -468,6 +468,7 @@ namespace WpfApplication1.ViewModel
                  
                 objports.Add(obj);
                 objports.Enregistrer(link);
+
                 OnPropertyChanged("ObjPorts");
             }
             private void ExecuteStop()
@@ -481,8 +482,7 @@ namespace WpfApplication1.ViewModel
                 {
                     if (selectedObjectPort == null)
                     {
-                        sp.PortName = "COM1";
-                        sp.BaudRate = 115200;
+                        initSerialPort(objports);
                     }
                     else
                     {
@@ -538,8 +538,8 @@ namespace WpfApplication1.ViewModel
                    
                 } 
                
-                if (recieved_data != null && recieved_data.Substring(0,3) != "$GP")
-                    recieved_data = "Data error\n";
+                if (recieved_data != null && !recieved_data.Contains("$GP"))
+                    recieved_data = "Recieved data can't be used, please change the serialport by default\n";
 
                 if (gpsTrame != null)
                 {
@@ -559,20 +559,76 @@ namespace WpfApplication1.ViewModel
                 if (File.Exists(link))
                 {
                     objports = ObjectsPorts.Charger(link);
-                    foreach (ObjectPort o  in objports)
-                    {
-                        if (o.Id == 0)
-                            defaultItemColor = new SolidColorBrush(Colors.Red);
-                        else defaultItemColor = new SolidColorBrush(Colors.DeepSkyBlue);
-                        OnPropertyChanged("DefaultItemColor");
-                    }
-
                 }
                 else
                 {
                     objports = new ObjectsPorts();
                 }
                 objports.Enregistrer(link);
+                OnPropertyChanged("ObjPorts");
+            }
+
+            /// <summary>
+            /// Used to initialize the object port 
+            /// </summary>
+            /// <param name="objports">list of ObjectPort</param>
+            public void initSerialPort(ObjectsPorts objports)
+            {
+                foreach (ObjectPort o in objports)
+                {
+                    if (o.Id == 0)
+                    {
+                        sp = new SerialPort();
+                        sp.PortName = o.Name;
+                        sp.BaudRate = int.Parse(o.Baudrate);
+                        sp.DataBits = int.Parse(o.Databits);
+                        switch (o.Stopbit)
+                        {
+                            case "One":
+                                sp.StopBits = StopBits.One;
+                                break;
+                            case "Two":
+                                sp.StopBits = StopBits.Two;
+                                break;
+                            case "OnePointFive":
+                                sp.StopBits = StopBits.OnePointFive;
+                                break;
+                            default: sp.StopBits = StopBits.None;
+                                break;
+                        }
+                        switch (o.Parity)
+                        {
+                            case "Even":
+                                sp.Parity = Parity.Even;
+                                break;
+                            case "Mark":
+                                sp.Parity = Parity.Mark;
+                                break;
+                            case "Odd":
+                                sp.Parity = Parity.Odd;
+                                break;
+                            case "Space":
+                                sp.Parity = Parity.Space;
+                                break;
+                            default: sp.Parity = Parity.None;
+                                break;
+                        }
+                        switch (o.Handshake)
+                        {
+                            case "One":
+                                sp.Handshake = Handshake.XOnXOff;
+                                break;
+                            case "Two":
+                                sp.Handshake = Handshake.RequestToSend;
+                                break;
+                            case "OnePointFive":
+                                sp.Handshake = Handshake.RequestToSendXOnXOff;
+                                break;
+                            default: sp.Handshake = Handshake.None;
+                                break;
+                        }
+                    }
+                }
             }
         #endregion METHODS
 
@@ -591,8 +647,7 @@ namespace WpfApplication1.ViewModel
                 //var newwindow = new DataParsedView();
                 //App.Current.MainWindow.Close();
                // newwindow.Show();
-
-               
+              
             }
             private bool CanGoToView()
             { return true; }
