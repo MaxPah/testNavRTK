@@ -11,17 +11,20 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WpfApplication1.ViewModel;
 
 namespace WpfApplication1
 {
     /// <summary>
     /// Interaction logic for Shell.xaml
     /// </summary>
-    public partial class Shell : Window
+    public partial class ShellView : Window
     {
-        public Shell()
+        public ShellView()
         {
             InitializeComponent();
+            DataContext = new ShellViewModel();
+            
         }
     }
 }

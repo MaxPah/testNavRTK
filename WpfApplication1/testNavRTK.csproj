@@ -62,7 +62,7 @@
     <Compile Include="Model\ObjectGP.cs" />
     <Compile Include="Model\ObjectPort.cs" />
     <Compile Include="Model\ObjectsPorts.cs" />
-    <Page Include="Shell.xaml">
+    <Page Include="View\ShellView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -79,11 +79,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Model\StatusEnum.cs" />
-    <Compile Include="Shell.xaml.cs">
-      <DependentUpon>Shell.xaml</DependentUpon>
+    <Compile Include="View\ShellView.xaml.cs">
+      <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\DataParsedViewModel.cs" />
     <Compile Include="ViewModel\SerialSettingsViewModel.cs" />
+    <Compile Include="ViewModel\ShellViewModel.cs" />
     <Compile Include="View\SerialSettingsView.xaml.cs">
       <DependentUpon>SerialSettingsView.xaml</DependentUpon>
     </Compile>

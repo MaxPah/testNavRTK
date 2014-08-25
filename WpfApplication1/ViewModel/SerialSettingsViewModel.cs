@@ -643,10 +643,6 @@ namespace WpfApplication1.ViewModel
                 App.Current.MainWindow.Visibility = Visibility.Hidden;
                 App.Current.MainWindow = new DataParsedView();
                 App.Current.MainWindow.Visibility = Visibility.Visible;
-                //App.Current.MainWindow.Visibility = Visibility.Visible;
-                //var newwindow = new DataParsedView();
-                //App.Current.MainWindow.Close();
-               // newwindow.Show();
               
             }
             private bool CanGoToView()
