@@ -3,11 +3,13 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing" x:Class="WpfApplication1.DataParsedView" 
+      xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing" 
+      x:Class="WpfApplication1.DataParsedView" 
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="1200"
       Icon="/Pictures/IconNavRTK.png"
-	Title="DataParsed Page">
+      xmlns:converter="clr-namespace:WpfApplication1.Converters"
+	  Title="DataParsed Page">
     <Window.Resources>
         <Style TargetType="{x:Type Button}">
             <Setter Property="Template">
@@ -31,6 +33,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <converter:ColorConverter x:Key="StatusToColorConverter"/>
     </Window.Resources>
 
     <!-- Nav Bar top -->
@@ -83,10 +86,40 @@
                 <Viewbox Grid.Column="1" Grid.Row="0" Margin="5,5,5,5">
                     <TextBlock Text="{Binding Position}" Foreground="White"/>
                 </Viewbox>
+                <Viewbox Grid.Column="1" Grid.Row="2" Margin="5,5,0,5">
+                    <ProgressBar Height="27.19" Width="62.667" Minimum="0" Maximum="9" SmallChange="1"  Value="{Binding NSat}" BorderThickness="0" Margin="0,5,0,0" LargeChange="1">
+                        <ProgressBar.Style>
+                            <Style TargetType="ProgressBar">
+                                <Setter Property="Foreground" Value="#e50000"/>
+                                <Setter Property="Background" Value="#5b0000"/>
+                                <Style.Triggers>
+                                    <Trigger Property="Value" Value="5">
+                                        <Setter Property="Foreground" Value="#FFA500"/>
+                                        <Setter Property="Background" Value="#664200"/>
+                                    </Trigger>
+                                    <Trigger Property="Value" Value="6">
+                                        <Setter Property="Foreground" Value="#008716"/>
+                                        <Setter Property="Background" Value="#00430b"/>
+                                    </Trigger>
+                                    <Trigger Property="Value" Value="7">
+                                        <Setter Property="Foreground" Value="#008716"/>
+                                        <Setter Property="Background" Value="#00430b"/>
+                                    </Trigger>
+                                    <Trigger Property="Value" Value="8">
+                                        <Setter Property="Foreground" Value="#008716"/>
+                                        <Setter Property="Background" Value="#00430b"/>
+                                    </Trigger>
+                                    <Trigger Property="Value" Value="9">
+                                        <Setter Property="Foreground" Value="#008716"/>
+                                        <Setter Property="Background" Value="#00430b"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ProgressBar.Style>
+                    </ProgressBar>
+                </Viewbox>
                 <Viewbox Grid.Column="1" Grid.Row="3" Margin="5,5,5,5">
-                    <Border BorderThickness="2" Grid.Column="4" Width="30" BorderBrush="{Binding NSatColor}">
-                        <TextBlock Text="{Binding NSat}" TextAlignment="Center" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    </Border>
+                    <TextBlock Text="{Binding NSat}" TextAlignment="Center" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 </Viewbox>
                 <Viewbox Grid.Column="1" Grid.Row="1" Margin="5,5,5,5">
                     <TextBlock Text="{Binding Dilution}" Foreground="White"/>
@@ -218,8 +251,8 @@
                 </Viewbox>
             </Grid>
         </Grid>
-        <Viewbox Height="30" MinWidth="100" Width="Auto" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Bottom" >
-            <TextBlock Text="{Binding GPSStatus}" Foreground="Red" Background="{DynamicResource Transparent}"/>
+        <Viewbox Height="30" MinWidth="100" Width="1130" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Bottom" >
+            <TextBlock Text="{Binding ActualStatus}" Foreground="{Binding ActualStatus, Converter={StaticResource StatusToColorConverter}, Mode=Default}" />
         </Viewbox>
     </Grid>
 </Window>

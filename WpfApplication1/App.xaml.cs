@@ -19,7 +19,8 @@ namespace WpfApplication1
         {
             try
             {
-                var mainView = new DataParsedView();
+                //var mainView = new DataParsedView();
+                var mainView = new Shell();
                 mainView.Show();
             }
             catch (Exception ex)

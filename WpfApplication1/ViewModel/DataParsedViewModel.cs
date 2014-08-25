@@ -26,8 +26,7 @@ namespace WpfApplication1.ViewModel
             private string link; // Used to stock the path for Ports.xml
             string recieved_data; // Used to stock one trame of the GPS Message
             SerialPort sp; // Used to be THE SerialPort of NavRTK
-            private string gPSStatus = " Status : Wrong data, please check PortSettings";
-            private SolidColorBrush gPSStatusColor = new SolidColorBrush(Colors.Red);
+            private string actualStatus = StatusEnum.StatusKO.ToString();
             /*** GPS FIELDS ***
              Used to fill in the elements of the view
              */
@@ -40,7 +39,6 @@ namespace WpfApplication1.ViewModel
                 private string position;
                 private string quality;
                 private string nSat;
-                private SolidColorBrush nSatColor; 
                 private string dilution;
                 private string altitude;
                 private string geoidal;
@@ -67,23 +65,7 @@ namespace WpfApplication1.ViewModel
                     OnPropertyChanged("OnOffButton");
                 }
             }
-            public string GPSStatus
-            {
-                get
-                { return gPSStatus; }
-                set
-                {
-                    gPSStatus = value;
-                    OnPropertyChanged("GPSStatus");
-                }
-            }
-            public SolidColorBrush GPSStatusColor
-            {
-                get { return gPSStatusColor; }
-                set { gPSStatusColor = value;
-                OnPropertyChanged("GPSStatusColor");
-                }
-            }
+            
             /// <summary>
             /// Both
             /// </summary>
@@ -204,14 +186,14 @@ namespace WpfApplication1.ViewModel
                     OnPropertyChanged("Cap");
                 }
             }
-            public SolidColorBrush NSatColor
+            public string ActualStatus
             {
                 get
-                { return nSatColor; }
+                { return actualStatus; }
                 set
                 {
-                    nSatColor = value;
-                    OnPropertyChanged("NSatColor");
+                    actualStatus = value;
+                    OnPropertyChanged("ActualStatus");
                 }
             }
             #endregion GetSet
@@ -379,25 +361,16 @@ namespace WpfApplication1.ViewModel
                         if (list.Last().GetType() == typeof(MessageGPGGA))
                         {                            
                             Application.Current.Dispatcher.Invoke(DispatcherPriority.Send, new UpdateUiTextDelegate1(WriteDataGGA), list.Last());
-                            gPSStatus = " Status : Data Ok";
-                            gPSStatusColor = new SolidColorBrush(Colors.Green);
-                            OnPropertyChanged("GPSStatus");
-                            OnPropertyChanged("GPSStatusColor");
+                            this.ActualStatus = StatusEnum.StatusOK.ToString();
                         }
                         else if (list.Last().GetType() == typeof(MessageGPRMC))
                         {
                             Application.Current.Dispatcher.Invoke(DispatcherPriority.Send, new UpdateUiTextDelegate2(WriteDataRMC), list.Last());
-                            gPSStatus = " Status : Data Ok";
-                            gPSStatusColor = new SolidColorBrush(Colors.Green);
-                            OnPropertyChanged("GPSStatus");
-                            OnPropertyChanged("GPSStatusColor");
+                            this.ActualStatus = StatusEnum.StatusOK.ToString();
                         }                           
                         else
                         {
-                            gPSStatus = " Status : Data error, please check the selected port"; 
-                            gPSStatusColor = new SolidColorBrush(Colors.Red);
-                            OnPropertyChanged("GPSStatus");
-                            OnPropertyChanged("GPSStatusColor");
+                            this.ActualStatus = StatusEnum.StatusKO.ToString();
                         }
                     }
                 }
@@ -497,15 +470,6 @@ namespace WpfApplication1.ViewModel
 
                 //_nSat = (DateTime.Now.Second % 7).ToString();   test color
 
-                if (int.Parse(nSat) == 4)
-                    nSatColor = new SolidColorBrush(Colors.OrangeRed);
-                else if (int.Parse(nSat) == 5)
-                    nSatColor = new SolidColorBrush(Colors.Orange);
-                else if (int.Parse(nSat) < 14 && int.Parse(nSat) > 5)
-                    nSatColor = new SolidColorBrush(Colors.Green);
-                else nSatColor = new SolidColorBrush(Colors.Red);
-                OnPropertyChanged("NSatColor");
-
                 dilution = objGGA.dilution.ToString("F2");
                 OnPropertyChanged("Dilution");
 
@@ -559,12 +523,7 @@ namespace WpfApplication1.ViewModel
 
                 App.Current.MainWindow.Visibility = Visibility.Hidden;
                 App.Current.MainWindow = new SerialSettingsView();
-                App.Current.MainWindow.Visibility = Visibility.Visible;
-                //App.Current.MainWindow.Visibility = Visibility.Hidden;
-                //var newwindow = new SerialSettingsView();
-                //App.Current.MainWindow.Close();
-                //newwindow.Show();
-                
+                App.Current.MainWindow.Visibility = Visibility.Visible;        
                
             }
             private bool CanGoToSettings()

@@ -42,3 +42,7 @@ C:\Users\RNAV_user\Documents\Visual Studio 2013\Projects\WpfApplication1\WpfAppl
 C:\Users\RNAV_user\Documents\Visual Studio 2013\Projects\WpfApplication1\WpfApplication1\obj\Debug\WpfApplication1.exe
 C:\Users\RNAV_user\Documents\Visual Studio 2013\Projects\WpfApplication1\WpfApplication1\obj\Debug\WpfApplication1.pdb
 C:\Users\RNAV_user\Documents\Visual Studio 2013\Projects\WpfApplication1\WpfApplication1\obj\Debug\testNavRTK.csprojResolveAssemblyReference.cache
+C:\Users\RNAV_user\Documents\Visual Studio 2013\Projects\WpfApplication1\WpfApplication1\obj\Debug\WpfApplication1_MarkupCompile.lref
+C:\Users\RNAV_user\Documents\Visual Studio 2013\Projects\WpfApplication1\WpfApplication1\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\RNAV_user\Documents\Visual Studio 2013\Projects\WpfApplication1\WpfApplication1\obj\Debug\Shell.g.cs
+C:\Users\RNAV_user\Documents\Visual Studio 2013\Projects\WpfApplication1\WpfApplication1\obj\Debug\Shell.baml
